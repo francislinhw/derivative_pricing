@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++: g++-13 Build and Debug Current File",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "C/C++: Build with QuantLib"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/francis/projects/c++/FittedBondCurve",
+      "program": "/Users/francis/projects/c++/FittedBondCurve/build/Debug/outDebug"
+    }
+  ]
+}
