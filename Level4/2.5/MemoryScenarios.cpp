@@ -63,7 +63,7 @@ int main()
 		A* arr = new A[N];
 		
 		// 1st element deleted, then RT error
-		// delete arr;
+		delete arr;
 	}
 	cout << "Phase 4A\n";
 
