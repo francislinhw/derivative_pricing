@@ -15,7 +15,7 @@
 				"-std=c++14",
 				"${fileDirname}/*.cpp",
                 "-o",
-                "${fileDirname}/out", // Output directory changed to 'out'
+                "${fileDirname}/bin", // Output directory changed to 'bin'
                 //"${fileDirname}/${fileBasenameNoExtension}",
 				"-L/Users/francis/local/lib",
 				"-L/opt/homebrew/Cellar/boost/1.83.0/lib",
