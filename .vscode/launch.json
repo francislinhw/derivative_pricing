@@ -5,7 +5,7 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "lldb",
       "request": "launch",
-      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "program": "${fileDirname}/out",
       "args": [],
       "cwd": "${fileDirname}",
       "preLaunchTask": "C/C++: Build with QuantLib"
