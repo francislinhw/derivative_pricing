@@ -15,7 +15,8 @@
 				"-std=c++14",
 				"${fileDirname}/*.cpp",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "${fileDirname}/o", // Output directory changed to 'o'
+                //"${fileDirname}/${fileBasenameNoExtension}",
 				"-L/Users/francis/local/lib",
 				"-L/opt/homebrew/Cellar/boost/1.83.0/lib",
 				"-lQuantLib"
