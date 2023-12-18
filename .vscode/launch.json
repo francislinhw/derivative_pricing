@@ -2,13 +2,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C/C++ Runner: Debug Session",
+      "name": "C++ Runner: Debug Session",
       "type": "lldb",
       "request": "launch",
       "program": "${fileDirname}/bin",
       "args": [],
       "cwd": "${fileDirname}",
-      "preLaunchTask": "C/C++: Build with QuantLib"
+      "preLaunchTask": "C++: Build with QuantLib"
+    },
+    {
+      "name": "C Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${fileDirname}/bin",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "C: Build with QuantLib"
     }
   ]
 }
