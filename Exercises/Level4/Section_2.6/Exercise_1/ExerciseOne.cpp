@@ -11,21 +11,21 @@ namespace FCAD = francis::CAD; // Alias for francis::CAD
 
 int main() {
     // Using Point with full namespace
-    francis::CAD::Point p1(1, 2);
-    std::cout << p1 << std::endl;
+    francis::CAD::Point p(1, 2);
+    std::cout << p << std::endl;
 
     // Using Line with using declaration
-    Line l1(p1, Point(3, 4));
-    Point p2(3, 4);
-    std::cout << l1 << std::endl;
-    std::cout << p2 << std::endl;
+    Line l(p, Point(3, 4));
+    std::cout << l << std::endl;
 
     // Using Array from Containers namespace
-    Array myArray;
+    Array myArray(1);
+    myArray[0] = p;
+    std::cout << "Print from Array: " << myArray[0] << std::endl;
 
     // Using Circle with alias
-    FCAD::Circle c1(p1, 5);
-    std::cout << c1 << std::endl;
+    FCAD::Circle c(p, 5);
+    std::cout << c << std::endl;
 
     return 0;
 }
