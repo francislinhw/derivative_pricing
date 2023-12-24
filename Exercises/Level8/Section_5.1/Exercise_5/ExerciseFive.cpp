@@ -21,8 +21,8 @@ int main() {
 	cout << "mode: " << mode(myExponential) << endl;
 	cout << "kurtosis excess: " << kurtosis_excess(myExponential) << endl;
 	cout << "kurtosis: " << kurtosis(myExponential) << endl;
-	cout << "characteristic function: " << chf(myExponential, x) << endl;
-	cout << "hazard: " << hazard(myExponential, x) << endl;
+	cout << "characteristic function (at x = " << x << "): " << chf(myExponential, x) << endl;
+	cout << "hazard: (at x = " << x << "): " << hazard(myExponential, x) << endl;
 
     // Poisson Distribution
     double meanPoisson = 3.0;  // Mean for Poisson distribution
@@ -36,8 +36,8 @@ int main() {
 	cout << "mode: " << mode(myPoisson) << endl;
 	cout << "kurtosis excess: " << kurtosis_excess(myPoisson) << endl;
 	cout << "kurtosis: " << kurtosis(myPoisson) << endl;
-	cout << "characteristic function: " << chf(myPoisson, x) << endl;
-	cout << "hazard: " << hazard(myPoisson, x) << endl;
+	cout << "characteristic function (at x = " << x << "): " << chf(myPoisson, x) << endl;
+	cout << "hazard: (at x = " << x << "): " << hazard(myPoisson, x) << endl;
 
 
     // Explore properties of the Poisson distribution
