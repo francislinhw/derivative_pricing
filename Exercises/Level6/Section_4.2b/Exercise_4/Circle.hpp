@@ -1,0 +1,45 @@
+#ifndef CIRCLE_HPP
+#define CIRCLE_HPP
+
+#include "Point.hpp"
+#include "Shape.hpp"
+#include <string>
+
+namespace francis{
+    namespace CAD {
+        class Circle : public Shape {
+        private:
+            Point center;
+            double radius;
+
+        public:
+            Circle();  // Default constructor
+            Circle(const Point& center, double r);  // Constructor with a center and radius
+            Circle(const Circle& other);  // Copy constructor
+            ~Circle();  // Destructor
+
+            Point CentrePoint() const;  // Getter for the center point
+            void CentrePoint(const Point& center);  // Setter for the center point
+
+            double Radius() const;  // Getter for the radius
+            void Radius(double r);  // Setter for the radius
+
+            // Operator Overloading
+            Circle operator - () const;
+            Circle operator * (double factor) const;
+            Circle operator + (const Circle& p) const;
+            bool operator == (const Circle& p) const;
+            Circle& operator = (const Circle& source);
+            Circle& operator *= (double factor);
+
+            double Diameter() const;  // Calculate the diameter
+            double Area() const;  // Calculate the area
+            double Circumference() const;  // Calculate the circumference
+
+            std::string ToString() const override;  // String representation of the circle
+            friend std::ostream& operator<<(std::ostream& os, const Circle& c);
+            void Draw() const override;
+        };
+    }
+}
+#endif // CIRCLE_HPP
