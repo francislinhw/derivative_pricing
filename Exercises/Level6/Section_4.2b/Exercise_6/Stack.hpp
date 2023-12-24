@@ -6,7 +6,7 @@
 namespace francis {
     namespace Containers {
 
-        template <typename T, int N>
+        template <typename T, int size>
         class Stack {
         private:
             int m_current; // Index for the current top of the stack
@@ -14,11 +14,11 @@ namespace francis {
 
         public:
             Stack(); // Default constructor
-            Stack(int size); // Constructor with a parameter to set size of the stack
-            Stack(const Stack<T, N>& other); // Copy constructor
+            Stack(int startSize); // Constructor with a parameter to set size of the stack
+            Stack(const Stack<T, size>& other); // Copy constructor
             ~Stack(); // Destructor
 
-            Stack<T, N>& operator=(const Stack<T, N>& source); // Assignment operator
+            Stack<T, size>& operator=(const Stack<T, size>& source); // Assignment operator
 
             void Push(const T& newElement); // Push a new element onto the stack
             T Pop(); // Pop an element from the stack

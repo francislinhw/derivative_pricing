@@ -8,28 +8,28 @@
 // Assume necessary includes and namespace using directives are here
 namespace francis {
     namespace Containers {
-        template <typename T, int N>
-        Stack<T, N>::Stack() : m_current(0), m_array(N) { // No Default size.
+        template <typename T, int size>
+        Stack<T, size>::Stack() : m_current(0), m_array(size) { // No Default size.
             // Constructor implementation
         }
 
-        template <typename T, int N>
-        Stack<T, N>::Stack(int size) : m_current(0), m_array(size) {
+        template <typename T, int size>
+        Stack<T, size>::Stack(int startSize) : m_current(0), m_array(startSize) {
             // Constructor implementation
         }
 
-        template <typename T, int N>
-        Stack<T, N>::Stack(const Stack<T, N>& other) : m_current(other.m_current), m_array(other.m_array) {
+        template <typename T, int size>
+        Stack<T, size>::Stack(const Stack<T, size>& other) : m_current(other.m_current), m_array(other.m_array) {
             // Copy constructor implementation
         }
 
-        template <typename T, int N>
-        Stack<T, N>::~Stack() {
+        template <typename T, int size>
+        Stack<T, size>::~Stack() {
             // Destructor implementation
         }
 
-        template <typename T, int N>
-        Stack<T, N>& Stack<T, N>::operator=(const Stack<T, N>& source) {
+        template <typename T, int size>
+        Stack<T, size>& Stack<T, size>::operator=(const Stack<T, size>& source) {
             // Assignment operator implementation
             if (this != &source) {
                 m_current = source.m_current;
@@ -38,8 +38,8 @@ namespace francis {
             return *this;
         }
 
-        template <typename T, int N>
-        void Stack<T, N>::Push(const T& newElement) {
+        template <typename T, int size>
+        void Stack<T, size>::Push(const T& newElement) {
             if (m_array.Size() < (1 + m_current)) {
                 throw StackFullException(m_current);
             }
@@ -52,8 +52,8 @@ namespace francis {
             }
         }
 
-        template <typename T, int N>
-        T Stack<T, N>::Pop() {
+        template <typename T, int size>
+        T Stack<T, size>::Pop() {
             if (m_current == 0) {
                 throw StackEmptyException();                
             }
@@ -69,8 +69,8 @@ namespace francis {
             }
         }
 
-        template <typename T, int N>
-        int Stack<T, N>::GetCurrentIndex() {
+        template <typename T, int size>
+        int Stack<T, size>::GetCurrentIndex() {
             return m_current;
         }
 
