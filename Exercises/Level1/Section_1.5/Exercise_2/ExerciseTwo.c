@@ -7,6 +7,6 @@ long long factorial(unsigned int n) {
 
 int main() {
     unsigned int number = 6;
-    printf("Factorial of %d is %ld\n", number, factorial(number));
+    printf("Factorial of %u is %lld\n", number, factorial(number));
     return 0;
 }
