@@ -1,3 +1,5 @@
+// Macro.c
+// Objective: This is the main program file that includes Defs.h and uses the defined macros.
 #include "Defs.h"
 
 int main() {
