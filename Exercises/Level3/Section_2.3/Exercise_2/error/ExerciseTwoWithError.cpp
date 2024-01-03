@@ -45,6 +45,6 @@ int main() {
 
     return 0; // Destructor called for p1 and p2
     /**
-     * This example will crash due to the change in const value.
+     * This example will result in a compiler error due to the change in const value.
     */
 }

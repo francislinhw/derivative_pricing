@@ -23,19 +23,22 @@ int main() {
 
     return 0; // Destructor called for p1 and p2
     /*
+     * 
+     * The numbers of times of constructors and destructors called are less than the previous one.
+     * 
      * ============== *
      * PROGRAM OUTPUT *
      * ============== *
      * 
      * // User input x = 3, y = 4
      * 
-     * Default constructor called.
-     * Enter the x-coordinate: 3
-     * Enter the y-coordinate: 4
-     * Custom constructor called.
+     * Default constructor called.          // -> 1
+     * Enter the x-coordinate: 3         
+     * Enter the y-coordinate: 4         
+     * Custom constructor called.           // -> 2
      * Distance: 5
      * Distance with Change: 5.65685
-     * bye my point.. (Destructor called).
-     * bye my point.. (Destructor called).
+     * bye my point.. (Destructor called).  // -> 1
+     * bye my point.. (Destructor called).  // -> 2
     */
 }
