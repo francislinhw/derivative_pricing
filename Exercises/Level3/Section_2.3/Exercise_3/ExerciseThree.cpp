@@ -18,4 +18,19 @@ int main() {
     std::cout << "Distance from p1 to p2: " << p1.Distance(p2) << std::endl;
 
     return 0;
+    /*
+     * ============== *
+     * PROGRAM OUTPUT *
+     * ============== *
+     * 
+     * Default constructor called.
+     * Custom constructor called.
+     * p1: 5, 12
+     * Distance from p1 to origin: 13
+     * Distance from p1 to p2: 13
+     * bye my point.. (Destructor called).
+     * bye my point.. (Destructor called).
+     * 
+     * 
+    */
 }

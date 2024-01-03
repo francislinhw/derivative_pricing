@@ -42,7 +42,7 @@ double Point::Distance() const {
     return std::sqrt((m_x * m_x) + (m_y * m_y));
 }
 
-// Method to calculate distance to another point
+// Method to calculate distance to another point with changes (not const)
 double Point::DistanceWithChange(Point& p) {
     p.X(4); // It is okay to alter the input point.
     double dx = m_x - p.m_x; double dy = m_y - p.m_y;
