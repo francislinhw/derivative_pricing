@@ -2,6 +2,7 @@
 // Also add a constructor that accepts x- and y-coordinates so you can create a point with the right values without using the set functions. 
 // Use this constructor to create the point from the user input.
 // Run the program again and count the number of times the constructors and destructor are called.
+// Is the copy constructor called and is the number of constructor calls now the same as the number of destructor calls?
 // We can derive two things from these results:
 // 1. When calling the Distance() function, the input point is copied (call by value).
 // 2. You will get the copy constructor 'for free' when you do not create one yourself.
@@ -25,7 +26,7 @@ int main() {
     return 0; // Destructor called for p1 and p2
     /*
      * Answer: 
-     * The copy constructor called and is the same as the number of other constructor calls and the total calls matchs the number of destructor calls.
+     * Yes, the copy constructor called and is the same as the number of other constructor calls and the total calls matchs the number of destructor calls.
      *      
      * ============== *
      * PROGRAM OUTPUT *

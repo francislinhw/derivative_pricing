@@ -1,6 +1,7 @@
 #include "Point.hpp"
 #include <iostream>
 #include <sstream>
+#include <cmath>
 
 // Default constructor - Initialize to a default of (0,0)
 Point::Point() : m_x(0), m_y(0){

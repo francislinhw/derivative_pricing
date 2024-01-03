@@ -18,9 +18,9 @@ int main() {
     return 0; // Destructor called for p1 and p2 and copy of p2 (3)
     /*
      * Answer: 
-     * In this program example, the numbers of times calling the Default constructor  and destructor are not the same.
-     * Because the Distance is not called by reference, the copy will automatically be bulit 'for free', so the Destructor is called one more than the 
-     * Default constructor. 
+     * No, in this program example, the numbers of times calling the constructor and destructor are not the same.
+     * Because the Distance is not called by reference, the copy constructor is automatically bulit 'for free', 
+     * so the Destructor is called one more than the constructor. 
      * However, if the Distance is called by reference, the number of calls for constructor and destructor will be the same.
      * 
      * ============== *
