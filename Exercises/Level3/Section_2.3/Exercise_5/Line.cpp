@@ -1,18 +1,27 @@
 #include "Line.hpp"
 #include <sstream>
 #include <cmath>
+#include <iostream>
 
 // Default constructor
-Line::Line() : startPoint(0, 0), endPoint(0, 0) {}
+Line::Line() : startPoint(0, 0), endPoint(0, 0) {
+    std::cout << "Line Default constructor called." << std::endl;
+}
 
 // Constructor with start- and end-point
-Line::Line(const Point& start, const Point& end) : startPoint(start), endPoint(end) {}
+Line::Line(const Point& start, const Point& end) : startPoint(start), endPoint(end) {
+    std::cout << "Line Custom constructor called." << std::endl;
+}
 
 // Copy constructor
-Line::Line(const Line& other) : startPoint(other.startPoint), endPoint(other.endPoint) {}
+Line::Line(const Line& other) : startPoint(other.startPoint), endPoint(other.endPoint) {
+    std::cout << "Line Copy constructor called." << std::endl;
+}
 
 // Destructor
-Line::~Line() {}
+Line::~Line() {
+    std::cout << "bye my line... (destructor called)." << std::endl;
+}
 
 // Getters for the start- and end-points
 const Point& Line::P1() const { return startPoint; }

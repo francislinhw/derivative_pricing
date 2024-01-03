@@ -4,15 +4,15 @@
 #include <cmath>  // For std::sqrt
 
 Point::Point() : m_x(0), m_y(0) { // Initialize to a default of (0,0)
-        std::cout << "Default constructor called." << std::endl;
+        std::cout << "Point Default constructor called." << std::endl;
     } 
 
 Point::Point(double x, double y) : m_x(x), m_y(y) {
-        std::cout << "Custom constructor called." << std::endl;
+        std::cout << "Point Custom constructor called." << std::endl;
     }
 
 Point::Point(const Point& p) : m_x(p.m_x), m_y(p.m_y) {
-        std::cout << "Copy constructor called." << std::endl;
+        std::cout << "Point Copy constructor called." << std::endl;
     }
 
 Point::~Point()  {

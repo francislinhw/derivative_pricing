@@ -41,27 +41,32 @@ int main() {
      * PROGRAM OUTPUT *
      * ============== *
      * 
-     * Custom constructor called.
-     * Custom constructor called.
-     * Custom constructor called.
-     * Custom constructor called.
-     * Custom constructor called.
-     * Copy constructor called.
-     * Copy constructor called.
-     * Copy constructor called.
-     * Copy constructor called.
+     * Point Custom constructor called. // For start point             -> 1
+     * Point Custom constructor called. // For end point               -> 2
+     * Point Custom constructor called. // For defaultLine start point -> 3
+     * Point Custom constructor called. // For defaultLine end point   -> 4
+     * Line Default constructor called. // For defaultLine line        -> 5
+     * Point Copy constructor called.   // For line start point        -> 6
+     * Point Copy constructor called.   // For line end point          -> 7
+     * Line Custom constructor called.  // For line line               -> 8
+     * Point Copy constructor called.   // For copyLine start point    -> 9
+     * Point Copy constructor called.   // For copyLine end point      -> 10
+     * Line Copy constructor called.    // For copyLine line           -> 11
      * Point(0, 0)Point(0, 0)
      * Line from Point(3, 3) to Point(6, 7)
      * Line from Point(0, 0) to Point(0, 0)
      * Line length: 5
-     * bye my point.. (Destructor called).
-     * bye my point.. (Destructor called).
-     * bye my point.. (Destructor called).
-     * bye my point.. (Destructor called).
-     * bye my point.. (Destructor called).
-     * bye my point.. (Destructor called).
-     * bye my point.. (Destructor called).
-     * bye my point.. (Destructor called).
+     * bye my line... (destructor called).  // -> 1
+     * bye my point.. (Destructor called).  // -> 2
+     * bye my point.. (Destructor called).  // -> 3
+     * bye my line... (destructor called).  // -> 4
+     * bye my point.. (Destructor called).  // -> 5
+     * bye my point.. (Destructor called).  // -> 6
+     * bye my line... (destructor called).  // -> 7
+     * bye my point.. (Destructor called).  // -> 8
+     * bye my point.. (Destructor called).  // -> 9
+     * bye my point.. (Destructor called).  // -> 10
+     * bye my point.. (Destructor called).  // -> 11
      * 
     */
 }
