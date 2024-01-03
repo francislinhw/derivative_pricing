@@ -16,18 +16,18 @@ public:
 
     // Overloaded getters and setters for x
     void X(double new_x);
-    double X() const; // Corrected return type
+    double X() const; // Corrected as const
 
     // Overloaded getters and setters for y
     void Y(double new_y);
-    double Y() const; // Corrected return type
+    double Y() const; // Corrected as const
 
     // Distance functions declaration
-    double Distance() const; // Corrected declaration
-    double Distance(const Point& p) const; // Corrected declaration
+    double Distance() const; // Corrected as const declaration
+    double Distance(const Point& p) const; // Corrected as const declaration
 
     // ToString function declaration
-    std::string ToString() const; // Removed extra 'const' in return type
+    std::string ToString() const; // Corrected as const
 };
 
 #endif // POINT_H

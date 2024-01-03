@@ -11,4 +11,8 @@ int main() {
 
     // std::cout << cp.X() << std::endl; // This will fail to compile.
     return 0;
+    /*
+     * Answer: Yes, I got error.
+     * error log: no matching member function for call to 'X'
+    */
 }

@@ -19,8 +19,8 @@ Point::~Point()  {
     }
 
 // We need to mark the x, y- coordinate getter as const by making it a const function for const points.
-double Point::X() const { return m_x; }
-double Point::Y() const { return m_y; }
+double Point::X() { return m_x; }
+double Point::Y() { return m_y; }
 
 void Point::X(double new_x) { m_x = new_x; }
 void Point::Y(double new_y) { m_y = new_y; }
