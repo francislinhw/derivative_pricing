@@ -1,3 +1,7 @@
+// Create a Circle class. It has a center point and radius. 
+// Create the proper constructors, destructor, selector and modifier functions.
+// Also add functions for getting the diameter, area and circumference. Don’t forget a ToString() function.
+// In further exercises, all optimizations requested for Line should also be implemented for Circle. See also Figure 4.
 #include "Circle.hpp"
 #include "Point.hpp"
 #include <iostream>
@@ -14,4 +18,15 @@ int main() {
     std::cout << "Circumference: " << circle.Circumference() << std::endl;
 
     return 0;
+    /**
+     * 
+     * Custom constructor called.
+     * Copy constructor called.
+     * Circle: Centre at Point(1, 2), Radius 5
+     * Diameter: 10
+     * Area: 78.5398
+     * Circumference: 31.4159
+     * bye my point.. (Destructor called).
+     * bye my point.. (Destructor called).
+    */
 }

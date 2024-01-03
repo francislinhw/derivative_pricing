@@ -16,6 +16,7 @@ private:
 public:
     Point(); // Default constructor
     Point(double x, double y); // Initializes with x and y Constructor
+    Point(const Point& p); // Copy constructor
     ~Point(); // Destructor
 
     double GetX() const; // Getter for the x-coordinate
@@ -27,6 +28,7 @@ public:
     std::string ToString() const; // Returns a string description of the point
     double DistanceOrigin() const; // Calculate the distance to the origin
     double Distance(const Point& p) const; // Calculate the distance between two points
+    double DistanceWithChange(Point& p); // Calculate the distance between two points but change the input point
 };
 
 #endif // POINT_H

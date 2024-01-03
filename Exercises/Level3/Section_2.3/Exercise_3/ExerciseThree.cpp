@@ -1,52 +1,10 @@
+// Previously you saw that there could be more than one constructor as long as the input arguments are different.
+// You can do the same for normal member functions. Thus you can rename the DistanceOrigin() function to Distance(). Also you can rename
+// the SetX() andGetX() functions to just X(). 
+// The same is true for the setter and getter of the y- coordinate.
+#include "Point.hpp"
 #include <iostream>
 #include <cmath>
-
-class Point {
-private:
-    double m_x, m_y;
-
-public:
-    // Default constructor
-    Point() : m_x(0), m_y(0) {
-        std::cout << "Default constructor called." << std::endl;
-    }
-
-    // Custom constructor
-    Point(double x, double y) : m_x(x), m_y(y) {
-        std::cout << "Custom constructor called." << std::endl;
-    }
-
-    // Copy constructor
-    Point(const Point& p) : m_x(p.m_x), m_y(p.m_y) {
-        std::cout << "Copy constructor called." << std::endl;
-    }
-
-    // Destructor
-    ~Point() {
-        std::cout << "bye my point.. (Destructor called)." << std::endl;
-    }
-
-    // Overloaded getters and setters for x
-    void X(double new_x) { m_x = new_x; }
-    double X() const { return m_x; }
-
-    // Overloaded getters and setters for y
-    void Y(double new_y) { m_y = new_y; }
-    double Y() const { return m_y; }
-
-    // Overloaded Distance functions
-    // Distance from the origin
-    double Distance() const {
-        return std::sqrt(m_x * m_x + m_y * m_y);
-    }
-    
-    // Distance between two points
-    double Distance(const Point& p) const {
-        double dx = m_x - p.m_x;
-        double dy = m_y - p.m_y;
-        return std::sqrt(dx * dx + dy * dy);
-    }
-};
 
 int main() {
     Point p1;

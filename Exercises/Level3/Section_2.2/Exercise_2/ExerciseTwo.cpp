@@ -1,3 +1,4 @@
+// Extend the main program to print the distance between the origin and another point and test it.
 #include "Point.hpp"
 #include <iostream>
 
@@ -17,7 +18,7 @@ int main() {
     std::cout << "Distance to origin: " << p.DistanceOrigin() << std::endl;
 
     // Testing distance between two points
-    Point q(1.0, 1.0); // Replace with user input or other coordinates if needed
+    Point q(1.0, 1.0); // Another point
     std::cout << "Distance to point (" << q.GetX() << ", " << q.GetY() << "): " 
               << p.Distance(q) << std::endl;
 

@@ -16,11 +16,11 @@ public:
 
     // Overloaded getters and setters for x
     void X(double new_x);
-    double X() const; // Corrected return type
+    double X(); // Corrected return type
 
     // Overloaded getters and setters for y
     void Y(double new_y);
-    double Y() const; // Corrected return type
+    double Y(); // Corrected return type
 
     // Distance functions declaration
     double Distance() const; // Corrected declaration

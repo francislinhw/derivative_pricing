@@ -2,7 +2,7 @@
 #include <sstream>
 #include <iostream>
 
-Point::Point() : m_x(0), m_y(0) { // Initialize to a default of (0,0)
+Point::Point() : m_x(0), m_y(0) {
         std::cout << "Default constructor called." << std::endl;
     } 
 
@@ -16,8 +16,9 @@ Point::Point(const Point& p) : m_x(p.m_x), m_y(p.m_y) {
 
 Point::~Point()  {
         std::cout << "bye my point.. (Destructor called)." << std::endl;
-    } // Destructor
+    }
 
+// We need to mark the x, y- coordinate getter as const by making it a const function for const points.
 double Point::X() const { return m_x; }
 double Point::Y() const { return m_y; }
 

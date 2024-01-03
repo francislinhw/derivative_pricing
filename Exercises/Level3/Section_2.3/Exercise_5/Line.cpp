@@ -30,6 +30,9 @@ std::string Line::ToString() const {
 }
 
 // Length function
+// • A Length() function that returns the length of the line. Note that you can use the
+// distance function on the embeddedPoint objects to calculate the length. This
+// mechanism is called “delegation”.
 double Line::Length() const {
     return startPoint.Distance(endPoint);
 }

@@ -1,3 +1,5 @@
+// Inline functions can speed up the execution of short functions because the code of such function will be copied in place instead of calling that function.
+// Make the setters and getters of the Point class inline functions. Use normal inline (outside the class declaration) for the getters and default inline (inside the class declaration) for the setters. Note that the implementation of the normal inline functions must be in the header file; else they will not be inlined.
 #include <iostream>
 #include <cmath>
 #include "Point.hpp"

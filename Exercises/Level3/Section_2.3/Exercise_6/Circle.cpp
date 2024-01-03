@@ -1,3 +1,6 @@
+// Note that instead of using your own PI value, Microsoft’s version of the math library defines a constant for PI named M_PI. 
+// But because it is not standard you need to enable that define by setting the _USE_MATH_DEFINES symbol in the project settings or add before including “cmath”:
+#define _USE_MATH_DEFINES
 #include "Circle.hpp"
 #include <sstream>
 

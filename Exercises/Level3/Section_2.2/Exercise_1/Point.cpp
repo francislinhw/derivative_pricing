@@ -13,6 +13,7 @@ void Point::SetY(double y) { m_y = y; }
 
 std::string Point::ToString() const {
     std::stringstream stream;
+    // The output can be like: “Point(1.5, 3.9)”
     stream << "Point(" << m_x << ", " << m_y << ")";
     return stream.str();
 }
