@@ -1,5 +1,6 @@
 #include "Point.hpp"
 #include <sstream>
+#include <cmath>  // For std::sqrt
 
 Point::Point() : m_x(0), m_y(0) {} // Initialize to a default of (0,0)
 

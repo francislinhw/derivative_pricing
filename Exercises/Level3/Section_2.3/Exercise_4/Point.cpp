@@ -1,6 +1,7 @@
 #include "Point.hpp"
 #include <sstream>
 #include <iostream>
+#include <cmath>  // For std::sqrt
 
 Point::Point() : m_x(0), m_y(0) { // Initialize to a default of (0,0)
         std::cout << "Default constructor called." << std::endl;
