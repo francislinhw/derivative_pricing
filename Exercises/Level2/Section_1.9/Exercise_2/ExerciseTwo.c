@@ -6,7 +6,7 @@
 
 int main() {
     int ch;
-    char filename[100]; // To store the filename (up to 99 characters plus null terminator)
+    char filename[255]; // To store the filename to 255 to at least accommodate the old maximum filepath size
     FILE *file; // FILE pointer for file operations
 
     printf("Enter the filename to write to: ");
