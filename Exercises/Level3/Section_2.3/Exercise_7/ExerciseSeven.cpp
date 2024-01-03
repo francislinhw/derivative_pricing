@@ -14,4 +14,22 @@ int main() {
     std::cout << "Distance between Points: " << p1.Distance(p2) << std::endl;
 
     return 0;
+    /*
+     * The inline functions are working correctly as expected.
+     *
+     * ============== *
+     * PROGRAM OUTPUT *
+     * ============== *
+     * 
+     * Default constructor called.
+     * Custom constructor called.
+     * Set X by default inline function.
+     * Set Y by default inline function.
+     * Point 1 X:Get X by Normal inline function.
+     * 3, Y: Get X by Normal inline function.
+     * 4
+     * Distance between Points: 0
+     * bye my point.. (Destructor called).
+     * bye my point.. (Destructor called).
+    */
 }

@@ -22,7 +22,7 @@ public:
     double X() const; // Declaration only
     double Y() const; // Declaration only
 
-    // Setters
+    // Setters (Default inline)
     inline void X(double new_x) {
         m_x = new_x;
         std::cout << "Set X by default inline function." << std::endl;
@@ -38,6 +38,7 @@ public:
     std::string ToString() const;
 };
 
+// Normal inline
 inline double Point::X() const {
     std::cout << "Get X by Normal inline function." << std::endl;
     return m_x;
