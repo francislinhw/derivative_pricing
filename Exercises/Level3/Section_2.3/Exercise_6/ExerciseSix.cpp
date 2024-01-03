@@ -12,13 +12,19 @@ int main() {
     
     Circle circle(center, radius);
 
+    // Test circle ToString() function.
     std::cout << circle.ToString() << std::endl;
+
+    // Test functions for getting the diameter, area and circumference.
     std::cout << "Diameter: " << circle.Diameter() << std::endl;
     std::cout << "Area: " << circle.Area() << std::endl;
     std::cout << "Circumference: " << circle.Circumference() << std::endl;
 
     return 0;
-    /**
+    /*
+     * ============== *
+     * PROGRAM OUTPUT *
+     * ============== *
      * 
      * Custom constructor called.
      * Copy constructor called.
