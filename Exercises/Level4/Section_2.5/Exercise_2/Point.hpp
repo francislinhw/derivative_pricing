@@ -24,11 +24,11 @@ public:
     double Y() const; // Declaration only
 
     // Setters
-    inline void X(double new_x) {
+    void X(double new_x) {
         m_x = new_x;
         // std::cout << "Set X by default inline function." << std::endl;
     }
-    inline void Y(double new_y) {
+    void Y(double new_y) {
         m_y = new_y;
         // std::cout << "Set Y by default inline function." << std::endl;
     }
