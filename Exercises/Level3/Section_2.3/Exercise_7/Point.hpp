@@ -22,12 +22,13 @@ public:
     double X() const; // Declaration only
     double Y() const; // Declaration only
 
-    // Setters (Default inline)
-    inline void X(double new_x) {
+    // Setters (Default inline) 
+    // 2.3.7: Default inline does not use the inline keyword.
+    /*inline*/ void X(double new_x) {
         m_x = new_x;
         std::cout << "Set X by default inline function." << std::endl;
     }
-    inline void Y(double new_y) {
+    /*inline*/ void Y(double new_y) {
         m_y = new_y;
         std::cout << "Set Y by default inline function." << std::endl;
     }
