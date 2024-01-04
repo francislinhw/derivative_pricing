@@ -84,7 +84,8 @@ Circle& Circle::operator *= (double factor) {
     Radius(Radius() * factor);
     return *this;
 }
-
+// you have to create it as a global function (outside the class definition, but inside the class header file):
+// ostream& operator << (ostream& os, const Point& p); // Send to ostream.
 std::ostream& operator << (std::ostream& os, const Circle& c) {
     os << c.ToString();
     return os;

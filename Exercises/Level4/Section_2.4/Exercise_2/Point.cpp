@@ -1,6 +1,7 @@
 #include "Point.hpp"
 #include <iostream>
 #include <sstream>
+#include <cmath>
 
 Point::Point() : m_x(0), m_y(0) {
     // std::cout << "Default constructor called." << std::endl;
@@ -70,7 +71,8 @@ Point& Point::operator *= (double factor) {
     m_y *= factor;
     return *this;
 }
-
+// you have to create it as a global function (outside the class definition, but inside the class header file):
+// ostream& operator << (ostream& os, const Point& p); // Send to ostream.
 std::ostream& operator << (std::ostream& os, const Point& p) {
     os << p.ToString();
     return os;

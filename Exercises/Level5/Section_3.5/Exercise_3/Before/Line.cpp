@@ -30,7 +30,7 @@ namespace francis {
         // ToString function
         std::string Line::ToString() const {
             std::stringstream oss;
-            oss << "Line from " << startPoint.ToString() << " to " << endPoint.ToString() << "\n";
+            oss << "Line from " << startPoint << " to " << endPoint << "\n";
             oss << "Line " << Shape::ToString();
             return oss.str();
         }

@@ -46,7 +46,7 @@ namespace francis{
         // String representation of the circle
         std::string Circle::ToString() const {
             std::stringstream stream;
-            stream << "Circle: Centre at " << center.ToString() << ", Radius " << radius;
+            stream << "Circle: Centre at " << center << ", Radius " << radius;
             return stream.str();
         }
 

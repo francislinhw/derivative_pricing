@@ -25,7 +25,7 @@ void Line::P2(const Point& p) { endPoint = p; }
 // ToString function
 std::string Line::ToString() const {
     std::stringstream ss;
-    ss << "Line from " << startPoint.ToString() << " to " << endPoint.ToString();
+    ss << "Line from " << startPoint << " to " << endPoint;
     return ss.str();
 }
 

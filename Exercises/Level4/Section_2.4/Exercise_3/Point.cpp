@@ -1,6 +1,7 @@
 #include "Point.hpp"
 #include <iostream>
 #include <sstream>
+#include <cmath>
 
 Point::Point() : m_x(0), m_y(0) {
     // std::cout << "Default constructor called." << std::endl;
