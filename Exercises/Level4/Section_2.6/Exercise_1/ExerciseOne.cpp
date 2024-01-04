@@ -1,3 +1,8 @@
+// To avoid name conflicts, programmers can place their classes in a namespace.
+// For example the standard library is placed in a namespace called std.
+// You should put your classes in your own namespace.
+// Thus place the CAD classes (Shape,Point, Line, etc) in the namespace: YourName::CAD
+// Place the container classes (Array) in the namespace: YourName::Containers Now access the classes in your own namespace using:
 #include "Array.hpp"
 #include "Line.hpp"
 #include "Circle.hpp"
@@ -5,8 +10,8 @@
 
 using francis::CAD::Point;
 using francis::CAD::Circle;
-using namespace francis::Containers; // Access everything within Containers namespace
-using francis::CAD::Line; // Single class
+using namespace francis::Containers; // • In the main program, using declaration for a complete namespace (Containers).
+using francis::CAD::Line; // • In the main program, using declaration for using a single class (Line).
 namespace FCAD = francis::CAD; // Alias for francis::CAD
 
 int main() {
@@ -28,4 +33,16 @@ int main() {
     std::cout << c << std::endl;
 
     return 0;
+    /*
+     * Answer: Correctly access my classes by different ways to specified namespace.
+     *
+     * ============== *
+     * PROGRAM OUTPUT *
+     * ============== *
+     * 
+     * Point(1, 2)
+     * Line from Point(1, 2) to Point(3, 4)
+     * Print from Array: Point(1, 2)
+     * Circle: Centre at Point(1, 2), Radius 5
+    */
 }
