@@ -1,3 +1,11 @@
+// In this exercise we are going to create an array class for Point objects (see Figure 5):
+// • Add a source- and header file for the Array class to your current project.
+// • Add a data member for a dynamic C array of Point objects (Point* m_data).
+// • Add a data member for the size of the array.
+// • Add a default constructor that allocates for example 10 elements.
+// • Add a constructor with a size argument. The implementation should allocate the
+// number of elements specified by thesize input argument.
+
 #ifndef ARRAY_H
 #define ARRAY_H
 
