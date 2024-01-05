@@ -21,7 +21,7 @@ namespace francis {
         Point::Point(double value): Shape(), m_x(value), m_y(value) {}
 
         Point::~Point() {
-            std::cout << "bye my point.. (Destructor called)." << std::endl;
+           // std::cout << "bye my point.. (Destructor called)." << std::endl;
         }
 
         double Point::Distance() const {

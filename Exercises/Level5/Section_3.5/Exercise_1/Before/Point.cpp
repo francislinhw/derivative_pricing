@@ -37,7 +37,7 @@ namespace francis {
         std::string Point::ToString() const {
             std::ostringstream oss;
             oss << "Point(" << m_x << ", " << m_y << ")";
-            oss << "ID: " << to_string(ID());
+            oss << "ID: " << std::to_string(ID());
             return oss.str();
         }
 

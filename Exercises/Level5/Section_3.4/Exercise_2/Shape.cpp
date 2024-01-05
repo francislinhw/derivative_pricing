@@ -10,7 +10,7 @@
 #include "Shape.hpp"
 // #include <boost/uuid/uuid.hpp>
 // #include <boost/uuid/uuid_generators.hpp>
-// #include <boost/uuid/uuid_io.hpp> I used uuid as the the id, but I later followed the instruction of int.
+// #include <boost/uuid/uuid_io.hpp> I used uuid as the the id, but I followed the instruction of int for 3.4.2, but I will keep using uuid in the later exercises.
 #include <iostream>
 #include <sstream>
 

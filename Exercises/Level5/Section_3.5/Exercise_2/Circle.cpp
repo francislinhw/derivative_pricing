@@ -44,6 +44,7 @@ namespace francis{
         double Circle::Circumference() const { return 2 * M_PI * radius; }
 
         // String representation of the circle
+        // • In the ToString() method of Point, call the ToString() method of the Shape base class: std::string s=Shape::ToString();
         std::string Circle::ToString() const {
             std::stringstream oss;
             oss << "Circle: Centre at " << "Point(" << center.X() << ", " << center.Y() << ")" << ", Radius " << radius << "\n";

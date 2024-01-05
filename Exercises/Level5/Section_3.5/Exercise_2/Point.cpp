@@ -33,7 +33,7 @@ namespace francis {
             double dy = m_y - p.m_y;
             return std::sqrt(dx * dx + dy * dy);
         }
-
+        // • In the ToString() method of Point, call the ToString() method of the Shape base class: std::string s=Shape::ToString();
         std::string Point::ToString() const {
             std::ostringstream oss;
             oss << "Point(" << m_x << ", " << m_y << ")\n";

@@ -1,8 +1,5 @@
 #ifndef SHAPE_HPP
 #define SHAPE_HPP
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
 #include <string>
 #include <cstdlib>
 #include <ctime>
@@ -12,7 +9,7 @@ namespace francis{
 
         class Shape {
         private:
-            boost::uuids::uuid m_id;
+            int m_id;
 
         public:
             Shape(); // Default constructor
@@ -23,10 +20,11 @@ namespace francis{
 
             virtual ~Shape(); // Destructor
 
-            boost::uuids::uuid ID() const; // Getter for ID
+            int ID() const; // Getter for ID
 
             virtual std::string ToString() const = 0;
 
+            // What implementation did you give the Draw() function in Shape?
             virtual void Draw() const = 0; // Pure virtual function makes Shape an abstract class
         };
     }

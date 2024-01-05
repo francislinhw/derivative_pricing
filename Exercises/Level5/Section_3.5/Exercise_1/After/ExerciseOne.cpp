@@ -38,9 +38,22 @@ int main() {
 
     return 0;
     /*
-     * ============== *
-     * PROGRAM OUTPUT *
-     * ============== *
+     * Answer: The ToString functions in inheritences (Line, Point, and Circle) are used correctly.
+     *
+     * ===================== *
+     * PROGRAM OUTPUT (RAND) *
+     * ===================== *
+     * 
+     * ID: 16807
+     * Point(10, 20)ID: 282475249
+     * Line from Point(1, 2) to Point(3, 4)
+     * 
+     * Notes: Using UUIDs in your C++ program for object identification aligns more with industry standards,
+     * provides a robust method for ensuring uniqueness, and integrates well with scalable distributed systems.
+     * 
+     * ===================== *
+     * PROGRAM OUTPUT (UUID) *
+     * ===================== *
      * 
      * ID: 30110d1f-3e13-434d-a3e3-3b87b6cac744
      * Point(10, 20)ID: f3b37469-ebb8-4723-a3fa-9b52d89797bf

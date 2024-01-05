@@ -1,16 +1,17 @@
+// Thus:
+// • Add a Print() function to the Shape class.
+// • In this function, call the ToString() function and send the result to the cout object.
+// • In the test program, create a point and line object and call the Print() function.
 #include "Shape.hpp"
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
 #include <iostream>
 #include <sstream>
 
 namespace francis {
         namespace CAD {
 
-            boost::uuids::uuid m_id;
+            int m_id;
 
-            Shape::Shape() : m_id(boost::uuids::random_generator()()) {} // Default constructor
+            Shape::Shape() : m_id(rand()) {} // Default constructor
 
             Shape::Shape(const Shape& source) : m_id(source.m_id) {} // Copy constructor
 
@@ -25,12 +26,12 @@ namespace francis {
                 std::cout << "bye my shape.. (Destructor called)." << std::endl;
             } // Destructor
 
-            boost::uuids::uuid Shape::ID() const { // Getter for ID
+            int Shape::ID() const { // Getter for ID
                 return m_id;
             }
 
             std::string Shape::ToString() const { // Virtual ToString function
-                return "ID: " + to_string(m_id);
+                return "ID: " + std::to_string(m_id);
             }
 
             void Shape::Print() const {

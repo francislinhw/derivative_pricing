@@ -21,5 +21,17 @@ int main() {
     for (int i = 0; i != 3; i++) delete shapes[i]; // It is not done correctly!
 
     return 0;
+    /*
+     * Answer: The derived objects are not deleted correctly.
+     * Only the base destructor is called.
+     * 
+     * ============== *
+     * PROGRAM OUTPUT *
+     * ============== *
+     * 
+     * bye my shape.. (Destructor called).
+     * bye my shape.. (Destructor called).
+     * bye my shape.. (Destructor called).
+    */
 }
 

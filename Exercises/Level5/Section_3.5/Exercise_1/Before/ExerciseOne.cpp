@@ -37,5 +37,17 @@ int main() {
     }
 
     return 0;
+    /*
+     * Answer: Only behave the form in base class.
+     * 
+     * 
+     * ============== *
+     * PROGRAM OUTPUT *
+     * ============== *
+     * 
+     * ID: 16807
+     * ID: 282475249
+     * ID: 1144108930
+    */
 }
 
