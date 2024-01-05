@@ -67,6 +67,7 @@ namespace francis {
             if (this == &source) {
                 return *this;
             }
+            Shape::operator=(source); // Call base class assignment operator
             m_x = source.m_x;
             m_y = source.m_y;
             return *this;

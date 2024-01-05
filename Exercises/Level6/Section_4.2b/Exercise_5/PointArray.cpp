@@ -16,7 +16,7 @@ namespace francis {
             if (this == &source) {
                 return *this;
             }
-            
+            Array::operator=(source); // Call base class assignment operator
             Array<CAD::Point>::operator=(source);
             return *this;
         }

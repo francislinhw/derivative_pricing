@@ -6,19 +6,19 @@
 namespace francis {
         namespace CAD {
 
-        Point::Point() : m_x(0), m_y(0) {
+        Point::Point() : Shape(), m_x(0), m_y(0) {
             // std::cout << "Default constructor called." << std::endl;
         }
 
-        Point::Point(double x, double y) : m_x(x), m_y(y) {
+        Point::Point(double x, double y) : Shape(), m_x(x), m_y(y) {
             // std::cout << "Custom constructor called." << std::endl;
         }
 
-        Point::Point(const Point& p) : m_x(p.m_x), m_y(p.m_y) {
+        Point::Point(const Point& p) : Shape(), m_x(p.m_x), m_y(p.m_y) {
             // std::cout << "Copy constructor called." << std::endl;
         }
 
-        Point::Point(double value): m_x(value), m_y(value) {}
+        Point::Point(double value): Shape(), m_x(value), m_y(value) {}
 
         Point::~Point() {
             // std::cout << "bye my point.. (Destructor called)." << std::endl;
@@ -67,6 +67,7 @@ namespace francis {
             if (this == &source) {
                 return *this;
             }
+            Shape::operator=(source); // Call base class assignment operator
             m_x = source.m_x;
             m_y = source.m_y;
             return *this;

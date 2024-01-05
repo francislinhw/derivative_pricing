@@ -1,3 +1,9 @@
+// Next the Point and Line classes (and the Circle class if applicable) must derive from Shape.
+// • Add theShapeclass in the inheritance list of thePoint,Lineand optionally the Circle class.
+// • The constructors of the Point, Line and optionally the Circle class should call the appropriate constructor in the Shapebase class.
+// • The assignment operator should call the assignment operator of the Shape base class.
+//   Otherwise the shape data will not be copied.
+// • Finally add code to the main program to test inheritance:
 #include "Circle.hpp"
 #include <sstream>
 
@@ -11,13 +17,13 @@ namespace francis{
     namespace CAD {
 
         // Default constructor
-        Circle::Circle() : center(0, 0), radius(1) {}
+        Circle::Circle() : Shape(), center(0, 0), radius(1) {}
 
         // Constructor with a center and radius
-        Circle::Circle(const Point& c, double r) : center(c), radius(r) {}
+        Circle::Circle(const Point& c, double r) : Shape(), center(c), radius(r) {}
 
         // Copy constructor
-        Circle::Circle(const Circle& other) : center(other.center), radius(other.radius) {}
+        Circle::Circle(const Circle& other) : Shape(other), center(other.center), radius(other.radius) {}
 
         // Destructor
         Circle::~Circle() {}
@@ -77,6 +83,8 @@ namespace francis{
             if (this == &source) {
                 return *this; // Handle self-assignment
             }
+            
+            Shape::operator=(source); // Call base class assignment operator
             CentrePoint(source.CentrePoint());
             Radius(source.Radius());
             return *this;

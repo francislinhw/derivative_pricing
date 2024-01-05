@@ -70,6 +70,7 @@ namespace francis {
             if (this == &source) {
                 return *this; // Handle self-assignment
             }
+            Shape::operator=(source); // Call base class assignment operator
             startPoint = source.startPoint;
             endPoint = source.endPoint;
             return *this;

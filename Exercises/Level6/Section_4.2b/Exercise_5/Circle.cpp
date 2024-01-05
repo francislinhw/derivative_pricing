@@ -80,6 +80,7 @@ namespace francis{
             if (this == &source) {
                 return *this; // Handle self-assignment
             }
+            Shape::operator=(source); // Call base class assignment operator
             CentrePoint(source.CentrePoint());
             Radius(source.Radius());
             return *this;

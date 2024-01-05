@@ -6,7 +6,7 @@ namespace francis {
     namespace CAD {
 
         // Default constructor
-        Line::Line() : startPoint(0, 0), endPoint(0, 0) {}
+        Line::Line() : Shape(), startPoint(0, 0), endPoint(0, 0) {}
 
         // Constructor with start- and end-point
         Line::Line(const Point& start, const Point& end) : startPoint(start), endPoint(end) {}
@@ -67,6 +67,7 @@ namespace francis {
             if (this == &source) {
                 return *this; // Handle self-assignment
             }
+            Shape::operator=(source); // Call base class assignment operator
             startPoint = source.startPoint;
             endPoint = source.endPoint;
             return *this;

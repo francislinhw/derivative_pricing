@@ -6,7 +6,7 @@ namespace francis{
     namespace Containers {
 
         // Constructor to initialize the erroneous index
-        OutOfBoundsException::OutOfBoundsException(int index) : m_index(index) {}
+        OutOfBoundsException::OutOfBoundsException(int index) :ArrayException(), m_index(index) {}
 
         // Override GetMessage to return a message about the out of bounds error
         std::string OutOfBoundsException::GetMessage() const {

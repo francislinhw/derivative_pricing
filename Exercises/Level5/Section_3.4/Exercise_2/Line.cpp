@@ -1,3 +1,8 @@
+// Next the Point and Line classes (and the Circle class if applicable) must derive from Shape.
+// • Add the Shape class in the inheritance list of the Point,Line and optionally the Circle class.
+// • The constructors of the Point, Line and optionally the Circle class should call the appropriate constructor in the Shapebase class.
+// • The assignment operator should call the assignment operator of theShapebase class. Otherwise the shape data will not be copied.
+// • Finally add code to the main program to test inheritance:
 #include "Line.hpp"
 #include <sstream>
 #include <cmath>
@@ -6,13 +11,13 @@ namespace francis {
     namespace CAD {
 
         // Default constructor
-        Line::Line() : startPoint(0, 0), endPoint(0, 0) {}
+        Line::Line() : Shape(), startPoint(0, 0), endPoint(0, 0) {}
 
         // Constructor with start- and end-point
-        Line::Line(const Point& start, const Point& end) : startPoint(start), endPoint(end) {}
+        Line::Line(const Point& start, const Point& end) : Shape(), startPoint(start), endPoint(end) {}
 
         // Copy constructor
-        Line::Line(const Line& other) : startPoint(other.startPoint), endPoint(other.endPoint) {}
+        Line::Line(const Line& other) : Shape(), startPoint(other.startPoint), endPoint(other.endPoint) {}
 
         // Destructor
         Line::~Line() {}
@@ -29,6 +34,7 @@ namespace francis {
         std::string Line::ToString() const {
             std::stringstream ss;
             ss << "Line from " << startPoint << " to " << endPoint;
+            ss << " ID: " << std::to_string(ID());
             return ss.str();
         }
 
@@ -67,6 +73,8 @@ namespace francis {
             if (this == &source) {
                 return *this; // Handle self-assignment
             }
+
+            Shape::operator=(source); // Call base class assignment operator
             startPoint = source.startPoint;
             endPoint = source.endPoint;
             return *this;
