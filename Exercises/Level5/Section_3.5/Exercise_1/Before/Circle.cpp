@@ -87,8 +87,9 @@ namespace francis{
             Radius(Radius() * factor);
             return *this;
         }
+        // Friend declaration for << operator
         std::ostream& operator << (std::ostream& os, const francis::CAD::Circle& c) {
-            os << c.ToString();
+            os << "Circle: Centre at " << c.center << ", Radius " << c.radius;
             return os;
         }
     }

@@ -86,7 +86,7 @@ Circle& Circle::operator *= (double factor) {
 }
 
 // Friend declaration for << operator
-std::ostream& operator<<(std::ostream& os, const Circle& circle) {
+std::ostream& operator << (std::ostream& os, const Circle& circle) {
     os << "Circle: Centre at " << circle.center << ", Radius " << circle.radius;
     return os;
 }
