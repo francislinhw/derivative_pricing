@@ -39,6 +39,7 @@ namespace francis{
             return m_size;
         }
 
+        // • In the GetElement(), SetElement() and index operator throw -1 if the index was too small or too big.
         void Array::SetElement(int index, const francis::CAD::Point& p) {
             // Check for index bounds
             if (index < 0 || index >= m_size) {
@@ -54,6 +55,7 @@ namespace francis{
         //     return m_data[index];
         // }
 
+        // • In the GetElement(), SetElement() and index operator throw -1 if the index was too small or too big.
         francis::CAD::Point& Array::GetElement(int index) const {
             // If the index is out of bounds, return the first element
             if (index < 0 || index >= m_size) {

@@ -1,3 +1,4 @@
+// • You can implement both exception classes in the header file for simplicity.
 #ifndef ARRAY_EXCEPTION_H
 #define ARRAY_EXCEPTION_H
 

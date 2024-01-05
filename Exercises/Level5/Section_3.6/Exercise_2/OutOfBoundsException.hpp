@@ -1,3 +1,4 @@
+// • You can implement both exception classes in the header file for simplicity.
 #ifndef OUT_OF_BOUNDS_EXCEPTION_H
 #define OUT_OF_BOUNDS_EXCEPTION_H
 #include "ArrayException.hpp"
