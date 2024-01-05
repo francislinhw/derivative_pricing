@@ -28,9 +28,9 @@ int main() {
      * Answer: 
      * Yes, the number of point constructor, destructor and assignment calls less than before.
      * It was 4 times and now it is 2.
-     * Without colon syntax,
-     * the default constructor of Point is called twice for the Line object (once for each Point member),
-     * followed by the assignment operator (for each Point member in the Line constructor).
+     * Without colon syntax, the default constructor of Point is called twice for the Line object (once for each Point member),
+     * followed by the assignment operator = (for each Point member in the Line constructor).
+     * 
      * With colon syntax, the default constructor of Point is still called twice for the Line object,
      * but there are no assignment operator calls.
      * This is because the members are directly initialized.
