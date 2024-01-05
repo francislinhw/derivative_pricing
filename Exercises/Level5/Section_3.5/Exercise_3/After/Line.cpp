@@ -81,8 +81,10 @@ namespace francis {
             endPoint *= factor;
             return *this;
         }
-        std::ostream& operator << (std::ostream& os, const Line& l) {
-            os << l.ToString();
+
+        // Friend declaration for << operator
+        std::ostream& operator << (std::ostream& os, const Line& line) {
+            os << "Line from " << line.startPoint << " to " << line.endPoint;
             return os;
         }
     }
