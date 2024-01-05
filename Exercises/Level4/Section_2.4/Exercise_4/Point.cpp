@@ -73,7 +73,9 @@ Point& Point::operator *= (double factor) {
     return *this;
 }
 
-std::ostream& operator << (std::ostream& os, const Point& p) {
-    os << p.ToString();
+
+// Friend declaration for << operator
+std::ostream& operator<<(std::ostream& os, const Point& p) {
+    os << "Point(" << p.m_x << ", " << p.m_y << ")";
     return os;
 }

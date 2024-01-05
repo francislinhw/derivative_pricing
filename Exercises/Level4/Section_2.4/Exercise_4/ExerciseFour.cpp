@@ -36,6 +36,7 @@ int main() {
     return 0;
     /*
      * Answer: They are printed by friend '<<' rather than ToString().
+     * error log without declare friend: 'radius' is a private member of 'Circle'...
      *
      * ============== *
      * PROGRAM OUTPUT *

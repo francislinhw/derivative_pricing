@@ -78,8 +78,9 @@ namespace francis {
             return *this;
         }
 
+        // Friend declaration for << operator
         std::ostream& operator << (std::ostream& os, const Point& p) {
-            os << p.ToString();
+            os << "Point(" << p.m_x << ", " << p.m_y << ")";
             return os;
         }
         

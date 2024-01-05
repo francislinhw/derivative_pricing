@@ -35,6 +35,7 @@ public:
 
     std::string ToString() const;  // String representation of the circle
     friend std::ostream& operator<<(std::ostream& os, const Circle& c);
+    // error log if friend is not added: 'radius' is a private member of 'Circle'
 };
 
 #endif // CIRCLE_HPP
