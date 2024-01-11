@@ -31,5 +31,7 @@ namespace francis{
 }
 // Initialize the static member for each template instantiation
 
+#ifndef ARRAY_C
 #include "Array.cpp"
+#endif
 #endif

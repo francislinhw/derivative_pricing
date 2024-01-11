@@ -13,10 +13,10 @@ namespace francis {
             // Constructor implementation
         }
 
-        template <typename T, int size>
-        Stack<T, size>::Stack(int startSize) : m_current(0), m_array(startSize) {
-            // Constructor implementation
-        }
+        // template <typename T, int size>
+        // Stack<T, size>::Stack(int startSize) : m_current(0), m_array(startSize) {
+        //     // Constructor implementation
+        // }
 
         template <typename T, int size>
         Stack<T, size>::Stack(const Stack<T, size>& other) : m_current(other.m_current), m_array(other.m_array) {

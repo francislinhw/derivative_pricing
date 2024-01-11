@@ -28,5 +28,7 @@ namespace francis {
         // You would include the implementation of the template class here or in a separate implementation file (Stack.cpp)
     }
 }
+#ifndef STACK_CPP
 #include "Stack.cpp"
+#endif 
 #endif // STACK_H

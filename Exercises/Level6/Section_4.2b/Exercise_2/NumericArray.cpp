@@ -1,3 +1,15 @@
+// In this exercise we are going to create a NumericArray derived from Array.
+// • Add a new source- and header file for a NumericArray class to your project.
+// • Create a template class called NumericArray and derive it from the Array class using generic inheritance.
+// • Since they are not inherited, create proper constructors, destructor and assignment
+// operator and call the base class where appropriate. • Add the following numeric functionality:
+// o Anoperator*toscaletheelementsofthenumericarraybyafactor.
+// o An operator + to add the elements of two numeric arrays. Throw an
+// exception if the two arrays have not the same size.
+// o A function to calc𝑛ulate the dot product. The dot product is defined as:
+// 𝑎.𝑏 = SIGMA {𝑎𝑖.𝑏𝑖 =𝑎1.𝑏1+𝑎2.𝑏2+...+𝑎𝑛.𝑏𝑛 𝑖=1}
+// Change the main program to test the numeric array. What assumptions do you make about the type used as template argument? Can you create a numeric array with Point objects?
+
 #ifndef NUMERICARRAY_CPP
 #define NUMERICARRAY_CPP 
 
@@ -92,6 +104,9 @@ namespace francis {
 
         template <typename T>
         T NumericArray<T>::DotProduct(const NumericArray<T>& arr) const {
+            if (this->Size() != arr.Size()) {
+                throw OutOfBoundsException(arr.Size()); // Define this exception as needed
+            }
             T dotProd = T(); // Assuming T can be default-constructed
             for (int i = 0; i < this->Size(); ++i) {
                 dotProd += this->operator[](i) * arr[i];

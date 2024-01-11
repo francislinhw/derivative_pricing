@@ -21,4 +21,5 @@ namespace francis {
 
     }
 }
+
 #endif // POINTARRAY_H

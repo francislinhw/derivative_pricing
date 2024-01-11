@@ -133,6 +133,7 @@
     "concepts": "cpp",
     "numeric": "cpp",
     "algorithm": "cpp",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "*.ipp": "cpp"
   }
 }

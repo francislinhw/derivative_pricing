@@ -33,5 +33,7 @@ namespace francis{
 }
 // Initialize the static member for each template instantiation
 
+#ifndef NUMERICARRAY_CPP
 #include "NumericArray.cpp"
+#endif
 #endif

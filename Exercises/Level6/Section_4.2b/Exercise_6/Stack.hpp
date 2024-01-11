@@ -14,7 +14,7 @@ namespace francis {
 
         public:
             Stack(); // Default constructor
-            Stack(int startSize); // Constructor with a parameter to set size of the stack
+            // Stack(int startSize); // Constructor with a parameter to set size of the stack (Removed)
             Stack(const Stack<T, size>& other); // Copy constructor
             ~Stack(); // Destructor
 
@@ -28,5 +28,7 @@ namespace francis {
         // You would include the implementation of the template class here or in a separate implementation file (Stack.cpp)
     }
 }
+#ifndef STACK_CPP
 #include "Stack.cpp"
+#endif
 #endif // STACK_H

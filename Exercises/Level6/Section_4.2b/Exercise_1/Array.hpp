@@ -9,7 +9,7 @@ namespace francis{
         class Array {
         private:
             T* m_data; // Pointer to the array of type T
-            int m_size;
+            int m_size; // Add a static data member to the Array class indicating the default size.
             static int defaultSize; // Static member for default size
 
         public:
@@ -31,5 +31,7 @@ namespace francis{
 }
 // Initialize the static member for each template instantiation
 
+#ifndef ARRAY_C
 #include "Array.cpp"
+#endif
 #endif

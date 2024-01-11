@@ -92,6 +92,9 @@ namespace francis {
 
         template <typename T>
         T NumericArray<T>::DotProduct(const NumericArray<T>& arr) const {
+            if (this->Size() != arr.Size()) {
+                throw OutOfBoundsException(arr.Size()); // Define this exception as needed
+            }
             T dotProd = T(); // Assuming T can be default-constructed
             for (int i = 0; i < this->Size(); ++i) {
                 dotProd += this->operator[](i) * arr[i];

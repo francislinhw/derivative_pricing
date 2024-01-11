@@ -19,7 +19,7 @@ namespace francis{
             // T& operator + (T index);
             // T& operator * (T index);
             NumericArray<T> operator + (const NumericArray<T>& other) const;
-            NumericArray<T> operator*(const T& factor) const;
+            NumericArray<T> operator * (const T& factor) const;
             T DotProduct(const NumericArray& arr) const;  // a.b = a1 * b1 + a2 * b2 + ... an * bn
 
             // int Size() const;  // Size of the array
@@ -33,5 +33,7 @@ namespace francis{
 }
 // Initialize the static member for each template instantiation
 
+#ifndef NUMERICARRAY_CPP
 #include "NumericArray.cpp"
+#endif
 #endif

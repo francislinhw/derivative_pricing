@@ -1,3 +1,4 @@
+
 #include "PointArray.hpp"
 #include "Point.hpp"
 
@@ -31,3 +32,4 @@ namespace francis {
 
     }
 }
+

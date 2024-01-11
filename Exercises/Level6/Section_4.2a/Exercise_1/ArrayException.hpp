@@ -14,6 +14,6 @@ namespace Containers {
             virtual ~ArrayException() {}  // Virtual destructor for proper cleanup
         };
     }
-} 
+}
 
 #endif // ARRAY_EXCEPTION_HPP
