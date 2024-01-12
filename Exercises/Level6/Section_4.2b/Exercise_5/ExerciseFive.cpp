@@ -13,7 +13,7 @@
 // set the current index back to 0.
 // • Change the test program so it catches the stack exception.
 #include "Array.cpp"
-#include "NumericArray.hpp"
+#include "NumericArray.cpp"
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Point.hpp"

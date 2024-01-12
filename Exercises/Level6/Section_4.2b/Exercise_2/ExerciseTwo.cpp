@@ -7,7 +7,7 @@
 // Numeric functionality can then be put in a derived class which itself is also a template (generic inheritance) as shown in Figure 2.
 
 #include "Array.cpp"
-#include "NumericArray.hpp"
+#include "NumericArray.cpp"
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Point.hpp"

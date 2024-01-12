@@ -6,7 +6,7 @@
 // template <typename T, int size> class Stack {};
 // Note that now only stacks with the same size template argument can be copied/assigned.
 #include "Array.cpp"
-#include "NumericArray.hpp"
+#include "NumericArray.cpp"
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Point.hpp"

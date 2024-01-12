@@ -12,7 +12,7 @@
 // • Now we can add functionality specific for a point array. For example add a Length()
 //   function that returns the total length between the points in the array. • Change the main program to test the point array.
 #include "Array.cpp"
-#include "NumericArray.hpp"
+#include "NumericArray.cpp"
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Point.hpp"

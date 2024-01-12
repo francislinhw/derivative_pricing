@@ -17,7 +17,7 @@
 // Forwarding functionality to another class is called delegation.
 // Here the Stack class delegates the storage of elements to the Array class.
 #include "Array.cpp"
-#include "NumericArray.hpp"
+#include "NumericArray.cpp"
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Point.hpp"
