@@ -18,7 +18,7 @@ namespace francis {
         void Array<T>::DefaultSize(int size) { defaultSize = size; } // Also add static functions to set and get the default size.
 
         template <typename T>
-        Array<T>::Array() : m_size(10), m_data(new T[10]) { // Allocate array for 10 Ts 
+        Array<T>::Array() : m_size(defaultSize), m_data(new T[defaultSize]) { // Allocate array for 10 Ts 
             for (int i = 0; i < m_size; ++i) {
                 // Initialize each element to a default-constructed T
                 m_data[i] = T();
