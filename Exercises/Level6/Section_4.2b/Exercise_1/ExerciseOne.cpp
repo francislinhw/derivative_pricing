@@ -7,7 +7,7 @@
 // • In the default constructor, use the static default size variable instead of a literal value
 // to set the array size.
 // Test the following code in the main program:
-#include "Array.hpp"
+#include "Array.cpp"
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Point.hpp"

@@ -21,7 +21,7 @@ namespace francis {
         Array<T>::Array(int size) : m_size(size), m_data(new T[size]) {}
 
         template <typename T>
-        Array<T>::Array(const Array& arr) : m_size(arr.m_size), m_data(new T[arr.m_size]) {
+        Array<T>::Array(const Array<T>& arr) : m_size(arr.m_size), m_data(new T[arr.m_size]) {
             std::copy(arr.m_data, arr.m_data + m_size, m_data);
         }
 
@@ -68,7 +68,7 @@ namespace francis {
         }
 
         template <typename T>
-        Array<T>& Array<T>::operator=(const Array& source) {
+        Array<T>& Array<T>::operator=(const Array<T>& source) {
             if (this == &source) {
                 return *this;
             }

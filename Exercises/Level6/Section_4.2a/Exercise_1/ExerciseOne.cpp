@@ -7,7 +7,7 @@
 // Better is to use the same code for different data types.
 // This is possible using templates as shown in Figure 1.
 
-#include "Array.hpp"
+#include "Array.cpp"
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Point.hpp"
@@ -25,8 +25,9 @@ namespace FCAD = francis::CAD; // Alias for francis::CAD
 
 int main() {
     // Use fully qualified class name with template parameter
-    Array<Shape*> arr(3);  // Assume Array has size 3
-    Array<Point> points(3);
+    int size = 3;
+    Array<Shape*> arr(size);  // Assume Array has size 3
+    Array<Point> points(size);
 
     try {
         arr[0] = new Point(1, 3); // Dynamically allocate a new Point

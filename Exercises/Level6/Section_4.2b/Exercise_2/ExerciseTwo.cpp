@@ -6,7 +6,7 @@
 // It is better to leave the Array class as generic as possible so it can be used in various situations.
 // Numeric functionality can then be put in a derived class which itself is also a template (generic inheritance) as shown in Figure 2.
 
-#include "Array.hpp"
+#include "Array.cpp"
 #include "NumericArray.hpp"
 #include "Line.hpp"
 #include "Circle.hpp"

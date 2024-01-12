@@ -12,7 +12,7 @@
 // array exception. In the catch handler, throw a StackEmptyException exception. Also
 // set the current index back to 0.
 // • Change the test program so it catches the stack exception.
-#include "Array.hpp"
+#include "Array.cpp"
 #include "NumericArray.hpp"
 #include "Line.hpp"
 #include "Circle.hpp"

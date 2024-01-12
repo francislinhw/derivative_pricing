@@ -17,7 +17,7 @@ namespace francis{
             static void DefaultSize(int size);
             Array();  // Default Constructor
             Array(int size);  // Constructor with size
-            Array(const Array& arr);  // Copy constructor
+            Array(const Array<T>& arr);  // Copy constructor
             ~Array();  // Destructor
 
             int Size() const;  // Size of the array
@@ -25,7 +25,7 @@ namespace francis{
             T& GetElement(int index) const;  // Get element at index
             T& operator[](int index);  // Overloaded [] operator
             const T& operator[](int index) const;  // Overloaded [] operator for const objects
-            Array& operator=(const Array& source);  // Overloaded = operator for const objects
+            Array<T>& operator=(const Array<T>& source);  // Overloaded = operator for const objects
         };
     }
 }
