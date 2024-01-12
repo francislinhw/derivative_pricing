@@ -25,7 +25,7 @@
 #include "OutOfBoundsException.hpp"
 #include "ArrayException.hpp"
 #include "PointArray.hpp"
-#include "Stack.hpp"
+#include "Stack.cpp"
 
 using namespace std;
 using francis::CAD::Shape;
@@ -50,7 +50,7 @@ int main() {
                 std::cout << "Popped: " << *poppedValue << std::endl; // Dereference the pointer
                 delete poppedValue; // Delete the Shape to prevent memory leaks
             } else {
-                std::cout << "Popped: " << poppedValue << std::endl;               
+                std::cout << "Popped: " << "Null Pointer Exception" << std::endl;               
             }
         }
 

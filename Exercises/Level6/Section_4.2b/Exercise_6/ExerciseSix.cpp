@@ -14,7 +14,7 @@
 #include "OutOfBoundsException.hpp"
 #include "ArrayException.hpp"
 #include "PointArray.hpp"
-#include "Stack.hpp"
+#include "Stack.cpp"
 #include "StackException.hpp"
 #include "StackFullException.hpp"
 #include "StackEmptyException.hpp"
@@ -29,7 +29,7 @@ namespace FCAD = francis::CAD; // Alias for francis::CAD
 
 int main() {
     Stack<Shape*, 5> myStack;
-    // Stack<Shape*, 4> testStack; A different size stack is not allowed copied or assigned.
+    // Stack<Shape*, 4> testStack; A different size stack is not allowed copied/assigned.
 
     try {
         // Push elements onto the stack
@@ -41,7 +41,7 @@ int main() {
         std::cerr << e.GetMessage() << std::endl;
     }
 
-    // testStack = myStack; // error: no viable overloaded '='
+    // testStack = myStack; // error: no viable overloaded '=' as a different size stack is not allowed copied/assigned.
 
     try {
         // Pop elements from the stack

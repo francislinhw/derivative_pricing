@@ -21,7 +21,7 @@
 #include "OutOfBoundsException.hpp"
 #include "ArrayException.hpp"
 #include "PointArray.hpp"
-#include "Stack.hpp"
+#include "Stack.cpp"
 #include "StackException.hpp"
 #include "StackFullException.hpp"
 #include "StackEmptyException.hpp"
@@ -59,7 +59,7 @@ int main() {
     std::cout << "Current Index after Empty Exception:" << to_string(myStack.GetCurrentIndex()) << std::endl;
 
     return 0;
-    /***
+    /*
      * 
      * ============== *
      * PROGRAM OUTPUT *
