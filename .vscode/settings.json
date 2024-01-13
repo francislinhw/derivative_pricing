@@ -134,6 +134,8 @@
     "numeric": "cpp",
     "algorithm": "cpp",
     "stdio.h": "c",
-    "*.ipp": "cpp"
+    "*.ipp": "cpp",
+    "iterator": "cpp",
+    "memory_resource": "cpp"
   }
 }
