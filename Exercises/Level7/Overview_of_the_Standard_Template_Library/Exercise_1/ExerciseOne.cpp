@@ -1,3 +1,9 @@
+// Exercise 1: STL Containers
+// One of the features of STL are the containers. In this exercise you will practice with the different STL containers. In the main program:
+// • Create a list of doubles and add some data. Use the front() and back() functions to access the first and last element.
+// • Create a vector of doubles and add some data. Then use the index operator to access some elements. Also make the vector grow.
+// • Create a map that maps strings to doubles. Fill the map and access elements using the square bracket operator.
+
 #include <iostream>
 #include <list>
 #include <vector>
@@ -24,4 +30,16 @@ int main() {
     std::cout << "Value associated with 'two' in map: " << my_map["two"] << "\n";
 
     return 0;
+    /*
+     * ============== *
+     * PROGRAM OUTPUT *
+     * ============== *
+     * 
+     * First element in list: 1.1
+     * Last element in list: 5.5
+     * Element at index 2 in vector: 8.8
+     * Element at index 4 in vector: 10.1
+     * Value associated with 'two' in map: 2.22
+     * 
+    */
 }
