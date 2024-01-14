@@ -9,46 +9,30 @@ class PricingEngine {
 
     public:
         PricingEngine(){
-            std::cout << "Pricing Engine Built" << std::endl;
+          //  std::cout << "Pricing Engine Built" << std::endl;
         }
 
-        ~PricingEngine() {
-            std::cout << "Pricing Engine Ends" << std::endl;
-        }
+        virtual ~PricingEngine() = default;
 
-        double delta() const {
-            return 0.0;
-        }
-        double deltaForward() const {
-            return 0.0;
-        }
-        double gamma() const {
-            return 0.0;
-        }
-        double theta() const {
-            return 0.0;
-        }
-        double thetaPerDay() const {
-            return 0.0;
-        }
-        double vega() const {
-            return 0.0;
-        }
-        double rho() const {
-            return 0.0;
-        }
-        double dividendRho() const {
-            return 0.0;
-        }
-        double strikeSensitivity() const {
-            return 0.0;
-        }
-        double itmCashProbability() const {
-            return 0.0;
-        }
-        double NPV() const {
-            return 0.0;
-        }
+        virtual double delta() const = 0;
+        virtual double deltaForward() const = 0;
+        virtual double gamma() const = 0;
+        virtual double theta() const = 0;
+        virtual double thetaPerDay() const = 0;
+        virtual double vega() const = 0;
+        virtual double rho() const = 0;
+        virtual double dividendRho() const = 0;
+        virtual double strikeSensitivity() const = 0;
+        virtual double itmCashProbability() const = 0;
+        virtual double NPV() const = 0;
+
+        virtual void UnderlyingPrice(double underlyingPrice) = 0;
+        virtual void Strike(double strike) = 0;
+        virtual void TimeToMaturity(double timeToMaturity) = 0;
+        virtual void Volatility(double volatility) = 0;
+        virtual void Interest(double interest) = 0;
+        virtual void CostOfCarry(double costOfCarry) = 0;
+        virtual void Flavor(bool isCall) = 0;
 };
 
 #endif // SHAPE_HPP

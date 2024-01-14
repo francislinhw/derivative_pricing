@@ -7,6 +7,16 @@
 
 
 class VanillaPricingEngine : public PricingEngine {
+    private:
+
+        double underlyingPrice;
+        double strike;
+        double timeToMaturity;
+        double volatility;
+        double interest;
+        double costOfCarry;
+        bool isCall;
+
     public:
         VanillaPricingEngine(); // Default constructor
 
@@ -19,6 +29,23 @@ class VanillaPricingEngine : public PricingEngine {
         ~VanillaPricingEngine(); // Destructor
 
         std::string ToString() const;
+
+
+        VanillaPricingEngine(double underlyingPrice,
+                             double strike,
+                             double timeToMarity,
+                             double volatility,
+                             double interest,
+                             double costOfCarry,
+                             bool isCall);
+
+        void UnderlyingPrice(double underlyingPrice);
+        void Strike(double strike);
+        void TimeToMaturity(double timeToMaturity);
+        void Volatility(double volatility);
+        void Interest(double interest);
+        void CostOfCarry(double costOfCarry);
+        void Flavor(bool flavor);
 
         void Calculate(); // Pure virtual function makes Shape an abstract class
 

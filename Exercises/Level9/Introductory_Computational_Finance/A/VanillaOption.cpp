@@ -4,6 +4,8 @@
 #include <cmath>
 #include "VanillaPricingEngine.hpp"
 
+std::unique_ptr<PricingEngine> engine;
+
 // Define the VanillaOption class
 VanillaOption::VanillaOption(double underlyingPrice,
                              double strike,
@@ -11,12 +13,17 @@ VanillaOption::VanillaOption(double underlyingPrice,
                              double volatility,
                              double interest,
                              double costOfCarry,
-                             bool isCall) {
-    std::cout << "Option Built!" << std::endl;
-                             }
+                             bool isCall) :
+    underlyingPrice(underlyingPrice),
+    strike(strike),
+    timeToMaturity(timeToMarity),
+    volatility(volatility),
+    interest(interest),
+    costOfCarry(costOfCarry),
+    isCall(isCall) {}
 
 VanillaOption::~VanillaOption() {
-    std::cout << "Option Deleted!" << std::endl;
+    // std::cout << "Option Deleted!" << std::endl;
 }
 
 void VanillaOption::UnderlyingPrice(double underlyingPrice) {
@@ -64,49 +71,69 @@ bool VanillaOption::Flavor() {
 }
 
 double VanillaOption::delta() const {
-    return engine.delta();
+    return engine->delta();
 }
 
 double VanillaOption::deltaForward() const {
-    return engine.deltaForward();
+    return engine->deltaForward();
 }
 
 double VanillaOption::gamma() const {
-    return engine.gamma();
+    return engine->gamma();
 }
 
 double VanillaOption::theta() const {
-    return engine.theta();
+    return engine->theta();
 }
 
 double VanillaOption::thetaPerDay() const {
-    return engine.thetaPerDay();
+    return engine->thetaPerDay();
 }
 
 double VanillaOption::vega() const {
-    return engine.vega();
+    return engine->vega();
 }
 
 double VanillaOption::rho() const {
-    return engine.rho();
+    return engine->rho();
 }
 
 double VanillaOption::dividendRho() const {
-    return engine.dividendRho();
+    return engine->dividendRho();
 }
 
 double VanillaOption::strikeSensitivity() const {
-    return engine.strikeSensitivity();
+    return engine->strikeSensitivity();
 }
 
 double VanillaOption::itmCashProbability() const {
-    return engine.itmCashProbability();
+    return engine->itmCashProbability();
 }
 
 double VanillaOption::NPV() const {
-    return engine.NPV();
+    return engine->NPV();
 }
 
-void VanillaOption::setPricingEngine(PricingEngine& engine) {
-    VanillaOption::engine = engine;
+void VanillaOption::setPricingEngine(std::unique_ptr<PricingEngine> newEngine) {
+    engine = std::move(newEngine); // Set the new pricing engine
+    
+    engine->UnderlyingPrice(underlyingPrice);
+    engine->Strike(strike);
+    engine->TimeToMaturity(timeToMaturity);
+    engine->Volatility(volatility);
+    engine->Interest(interest);
+    engine->CostOfCarry(costOfCarry);
+    engine->Flavor(isCall);
+}
+
+
+void VanillaOption::setPricingEngine(VanillaPricingEngine& engine) {
+    engine.UnderlyingPrice(underlyingPrice);
+    engine.Strike(strike);
+    engine.TimeToMaturity(timeToMaturity);
+    engine.Volatility(volatility);
+    engine.Interest(interest);
+    engine.CostOfCarry(costOfCarry);
+    engine.Flavor(isCall);
+    engine = engine;
 }

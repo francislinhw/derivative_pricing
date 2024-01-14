@@ -2,14 +2,16 @@
 #ifndef VANILLA_OPTION_HPP
 #define VANILLA_OPTION_HPP
 #include "PricingEngine.hpp"
+#include "VanillaPricingEngine.hpp"
 #include <iostream>
+#include <memory>
 #include <cmath>
 
 // Define the VanillaOption class
 class VanillaOption {
 public:
     
-    PricingEngine engine;
+    std::unique_ptr<PricingEngine> engine;
     
     double underlyingPrice;
     double strike;
@@ -56,7 +58,8 @@ public:
     double itmCashProbability() const;
     double NPV() const;
 
-    void setPricingEngine(PricingEngine&);
+    void setPricingEngine(std::unique_ptr<PricingEngine> newEngine);
+    void setPricingEngine(VanillaPricingEngine& engine);
 };
 
 #endif
