@@ -9,6 +9,7 @@
 #include <list>
 #include <vector>
 #include <numeric> // For std::accumulate
+#include <map>
 
 // Template function to calculate the sum of elements in a container
 // template <typename T>
@@ -36,6 +37,18 @@ double Sum(const T& container) {
     return sum;
 }
 
+template <typename K, typename V>
+double Sum(const std::map<K, V>& container) {
+    double sum = 0.0;
+
+    // Iterate through the map and add the value of each pair to sum
+    for (auto it = container.begin(); it != container.end(); ++it) {
+        sum += it->second; // Add the value part of the pair
+    }
+
+    return sum;
+}
+
 int main() {
     // Using containers from the previous example
     std::list<double> my_list = {1.1, 2.2, 3.3, 4.4, 5.5};
@@ -53,6 +66,14 @@ int main() {
     double partial_sum = Sum(my_vector.begin(), my_vector.begin() + 3);
     std::cout << "Sum of first three elements of vector: " << partial_sum << "\n";
 
+    // Create a map from strings to doubles
+    std::map<std::string, double> my_map;
+    my_map["one"] = 1;
+    my_map["two"] = 2;
+    my_map["three"] = 3;
+    double my_map_sum = Sum(my_map);
+    std::cout << "Sum of map: " << my_map_sum << "\n";
+
     return 0;
     /*
      * ============== *
@@ -62,7 +83,7 @@ int main() {
      * Sum of list: 16.5
      * Sum of vector: 43.1
      * Sum of first three elements of vector: 23.1
-     *      
+     * Sum of map: 6     
      *  
     */
 }

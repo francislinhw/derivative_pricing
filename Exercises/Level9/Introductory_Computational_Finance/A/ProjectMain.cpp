@@ -15,11 +15,11 @@ int main() {
     VanillaOption vanillaCallOption(underlyingPrice, strike, timeToMaturity, volatility, interest, costOfCarry, isCall);
     VanillaOption vanillaPutOption(underlyingPrice, strike, timeToMaturity, volatility, interest, costOfCarry, !isCall);
 
-    std::unique_ptr<VanillaPricingEngine> callEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> putEngine = std::make_unique<VanillaPricingEngine>();
+    std::unique_ptr<VanillaPricingEngine> callPricingEngine = std::make_unique<VanillaPricingEngine>();
+    std::unique_ptr<VanillaPricingEngine> putPricingEngine = std::make_unique<VanillaPricingEngine>();
 
-    vanillaCallOption.setPricingEngine(std::move(callEngine));
-    vanillaPutOption.setPricingEngine(std::move(putEngine));
+    vanillaCallOption.setPricingEngine(std::move(callPricingEngine));
+    vanillaPutOption.setPricingEngine(std::move(putPricingEngine));
 
     std::cout << "Call Option Price: " << vanillaCallOption.NPV() << std::endl;
     std::cout << "Put Option Price: " << vanillaPutOption.NPV() << std::endl;
