@@ -97,9 +97,10 @@ int main() {
      * PROGRAM OUTPUT *
      * ============== *
      * 
-     * Array 1: 0 1 2 3 4 5 6 7 8 9 
-     * Array 2: 0 2 4 6 8 10 12 14 16 18 
-     * Array 2 + Array 2: 0 4 8 12 16 20 24 28 32 36 
-     * Dot Product (Array 1 * Array 1): 1140
+     * Array 1: 0 1 2 3 4 
+     * Array 2: 0 2 4 6 8 
+     * Array 2 + Array 2: 0 4 8 12 16 
+     * Dot Product (Array 1 * Array 1): 120
+     * Error: Array Sizes of 6 and 5 are mismatched.
     */
 }
