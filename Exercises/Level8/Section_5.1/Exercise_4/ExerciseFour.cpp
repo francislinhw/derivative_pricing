@@ -43,16 +43,19 @@ int main() {
     }
 
     return 0;
-/*
- * My Answer: 
- *
- * How many trials? 1000000
- * Trial 1 has 16.6653% outcomes
- * Trial 2 has 16.6663% outcomes
- * Trial 3 has 16.6646% outcomes
- * Trial 4 has 16.6689% outcomes
- * Trial 5 has 16.6663% outcomes
- * Trial 6 has 16.6657% outcomes
- * 
-*/
+    /*
+     * My Answer: 
+     * ============== *
+     * PROGRAM OUTPUT *
+     * ============== *
+     * 
+     * How many trials? 1000000
+     * Trial 1 has 16.6653% outcomes
+     * Trial 2 has 16.6663% outcomes
+     * Trial 3 has 16.6646% outcomes
+     * Trial 4 has 16.6689% outcomes
+     * Trial 5 has 16.6663% outcomes
+     * Trial 6 has 16.6657% outcomes
+     * 
+     */
 }
