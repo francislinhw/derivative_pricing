@@ -54,12 +54,15 @@ int main() {
             }
         }
 
+    } catch (const std::runtime_error& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
     } catch (const char* msg) {
         std::cerr << msg << std::endl;
+    } catch (...) {
+        std::cerr << "An unexpected error occurred" << std::endl;
     }
-
     return 0;
-    /*
+    /* 
      * ============== *
      * PROGRAM OUTPUT *
      * ============== *
@@ -70,5 +73,6 @@ int main() {
      * Circle ID: 1622650073
      * Popped: Point(1, 3)
      * Point ID: 16807
-    */
-}
+     * 
+    */ 
+}      

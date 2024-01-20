@@ -44,9 +44,8 @@ namespace francis {
         template <typename T>
         T Stack<T>::Pop() {
             if (m_current == 0) {
-                throw "Stack is empty"; // Or a more appropriate exception
+                throw std::runtime_error("Stack is empty");
             }
-        
             try {
                 --m_current; // Decrement the current position
                 return m_array[m_current]; // Return the element at the new current position
