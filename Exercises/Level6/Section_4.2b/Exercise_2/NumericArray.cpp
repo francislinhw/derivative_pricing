@@ -14,6 +14,7 @@
 #define NUMERICARRAY_CPP 
 
 #include "OutOfBoundsException.hpp"
+#include "SizeMisMatchException.hpp"
 #include "Array.hpp"
 #include "NumericArray.hpp"
 #include <cassert>
@@ -34,7 +35,7 @@ namespace francis {
         NumericArray<T>::NumericArray() : Array<T>(10) {}  // Use base class constructor
 
         template <typename T>
-        NumericArray<T>::NumericArray(int size) : Array<T>(10) {}  // Use base class constructor
+        NumericArray<T>::NumericArray(int size) : Array<T>(size) {}  // Use base class constructor
 
         template <typename T>
         NumericArray<T>::NumericArray(const NumericArray& arr) : Array<T>(arr) {} // The base class copy constructor will handle copying the elements
@@ -93,7 +94,7 @@ namespace francis {
         template <typename T>
         NumericArray<T> NumericArray<T>::operator+(const NumericArray<T>& other) const {
             if (this->Size() != other.Size()) {
-                throw OutOfBoundsException(other.Size()); // Define this exception as needed
+                throw SizeMisMatchException(other.Size(), this->Size()); // Define this exception as needed
             }
             NumericArray<T> result(this->Size());
             for (int i = 0; i < this->Size(); ++i) {
@@ -105,7 +106,7 @@ namespace francis {
         template <typename T>
         T NumericArray<T>::DotProduct(const NumericArray<T>& arr) const {
             if (this->Size() != arr.Size()) {
-                throw OutOfBoundsException(arr.Size()); // Define this exception as needed
+                throw SizeMisMatchException(arr.Size(), this->Size()); // Define this exception as needed
             }
             T dotProd = T(); // Assuming T can be default-constructed
             for (int i = 0; i < this->Size(); ++i) {

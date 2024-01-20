@@ -28,11 +28,16 @@ int main() {
         // Create NumericArrays of double
         NumericArray<double> numArray1(5);
         NumericArray<int> numArray2(5);
+        NumericArray<double> numArrayTest(6);
 
         // Initialize the arrays
         for (int i = 0; i < numArray1.Size(); ++i) {
             numArray1[i] = i * 1;  // Just some values for testing scale operator
             numArray2[i] = i * 2;  // Just some values for testing scale operator
+        }
+
+        for (int i = 0; i < numArrayTest.Size(); ++i) {
+            numArrayTest[i] = i * 1;  // Just some values for testing scale operator
         }
 
         // Print the arrays
@@ -62,6 +67,10 @@ int main() {
         double dotProduct = numArray1.DotProduct(numArray1);
 
         std::cout << "Dot Product (Array 1 * Array 1): " << dotProduct << std::endl;
+
+        double dotProductTest = numArray1.DotProduct(numArrayTest);
+
+        std::cout << "Dot Product (Array 1 * Array 3): " << dotProduct << std::endl;
 
     } catch (const ArrayException& ex) {
         std::cout << ex.GetMessage() << std::endl;
