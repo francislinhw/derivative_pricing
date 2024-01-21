@@ -2,3 +2,6 @@ info.plist
 .bin
 bin
 .DS_Store
+*.exe
+*.zip
+*.DS_Store

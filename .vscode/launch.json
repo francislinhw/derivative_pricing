@@ -18,6 +18,44 @@
       "args": [],
       "cwd": "${fileDirname}",
       "preLaunchTask": "C: Build with QuantLib"
+    },
+    {
+      "name": "C++ Runner: Debug Session (Win)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "C++: Build with QuantLib (Win)",
+      "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe" // Update this to your actual GDB path
+    },
+    {
+      "name": "C Runner: Debug Session (Win)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "C: Build with QuantLib (Win)",
+      "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe" // Update this to your actual GDB path
+    },
+    {
+      "name": "C++ Runner: Debug Session lldb (Win)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "C++: Build with QuantLib (Win)",
+    },
+    {
+      "name": "C Runner: Debug Session lldb (Win)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "C: Build with QuantLib (Win)",
     }
   ]
 }
