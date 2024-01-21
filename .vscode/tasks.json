@@ -74,7 +74,7 @@
             "args": [
 				"-fdiagnostics-color=always",
 				"-g",
-                // "-IC:\\boost_1_66_0\\\\include", // Update this path to your Boost include directory
+                "-IC:\\boost_1_66_0", // Update this path to your Boost include directory
                 // "-IC:\\path\\to\\QuantLib\\include",      // Update this path to your QuantLib include directory
                 "-I${fileDirname}",
 				// "-isystem /opt/homebrew/include",
@@ -82,9 +82,8 @@
 				"${fileDirname}/*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe", // Output directory changed to 'bin'
-                //"${fileDirname}/${fileBasenameNoExtension}",
                 //"-LC:\\path\\to\\QuantLib\\lib",           // Update this path to your QuantLib lib directory
-                //"-LC:\\path\\to\\boost_1_83_0\\lib",       // Update this path to your Boost lib directory
+                "-LC:\\boost_1_66_0\\libs",       // Update this path to your Boost lib directory
 				//"-lQuantLib"
             ],
             "group": {
