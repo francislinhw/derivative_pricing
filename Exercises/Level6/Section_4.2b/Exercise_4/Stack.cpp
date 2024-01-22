@@ -43,9 +43,10 @@ namespace francis {
 
         template <typename T>
         T Stack<T>::Pop() {
-            if (m_current == 0) {
-                throw std::runtime_error("Stack is empty");
-            }
+            // if (m_current == 0) {
+            //     throw std::runtime_error("Stack is empty");
+            // } // Pop should not throw an exception here at all; Array throws the exception, main handles it.
+            //   // In 4.2b.5, we extend to use exception layering.
             T& elem = m_array[m_current - 1]; // Access the top element
             --m_current; // Only decrement current after successful access
             return elem;
