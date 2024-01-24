@@ -16,7 +16,7 @@ namespace francis {
 
         // Destructor
         Line::~Line() {
-            std::cout << "bye my line.. (Destructor called)." << std::endl;
+            // std::cout << "bye my line.. (Destructor called)." << std::endl;
         }
 
         // Getters for the start- and end-points

@@ -1,3 +1,22 @@
+// Exercise 1: Smart Pointers
+// When we want to store different kind of shapes in the Array<T> class we created earlier, we need to store Shape* in the array.
+// But when we are finished, we need to delete all shapes in the array explicitly which is easy to forget.
+// The boost::shared_ptr<T> class stores a pointer and will delete the object automatically when nobody is referencing the object anymore.
+// Thus instead of creating an array
+// of Shape* we can create an array with boost::shared_ptr<Shape> and the deletion of the shapes will be done automatically.
+// Thus create a program that creates an array with shared pointers for shapes
+// (The template array class and shape hierarchy was created in earlier exercises).
+// Fill it with various shapes and print them. Check if the shapes are automatically deleted.
+// Tip:
+// Use the following typedefs to simplify the code:
+/*
+ * 
+ * // Typedef for a shared pointer to shape and
+ * // a typedef for an array with shapes stored as shared pointers. 
+ * typedef boost::shared_ptr<Shape> ShapePtr;
+ * typedef Array<ShapePtr> ShapeArray;
+ * 
+ */
 #include <boost/shared_ptr.hpp>
 #include "Array.hpp"
 #include "Shape.hpp"  // Include your Shape class header

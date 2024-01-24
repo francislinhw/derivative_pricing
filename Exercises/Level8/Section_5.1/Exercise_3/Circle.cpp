@@ -21,7 +21,7 @@ namespace francis{
 
         // Destructor
         Circle::~Circle() {
-            std::cout << "bye my line.. (Destructor called)." << std::endl;
+            // std::cout << "bye my line.. (Destructor called)." << std::endl;
         }
 
         // Getter for the center point

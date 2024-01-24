@@ -1,3 +1,17 @@
+// In this example we simulate dice throwing. We use functionality in Random library by creating a discrete uniform random number generator whose outcomes are in the closed range [1,6]:
+// // Throwing dice.
+// // Mersenne Twister.
+// boost::random::mt19937 myRng;
+// // Set the seed.
+// myRng.seed(static_cast<boost::uint32_t> (std::time(0))); // Uniform in range [1,6]
+// boost::random::uniform_int_distribution<int> six(1,6); We now create a map that holds the frequency of each outcome:
+// map<int, long> statistics; // Structure to hold outcome + frequencies int outcome; // Current outcome
+// A typical outcome is generated as follows:
+//       outcome = six(myRng);
+// This will generate a number in the range [1,6].
+// Answer the following questions:
+// a) Generate a large number of trials and place their frequencies in map.
+// b) Produce the following kind of output:
 #include <boost/random.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
 #include <iostream>

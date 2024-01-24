@@ -1,3 +1,11 @@
+// Exercise 2: Tuple
+// Boost tuples can be used to store different kinds of data as one entity.
+// It can be used if we need to combine data without the need to create a separate class.
+// In this exercise, create a typedef for a Person tuple that contains a name, age and length.
+// Also create a function that prints the person tuple. Use the get<T>() member functions the retrieve the data.
+// Create a few person tuple instances and print them.
+// Also increment the age of one of the persons. Note that to change a value of one of the tuple elements,
+// you can also use the get<T>() function since it returns a reference to the value.
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_io.hpp>
 #include <string>
