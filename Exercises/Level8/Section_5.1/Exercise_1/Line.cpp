@@ -6,13 +6,13 @@ namespace francis {
     namespace CAD {
 
         // Default constructor
-        Line::Line() : startPoint(0, 0), endPoint(0, 0) {}
+        Line::Line() :Shape(), startPoint(0, 0), endPoint(0, 0) {}
 
         // Constructor with start- and end-point
-        Line::Line(const Point& start, const Point& end) : startPoint(start), endPoint(end) {}
+        Line::Line(const Point& start, const Point& end) :Shape(), startPoint(start), endPoint(end) {}
 
         // Copy constructor
-        Line::Line(const Line& other) : startPoint(other.startPoint), endPoint(other.endPoint) {}
+        Line::Line(const Line& other) :Shape(), startPoint(other.startPoint), endPoint(other.endPoint) {}
 
         // Destructor
         Line::~Line() {

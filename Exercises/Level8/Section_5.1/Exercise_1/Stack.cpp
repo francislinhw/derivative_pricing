@@ -57,23 +57,25 @@ namespace francis {
             if (m_current == 0) {
                 throw StackEmptyException();                
             }
-            try {
-                --m_current; // Decrement the current position
-                return m_array[m_current]; // Return the element at the new current position
-            } catch (const OutOfBoundsException& e) {
-                m_current = 0; // Reset the current index if an exception occurs
-                throw OutOfBoundsException(m_current);
-            } catch (...) {
-                ++m_current; // If an exception is thrown, reset the current position
-                throw; // Re-throw the exception to be handled by the calling function
-            }
+            T& elem = m_array[m_current - 1]; // Access the top element
+            --m_current; // Only decrement current after successful access
+            return elem;
+            // try {
+            //     --m_current; // Decrement the current position
+            //     return m_array[m_current]; // Return the element at the new current position
+            // } catch (const OutOfBoundsException& e) {
+            //     m_current = 0; // Reset the current index if an exception occurs
+            //     throw OutOfBoundsException(m_current);
+            // } catch (...) {
+            //     ++m_current; // If an exception is thrown, reset the current position
+            //     throw; // Re-throw the exception to be handled by the calling function
+            // }
         }
 
         template <typename T, int size>
         int Stack<T, size>::GetCurrentIndex() {
             return m_current;
         }
-
     }
 }
 #endif // SHAPE_CPP

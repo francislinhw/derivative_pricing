@@ -11,13 +11,13 @@ namespace francis{
     namespace CAD {
 
         // Default constructor
-        Circle::Circle() : center(0, 0), radius(1) {}
+        Circle::Circle() :Shape(), center(0, 0), radius(1) {}
 
         // Constructor with a center and radius
-        Circle::Circle(const Point& c, double r) : center(c), radius(r) {}
+        Circle::Circle(const Point& c, double r) :Shape(), center(c), radius(r) {}
 
         // Copy constructor
-        Circle::Circle(const Circle& other) : center(other.center), radius(other.radius) {}
+        Circle::Circle(const Circle& other) :Shape(), center(other.center), radius(other.radius) {}
 
         // Destructor
         Circle::~Circle() {
@@ -91,7 +91,7 @@ namespace francis{
             return *this;
         }
         std::ostream& operator << (std::ostream& os, const francis::CAD::Circle& c) {
-            os << c.ToString();
+            os << "Circle: Centre at " << c.center << ", Radius " << c.radius;
             return os;
         }
 
