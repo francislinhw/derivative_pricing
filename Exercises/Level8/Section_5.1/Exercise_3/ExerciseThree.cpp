@@ -10,8 +10,10 @@
 // In the main program, call the function and print the result by sending it to cout.
 // Next try to assign the variant to a Line variable by using the global boost:get<T>() function.
 // This will throw a boost::bad_get exception when the variant didn’t contain a line.
+
 // Test the application.
-// Checking what kind a type is stored in the variant is cumbersome. Therefore the boost::variant supports visitors.
+// Checking what kind a type is stored in the variant is cumbersome.
+// Therefore the boost::variant supports visitors.
 // A visitor is a class derived from boost::static_visitor<T> that has for each type that can be stored an operator () with the type as argument.
 // The template argument is the return type of the operators ().
 // Now create a variant visitor that moves the shapes.
