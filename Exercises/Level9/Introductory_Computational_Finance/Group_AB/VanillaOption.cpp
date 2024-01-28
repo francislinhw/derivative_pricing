@@ -4,7 +4,7 @@
 #include <cmath>
 #include "VanillaPricingEngine.hpp"
 
-std::unique_ptr<PricingEngine> engine;
+std::unique_ptr<PricingEngine> VanillaOption::engine;
 
 // Define the VanillaOption class
 VanillaOption::VanillaOption(double underlyingPrice,

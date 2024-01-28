@@ -4,7 +4,7 @@
 #include <cmath>
 #include <VanillaPricingEngine.hpp>
 
-std::unique_ptr<PricingEngine> engine;
+std::unique_ptr<PricingEngine> PerpetualAemricanOption::engine = nullptr;
 
 // Define the VanillaOption class
 PerpetualAemricanOption::PerpetualAemricanOption(double underlyingPrice,

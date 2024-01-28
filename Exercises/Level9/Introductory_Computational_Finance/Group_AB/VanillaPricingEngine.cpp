@@ -52,8 +52,8 @@ double VanillaPricingEngine::delta() const {
     } else if (!isCall) {
         double d1 = (log(underlyingPrice / strike) + (costOfCarry + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
         return exp((costOfCarry-interest) * timeToMaturity) * (cdf(nd, d1) - 1);
-    return 0;
     }
+    return 0;
 }
 
 double VanillaPricingEngine::numericalDelta() {
