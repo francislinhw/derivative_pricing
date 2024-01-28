@@ -2,7 +2,7 @@
 #include <base/PutCallParity.hpp>
 #include <base/Mesh.hpp>
 #include <VanillaOption.hpp>
-#include <VanillaPricingEngine.hpp>
+#include <AnalyticPricingEngine.hpp>
 #include <iostream>
 #include <memory>
 #include <map>
@@ -92,14 +92,14 @@ int main() {
                                             optionBatches["Batch 4"].CostOfCarry,
                                             Put);
 
-    std::unique_ptr<VanillaPricingEngine> batchOnecallPricingEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> batchOneputPricingEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> batchTwocallPricingEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> batchTwoputPricingEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> batchThreecallPricingEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> batchThreeputPricingEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> batchFourcallPricingEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> batchFourputPricingEngine = std::make_unique<VanillaPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchOnecallPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchOneputPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchTwocallPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchTwoputPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchThreecallPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchThreeputPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchFourcallPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchFourputPricingEngine = std::make_unique<AnalyticPricingEngine>();
 
 
     batchOnevanillaCallOption.setPricingEngine(std::move(batchOnecallPricingEngine));
@@ -270,8 +270,8 @@ int main() {
                                              0,
                                              Put);
 
-    std::unique_ptr<VanillaPricingEngine> greeksTestCallPricingEngine = std::make_unique<VanillaPricingEngine>();
-    std::unique_ptr<VanillaPricingEngine> greeksTestPutPricingEngine = std::make_unique<VanillaPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> greeksTestCallPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> greeksTestPutPricingEngine = std::make_unique<AnalyticPricingEngine>();
 
     greeksTestVanillaCallOption.setPricingEngine(std::move(greeksTestCallPricingEngine));
     greeksTestVanillaPutOption.setPricingEngine(std::move(greeksTestPutPricingEngine));
@@ -311,7 +311,7 @@ int main() {
                                 Put);
 
         // Create a pricing engine and set it to the option
-        std::unique_ptr<VanillaPricingEngine> pricingEngine = std::make_unique<VanillaPricingEngine>();
+        std::unique_ptr<AnalyticPricingEngine> pricingEngine = std::make_unique<AnalyticPricingEngine>();
         callOption.setPricingEngine(std::move(pricingEngine));
 
         // Compute the delta and add it to the delta_values vector

@@ -1,8 +1,8 @@
 
 #ifndef PERPETUAL_AMERICAN_OPTION_HPP
 #define PERPETUAL_AMERICAN_OPTION_HPP
-#include "PricingEngine.hpp"
-#include "VanillaPricingEngine.hpp"
+#include <PricingEngine.hpp>
+#include <AnalyticPricingEngine.hpp>
 #include <iostream>
 #include <memory>
 #include <cmath>
@@ -61,7 +61,7 @@ public:
     double NPV() const;
 
     void setPricingEngine(std::unique_ptr<PricingEngine> newEngine);
-    void setPricingEngine(VanillaPricingEngine& engine);
+    void setPricingEngine(AnalyticPricingEngine& engine);
 };
 
 #endif

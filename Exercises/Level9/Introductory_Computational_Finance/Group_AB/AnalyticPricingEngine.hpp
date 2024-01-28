@@ -1,12 +1,12 @@
-#ifndef VANILLA_PRICING_ENGINE_HPP
-#define VANILLA_PRICING_ENGINE_HPP
+#ifndef ANALYTIC_PRICING_ENGINE_HPP
+#define ANALYTIC_PRICING_ENGINE_HPP
 #include "PricingEngine.hpp"
 #include <string>
 #include <stdlib.h>
 #include <ctime>
 
 
-class VanillaPricingEngine : public PricingEngine {
+class AnalyticPricingEngine : public PricingEngine {
     private:
 
         double underlyingPrice;
@@ -19,20 +19,20 @@ class VanillaPricingEngine : public PricingEngine {
         double numericalGreeksBump = 0.00001; // h for numerical greeks
 
     public:
-        VanillaPricingEngine(); // Default constructor
+        AnalyticPricingEngine(); // Default constructor
 
-        VanillaPricingEngine(const VanillaPricingEngine& source);
+        AnalyticPricingEngine(const AnalyticPricingEngine& source);
 
-        VanillaPricingEngine& operator=(const VanillaPricingEngine& source);
+        AnalyticPricingEngine& operator=(const AnalyticPricingEngine& source);
 
-        friend std::ostream& operator<<(std::ostream& os, const VanillaPricingEngine& source);
+        friend std::ostream& operator<<(std::ostream& os, const AnalyticPricingEngine& source);
 
-        ~VanillaPricingEngine(); // Destructor
+        ~AnalyticPricingEngine(); // Destructor
 
         std::string ToString() const;
 
 
-        VanillaPricingEngine(double underlyingPrice,
+        AnalyticPricingEngine(double underlyingPrice,
                              double strike,
                              double timeToMarity,
                              double volatility,

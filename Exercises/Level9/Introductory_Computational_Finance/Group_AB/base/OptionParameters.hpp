@@ -92,8 +92,8 @@ std::vector<std::vector<double>> computeOptionPricesMatrix(const std::vector<std
                                            params.CostOfCarry,
                                            false);
 
-            std::unique_ptr<VanillaPricingEngine> analyticCallEngine = std::make_unique<VanillaPricingEngine>();
-            std::unique_ptr<VanillaPricingEngine> analyticPutEngine = std::make_unique<VanillaPricingEngine>();
+            std::unique_ptr<AnalyticPricingEngine> analyticCallEngine = std::make_unique<AnalyticPricingEngine>();
+            std::unique_ptr<AnalyticPricingEngine> analyticPutEngine = std::make_unique<AnalyticPricingEngine>();
             vanillaCallOption.setPricingEngine(std::move(analyticCallEngine));
             vanillaPutOption.setPricingEngine(std::move(analyticPutEngine));
 
@@ -125,8 +125,8 @@ std::pair<std::vector<double>, std::vector<double>>computeOptionPricesVector(con
                                            params.CostOfCarry,
                                            false);
 
-            std::unique_ptr<VanillaPricingEngine> analyticCallEngine = std::make_unique<VanillaPricingEngine>();
-            std::unique_ptr<VanillaPricingEngine> analyticPutEngine = std::make_unique<VanillaPricingEngine>();
+            std::unique_ptr<AnalyticPricingEngine> analyticCallEngine = std::make_unique<AnalyticPricingEngine>();
+            std::unique_ptr<AnalyticPricingEngine> analyticPutEngine = std::make_unique<AnalyticPricingEngine>();
             vanillaCallOption.setPricingEngine(std::move(analyticCallEngine));
             vanillaPutOption.setPricingEngine(std::move(analyticPutEngine));
 
@@ -143,7 +143,7 @@ std::vector<std::vector<double>> computeGreeksMatrix(const std::vector<std::vect
         std::vector<double> greeksRow;
         for (const auto& params : paramsRow) {
             VanillaOption option(params.S, params.K, params.T, params.sig, params.r, params.CostOfCarry, true);
-            std::unique_ptr<VanillaPricingEngine> pricingEngine = std::make_unique<VanillaPricingEngine>();
+            std::unique_ptr<AnalyticPricingEngine> pricingEngine = std::make_unique<AnalyticPricingEngine>();
             option.setPricingEngine(std::move(pricingEngine));
 
             double greekValue = 0.0;

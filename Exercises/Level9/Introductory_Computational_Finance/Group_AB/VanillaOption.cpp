@@ -2,7 +2,7 @@
 #include "VanillaOption.hpp"
 #include <iostream>
 #include <cmath>
-#include "VanillaPricingEngine.hpp"
+#include <AnalyticPricingEngine.hpp>
 
 std::unique_ptr<PricingEngine> VanillaOption::engine;
 
@@ -135,7 +135,7 @@ void VanillaOption::setPricingEngine(std::unique_ptr<PricingEngine> newEngine) {
 }
 
 
-void VanillaOption::setPricingEngine(VanillaPricingEngine& engine) {
+void VanillaOption::setPricingEngine(AnalyticPricingEngine& engine) {
     engine.UnderlyingPrice(underlyingPrice);
     engine.Strike(strike);
     engine.TimeToMaturity(timeToMaturity);

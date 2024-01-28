@@ -2,7 +2,7 @@
 #include <PerpetualAmericanOption.hpp>
 #include <iostream>
 #include <cmath>
-#include <VanillaPricingEngine.hpp>
+#include <AnalyticPricingEngine.hpp>
 
 std::unique_ptr<PricingEngine> PerpetualAemricanOption::engine = nullptr;
 
@@ -135,7 +135,7 @@ void PerpetualAemricanOption::setPricingEngine(std::unique_ptr<PricingEngine> ne
 }
 
 
-void PerpetualAemricanOption::setPricingEngine(VanillaPricingEngine& engine) {
+void PerpetualAemricanOption::setPricingEngine(AnalyticPricingEngine& engine) {
     engine.UnderlyingPrice(underlyingPrice);
     engine.Strike(strike);
     engine.TimeToMaturity(timeToMaturity);

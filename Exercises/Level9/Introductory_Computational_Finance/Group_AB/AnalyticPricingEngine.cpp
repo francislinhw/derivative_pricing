@@ -1,4 +1,4 @@
-#include "VanillaPricingEngine.hpp"
+#include <AnalyticPricingEngine.hpp>
 #include <cmath>
 #include <boost/math/distributions/normal.hpp>
 #include <string>
@@ -6,15 +6,15 @@
 #include <iostream>
 #include <ctime>
 
-VanillaPricingEngine::VanillaPricingEngine() : PricingEngine() {
+AnalyticPricingEngine::AnalyticPricingEngine() : PricingEngine() {
   // std::cout << "Vanilla Pricing Engine Built!" << std::endl;
 } // Default constructor
 
-VanillaPricingEngine::VanillaPricingEngine(const VanillaPricingEngine& source) : PricingEngine() {
+AnalyticPricingEngine::AnalyticPricingEngine(const AnalyticPricingEngine& source) : PricingEngine() {
   //  std::cout << "Vanilla Pricing Engine Built!" << std::endl;
 }
 
-VanillaPricingEngine& VanillaPricingEngine::operator=(const VanillaPricingEngine& source) {
+AnalyticPricingEngine& AnalyticPricingEngine::operator=(const AnalyticPricingEngine& source) {
     // Protect against self-assignment
     if (this == &source) {
         return *this;
@@ -23,28 +23,28 @@ VanillaPricingEngine& VanillaPricingEngine::operator=(const VanillaPricingEngine
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const VanillaPricingEngine& source) {
+std::ostream& operator<<(std::ostream& os, const AnalyticPricingEngine& source) {
     os << source.ToString(); // Assuming Shape has a ToString member function.
     return os;
 }
 
-VanillaPricingEngine::~VanillaPricingEngine() {
+AnalyticPricingEngine::~AnalyticPricingEngine() {
   // std::cout << "Vanilla Pricing Engine Ends!" << std::endl;
 } // Destructor
 
-std::string VanillaPricingEngine::ToString() const {
+std::string AnalyticPricingEngine::ToString() const {
     return "Option";
 }
 
-void VanillaPricingEngine::Calculate() {
+void AnalyticPricingEngine::Calculate() {
 
 } // Pure virtual function makes Shape an abstract class
 
-void VanillaPricingEngine::Print() const {
+void AnalyticPricingEngine::Print() const {
 
 } // Template Method
 
-double VanillaPricingEngine::delta() const {
+double AnalyticPricingEngine::delta() const {
     boost::math::normal_distribution<> nd;
     if (isCall) {
         double d1 = (log(underlyingPrice / strike) + (costOfCarry + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
@@ -56,58 +56,58 @@ double VanillaPricingEngine::delta() const {
     return 0;
 }
 
-double VanillaPricingEngine::numericalDelta() {
+double AnalyticPricingEngine::numericalDelta() {
     // Store the original underlying price
     double originalUnderlyingPrice = underlyingPrice;
     
     // Calculate the NPV with a decreased underlying price
-    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice - numericalGreeksBump);
+    AnalyticPricingEngine::UnderlyingPrice(originalUnderlyingPrice - numericalGreeksBump);
     double v0 = NPV();
     
     // Calculate the NPV with an increased underlying price
-    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice + numericalGreeksBump);
+    AnalyticPricingEngine::UnderlyingPrice(originalUnderlyingPrice + numericalGreeksBump);
     double v1 = NPV();
     
     // Reset the underlying price to the original value
-    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
+    AnalyticPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
     
     // Calculate the numerical delta using the central difference method
     return (v1 - v0) / (2 * numericalGreeksBump);
 }
-double VanillaPricingEngine::deltaForward() const {
+double AnalyticPricingEngine::deltaForward() const {
     return 0.0;
 }
 
-double VanillaPricingEngine::gamma() const {
+double AnalyticPricingEngine::gamma() const {
     boost::math::normal_distribution<> nd;
     double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
     return pdf(nd, d1) * exp((costOfCarry-interest) * timeToMaturity) / (underlyingPrice * volatility * sqrt(timeToMaturity));
 }
 
-double VanillaPricingEngine::numericalGamma() {
+double AnalyticPricingEngine::numericalGamma() {
     // Store the original underlying price
     double originalUnderlyingPrice = underlyingPrice;
     
     // Calculate the NPV with an increased underlying price
-    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice + numericalGreeksBump);
+    AnalyticPricingEngine::UnderlyingPrice(originalUnderlyingPrice + numericalGreeksBump);
     double v_plus_h = NPV();
     
     // Calculate the NPV at the original underlying price
-    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
+    AnalyticPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
     double v = NPV();
     
     // Calculate the NPV with a decreased underlying price
-    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice - numericalGreeksBump);
+    AnalyticPricingEngine::UnderlyingPrice(originalUnderlyingPrice - numericalGreeksBump);
     double v_minus_h = NPV();
     
     // Reset the underlying price to the original value
-    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
+    AnalyticPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
     
     // Calculate the numerical gamma using the central difference method
     return (v_plus_h - 2*v + v_minus_h) / (numericalGreeksBump * numericalGreeksBump);
 }
 
-double VanillaPricingEngine::theta() const {
+double AnalyticPricingEngine::theta() const {
     if (isCall) {
         boost::math::normal_distribution<> nd;
         double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
@@ -126,11 +126,11 @@ double VanillaPricingEngine::theta() const {
     return 0;
 }
 
-double VanillaPricingEngine::thetaPerDay() const {
+double AnalyticPricingEngine::thetaPerDay() const {
     return 0.0;
 }
 
-double VanillaPricingEngine::vega() const {
+double AnalyticPricingEngine::vega() const {
     boost::math::normal_distribution<> nd;
     if (isCall) {
         double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
@@ -145,23 +145,23 @@ double VanillaPricingEngine::vega() const {
     return 0;
 }
 
-double VanillaPricingEngine::rho() const {
+double AnalyticPricingEngine::rho() const {
     return 0.0;
 }
 
-double VanillaPricingEngine::dividendRho() const {
+double AnalyticPricingEngine::dividendRho() const {
     return 0.0;
 }
 
-double VanillaPricingEngine::strikeSensitivity() const {
+double AnalyticPricingEngine::strikeSensitivity() const {
     return 0.0;
 }
 
-double VanillaPricingEngine::itmCashProbability() const {
+double AnalyticPricingEngine::itmCashProbability() const {
     return 0.0;
 }
 
-double VanillaPricingEngine::NPV() const {
+double AnalyticPricingEngine::NPV() const {
     if (isCall) {
         boost::math::normal_distribution<> nd;
         double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
@@ -176,7 +176,7 @@ double VanillaPricingEngine::NPV() const {
     return 0;
 }
 
-VanillaPricingEngine::VanillaPricingEngine(double underlyingPrice,
+AnalyticPricingEngine::AnalyticPricingEngine(double underlyingPrice,
                                            double strike,
                                            double timeToMarity,
                                            double volatility,
@@ -192,30 +192,30 @@ VanillaPricingEngine::VanillaPricingEngine(double underlyingPrice,
     isCall = isCall;
 }
 
-void VanillaPricingEngine::UnderlyingPrice(double underlyingPrice) {
+void AnalyticPricingEngine::UnderlyingPrice(double underlyingPrice) {
     this->underlyingPrice = underlyingPrice;
 }
-void VanillaPricingEngine::Strike(double strike) {
+void AnalyticPricingEngine::Strike(double strike) {
     this->strike = strike;
 }
-void VanillaPricingEngine::TimeToMaturity(double timeToMaturity) {
+void AnalyticPricingEngine::TimeToMaturity(double timeToMaturity) {
     this->timeToMaturity = timeToMaturity;
 }
-void VanillaPricingEngine::Volatility(double volatility) {
+void AnalyticPricingEngine::Volatility(double volatility) {
     this->volatility = volatility;
 }
-void VanillaPricingEngine::Interest(double interest) {
+void AnalyticPricingEngine::Interest(double interest) {
     this->interest = interest;
 }
-void VanillaPricingEngine::CostOfCarry(double costOfCarry) {
+void AnalyticPricingEngine::CostOfCarry(double costOfCarry) {
     this->costOfCarry = costOfCarry;
 }
-void VanillaPricingEngine::Flavor(bool flavor) {
+void AnalyticPricingEngine::Flavor(bool flavor) {
     this->isCall = flavor;
 }
-double VanillaPricingEngine::NumericalGreeksBump() {
+double AnalyticPricingEngine::NumericalGreeksBump() {
     return numericalGreeksBump;
 }
-void VanillaPricingEngine::NumericalGreeksBump(double numericalGreeksBump) {
+void AnalyticPricingEngine::NumericalGreeksBump(double numericalGreeksBump) {
     this->numericalGreeksBump = numericalGreeksBump;
 }
