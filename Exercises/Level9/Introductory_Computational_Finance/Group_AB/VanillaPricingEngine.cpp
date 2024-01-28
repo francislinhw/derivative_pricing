@@ -45,35 +45,81 @@ void VanillaPricingEngine::Print() const {
 } // Template Method
 
 double VanillaPricingEngine::delta() const {
-    return 0.0;
+    boost::math::normal_distribution<> nd;
+    if (isCall) {
+        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+        return exp((costOfCarry-interest) * timeToMaturity) * cdf(nd, d1);
+    } else if (!isCall) {
+        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+        return exp((costOfCarry-interest) * timeToMaturity) * (cdf(nd, d1) - 1);
+    return 0;
+    }
 }
+
 double VanillaPricingEngine::deltaForward() const {
     return 0.0;
 }
+
 double VanillaPricingEngine::gamma() const {
-    return 0.0;
+    boost::math::normal_distribution<> nd;
+    double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+    return pdf(nd, d1) * exp((costOfCarry-interest) * timeToMaturity) / (underlyingPrice * volatility * sqrt(timeToMaturity));
 }
+
 double VanillaPricingEngine::theta() const {
-    return 0.0;
+    if (isCall) {
+        boost::math::normal_distribution<> nd;
+        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+        double d2 = d1 - volatility * sqrt(timeToMaturity);
+        return -underlyingPrice * pdf(nd, d1) * volatility * exp((costOfCarry-interest) * timeToMaturity) / (2 * sqrt(timeToMaturity)) - 
+               costOfCarry * underlyingPrice * cdf(nd, d1) * exp((costOfCarry-interest) * timeToMaturity) - 
+               interest * strike * exp(-interest * timeToMaturity) * cdf(nd, d2);
+    } else if (!isCall) {
+        boost::math::normal_distribution<> nd;
+        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+        double d2 = d1 - volatility * sqrt(timeToMaturity);
+        return -underlyingPrice * pdf(nd, d1) * volatility * exp((costOfCarry-interest) * timeToMaturity) / (2 * sqrt(timeToMaturity)) + 
+               costOfCarry * underlyingPrice * cdf(nd, -d1) * exp((costOfCarry-interest) * timeToMaturity) + 
+               interest * strike * exp(-interest * timeToMaturity) * cdf(nd, -d2);
+    }
+    return 0;
 }
+
 double VanillaPricingEngine::thetaPerDay() const {
     return 0.0;
 }
+
 double VanillaPricingEngine::vega() const {
-    return 0.0;
+    boost::math::normal_distribution<> nd;
+    if (isCall) {
+        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+        return underlyingPrice * sqrt(timeToMaturity) * pdf(nd, d1) * exp((costOfCarry-interest) * timeToMaturity);
+    } else if (!isCall) {
+        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+        double d2 = d1 - volatility * sqrt(timeToMaturity);
+        return -underlyingPrice * pdf(nd, d1) * volatility * exp((costOfCarry-interest) * timeToMaturity) / (2 * sqrt(timeToMaturity)) + 
+               costOfCarry * underlyingPrice * cdf(nd, -d1) * exp((costOfCarry-interest) * timeToMaturity) + 
+               interest * strike * exp(-interest * timeToMaturity) * cdf(nd, -d2);
+    }
+    return 0;
 }
+
 double VanillaPricingEngine::rho() const {
     return 0.0;
 }
+
 double VanillaPricingEngine::dividendRho() const {
     return 0.0;
 }
+
 double VanillaPricingEngine::strikeSensitivity() const {
     return 0.0;
 }
+
 double VanillaPricingEngine::itmCashProbability() const {
     return 0.0;
 }
+
 double VanillaPricingEngine::NPV() const {
     if (isCall) {
         boost::math::normal_distribution<> nd;
@@ -86,6 +132,7 @@ double VanillaPricingEngine::NPV() const {
         double d2 = d1 - volatility * sqrt(timeToMaturity);
         return strike * exp(-interest * timeToMaturity) * cdf(nd, -d2) - underlyingPrice * cdf(nd, -d1);
     }
+    return 0;
 }
 
 VanillaPricingEngine::VanillaPricingEngine(double underlyingPrice,
