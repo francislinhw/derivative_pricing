@@ -2,6 +2,7 @@
 #ifndef VANILLA_OPTION_HPP
 #define VANILLA_OPTION_HPP
 #include <PricingEngine.hpp>
+#include <base/OptionType.hpp>
 #include <AnalyticPricingEngine.hpp>
 #include <iostream>
 #include <memory>
@@ -20,6 +21,7 @@ public:
     double interest;
     double costOfCarry;
     bool isCall;
+    OptionType type;
 
     VanillaOption(double underlyingPrice,
                   double strike,
@@ -27,7 +29,8 @@ public:
                   double volatility,
                   double interest,
                   double costOfCarry,
-                  bool isCall);
+                  bool isCall,
+                  OptionType type);
 
     ~VanillaOption();
     void UnderlyingPrice(double underlyingPrice);
@@ -37,6 +40,7 @@ public:
     void Interest(double interest);
     void CostOfCarry(double costOfCarry);
     void Flavor(bool flavor);
+    void Type(OptionType type);
 
     double UnderlyingPrice();
     double Strike();
@@ -45,6 +49,7 @@ public:
     double Interest();
     double CostOfCarry();
     bool Flavor();
+    OptionType Type();
 
     double delta() const;
     double numericalDelta();

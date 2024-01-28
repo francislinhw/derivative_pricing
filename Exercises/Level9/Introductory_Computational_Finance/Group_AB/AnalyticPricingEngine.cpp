@@ -182,7 +182,8 @@ AnalyticPricingEngine::AnalyticPricingEngine(double underlyingPrice,
                                            double volatility,
                                            double interest,
                                            double costOfCarry,
-                                           bool isCall) {
+                                           bool isCall,
+                                           OptionType type) {
     underlyingPrice = underlyingPrice;
     strike = strike;
     timeToMaturity = timeToMarity;
@@ -190,6 +191,7 @@ AnalyticPricingEngine::AnalyticPricingEngine(double underlyingPrice,
     interest = interest;
     costOfCarry = costOfCarry;
     isCall = isCall;
+    type = type;
 }
 
 void AnalyticPricingEngine::UnderlyingPrice(double underlyingPrice) {
@@ -212,6 +214,9 @@ void AnalyticPricingEngine::CostOfCarry(double costOfCarry) {
 }
 void AnalyticPricingEngine::Flavor(bool flavor) {
     this->isCall = flavor;
+}
+void AnalyticPricingEngine::Type(OptionType type) {
+    this->type = type;
 }
 double AnalyticPricingEngine::NumericalGreeksBump() {
     return numericalGreeksBump;

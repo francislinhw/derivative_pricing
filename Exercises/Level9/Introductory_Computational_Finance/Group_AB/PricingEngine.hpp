@@ -1,6 +1,7 @@
 #ifndef PRICING_ENGINE_HPP
 #define PRICING_ENGINE_HPP
 #include <string>
+#include <base/OptionType.hpp>
 #include <stdlib.h>
 #include <iostream>
 
@@ -35,6 +36,7 @@ class PricingEngine {
         virtual void Interest(double interest) = 0;
         virtual void CostOfCarry(double costOfCarry) = 0;
         virtual void Flavor(bool isCall) = 0;
+        virtual void Type(OptionType type) = 0;
 };
 
 #endif // SHAPE_HPP

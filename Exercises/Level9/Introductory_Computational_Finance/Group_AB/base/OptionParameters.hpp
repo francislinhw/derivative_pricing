@@ -1,6 +1,8 @@
 // OptionParameters.hpp
 #include <vector>
+#include <base/OptionType.hpp>
 #include <VanillaOption.hpp>
+#include <AnalyticPricingEngine.hpp>
 #ifndef OPTION_PARAMETERS_HPP
 #define OPTION_PARAMETERS_HPP
 
@@ -82,7 +84,8 @@ std::vector<std::vector<double>> computeOptionPricesMatrix(const std::vector<std
                                             params.sig,
                                             params.r,
                                             params.CostOfCarry,
-                                            true);
+                                            true,
+                                            EUROPEAN);
 
             VanillaOption vanillaPutOption(params.S,
                                            params.K,
@@ -90,7 +93,8 @@ std::vector<std::vector<double>> computeOptionPricesMatrix(const std::vector<std
                                            params.sig,
                                            params.r,
                                            params.CostOfCarry,
-                                           false);
+                                           false,
+                                           EUROPEAN);
 
             std::unique_ptr<AnalyticPricingEngine> analyticCallEngine = std::make_unique<AnalyticPricingEngine>();
             std::unique_ptr<AnalyticPricingEngine> analyticPutEngine = std::make_unique<AnalyticPricingEngine>();
@@ -115,7 +119,8 @@ std::pair<std::vector<double>, std::vector<double>>computeOptionPricesVector(con
                                             params.sig,
                                             params.r,
                                             params.CostOfCarry,
-                                            true);
+                                            true,
+                                            EUROPEAN);
 
             VanillaOption vanillaPutOption(params.S,
                                            params.K,
@@ -123,7 +128,8 @@ std::pair<std::vector<double>, std::vector<double>>computeOptionPricesVector(con
                                            params.sig,
                                            params.r,
                                            params.CostOfCarry,
-                                           false);
+                                           false,
+                                           EUROPEAN);
 
             std::unique_ptr<AnalyticPricingEngine> analyticCallEngine = std::make_unique<AnalyticPricingEngine>();
             std::unique_ptr<AnalyticPricingEngine> analyticPutEngine = std::make_unique<AnalyticPricingEngine>();
@@ -142,7 +148,7 @@ std::vector<std::vector<double>> computeGreeksMatrix(const std::vector<std::vect
     for (const auto& paramsRow : paramsMatrix) {
         std::vector<double> greeksRow;
         for (const auto& params : paramsRow) {
-            VanillaOption option(params.S, params.K, params.T, params.sig, params.r, params.CostOfCarry, true);
+            VanillaOption option(params.S, params.K, params.T, params.sig, params.r, params.CostOfCarry, true, EUROPEAN);
             std::unique_ptr<AnalyticPricingEngine> pricingEngine = std::make_unique<AnalyticPricingEngine>();
             option.setPricingEngine(std::move(pricingEngine));
 

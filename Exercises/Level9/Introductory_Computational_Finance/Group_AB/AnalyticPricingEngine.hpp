@@ -1,6 +1,7 @@
 #ifndef ANALYTIC_PRICING_ENGINE_HPP
 #define ANALYTIC_PRICING_ENGINE_HPP
 #include "PricingEngine.hpp"
+#include <base/OptionType.hpp>
 #include <string>
 #include <stdlib.h>
 #include <ctime>
@@ -17,6 +18,7 @@ class AnalyticPricingEngine : public PricingEngine {
         double costOfCarry;
         bool isCall;
         double numericalGreeksBump = 0.00001; // h for numerical greeks
+        OptionType type;
 
     public:
         AnalyticPricingEngine(); // Default constructor
@@ -38,7 +40,8 @@ class AnalyticPricingEngine : public PricingEngine {
                              double volatility,
                              double interest,
                              double costOfCarry,
-                             bool isCall);
+                             bool isCall,
+                             OptionType type);
 
         void UnderlyingPrice(double underlyingPrice);
         void Strike(double strike);
@@ -47,6 +50,7 @@ class AnalyticPricingEngine : public PricingEngine {
         void Interest(double interest);
         void CostOfCarry(double costOfCarry);
         void Flavor(bool flavor);
+        void Type(OptionType type);
         double NumericalGreeksBump();
         void NumericalGreeksBump(double numericalGreeksBump);
 

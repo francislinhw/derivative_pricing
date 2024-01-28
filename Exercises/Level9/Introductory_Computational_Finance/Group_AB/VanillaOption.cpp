@@ -13,14 +13,16 @@ VanillaOption::VanillaOption(double underlyingPrice,
                              double volatility,
                              double interest,
                              double costOfCarry,
-                             bool isCall) :
+                             bool isCall,
+                             OptionType optionType) :
     underlyingPrice(underlyingPrice),
     strike(strike),
     timeToMaturity(timeToMarity),
     volatility(volatility),
     interest(interest),
     costOfCarry(costOfCarry),
-    isCall(isCall) {}
+    isCall(isCall),
+    type(optionType)  {}
 
 VanillaOption::~VanillaOption() {
     // std::cout << "Option Deleted!" << std::endl;
@@ -46,6 +48,10 @@ void VanillaOption::CostOfCarry(double costOfCarry) {
 }
 void VanillaOption::Flavor(bool flavor) {
     VanillaOption::isCall = flavor;
+}
+
+void VanillaOption::Type(OptionType type) {
+    VanillaOption::type = type;
 }
 
 double VanillaOption::UnderlyingPrice() {
@@ -122,6 +128,10 @@ double VanillaOption::NPV() const {
     return engine->NPV();
 }
 
+OptionType VanillaOption::Type() {
+    return type;
+}
+
 void VanillaOption::setPricingEngine(std::unique_ptr<PricingEngine> newEngine) {
     engine = std::move(newEngine); // Set the new pricing engine
     
@@ -132,6 +142,7 @@ void VanillaOption::setPricingEngine(std::unique_ptr<PricingEngine> newEngine) {
     engine->Interest(interest);
     engine->CostOfCarry(costOfCarry);
     engine->Flavor(isCall);
+    engine->Type(type);
 }
 
 

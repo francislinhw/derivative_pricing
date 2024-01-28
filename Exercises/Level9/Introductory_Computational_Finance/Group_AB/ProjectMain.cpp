@@ -1,6 +1,7 @@
 #include <base/OptionParameters.hpp>
 #include <base/PutCallParity.hpp>
 #include <base/Mesh.hpp>
+#include <base/OptionType.hpp>
 #include <VanillaOption.hpp>
 #include <AnalyticPricingEngine.hpp>
 #include <iostream>
@@ -34,7 +35,8 @@ int main() {
                                             optionBatches["Batch 1"].sig,
                                             optionBatches["Batch 1"].r,
                                             optionBatches["Batch 1"].CostOfCarry,
-                                            Call);
+                                            Call,
+                                            EUROPEAN);
 
     VanillaOption batchOnevanillaPutOption(optionBatches["Batch 1"].S,
                                            optionBatches["Batch 1"].K,
@@ -42,7 +44,8 @@ int main() {
                                            optionBatches["Batch 1"].sig,
                                            optionBatches["Batch 1"].r,
                                            optionBatches["Batch 1"].CostOfCarry,
-                                           Put);
+                                           Put,
+                                           EUROPEAN);
 
     VanillaOption batchTwovanillaCallOption(optionBatches["Batch 2"].S,
                                             optionBatches["Batch 2"].K,
@@ -50,7 +53,8 @@ int main() {
                                             optionBatches["Batch 2"].sig,
                                             optionBatches["Batch 2"].r,
                                             optionBatches["Batch 2"].CostOfCarry,
-                                            Call);
+                                            Call,
+                                            EUROPEAN);
 
     VanillaOption batchTwovanillaPutOption(optionBatches["Batch 2"].S,
                                            optionBatches["Batch 2"].K,
@@ -58,7 +62,8 @@ int main() {
                                            optionBatches["Batch 2"].sig,
                                            optionBatches["Batch 2"].r,
                                            optionBatches["Batch 2"].CostOfCarry,
-                                           Put);
+                                           Put,
+                                           EUROPEAN);
 
     VanillaOption batchThreevanillaCallOption(optionBatches["Batch 3"].S,
                                               optionBatches["Batch 3"].K,
@@ -66,7 +71,8 @@ int main() {
                                               optionBatches["Batch 3"].sig,
                                               optionBatches["Batch 3"].r,
                                               optionBatches["Batch 3"].CostOfCarry,
-                                              Call);
+                                              Call,
+                                              EUROPEAN);
 
     VanillaOption batchThreevanillaPutOption(optionBatches["Batch 3"].S,
                                              optionBatches["Batch 3"].K,
@@ -74,7 +80,8 @@ int main() {
                                              optionBatches["Batch 3"].sig,
                                              optionBatches["Batch 3"].r,
                                              optionBatches["Batch 3"].CostOfCarry,
-                                             Put);
+                                             Put,
+                                             EUROPEAN);
 
     VanillaOption batchFourvanillaCallOption(optionBatches["Batch 4"].S,
                                              optionBatches["Batch 4"].K,
@@ -82,7 +89,8 @@ int main() {
                                              optionBatches["Batch 4"].sig,
                                              optionBatches["Batch 4"].r,
                                              optionBatches["Batch 4"].CostOfCarry,
-                                             Call);
+                                             Call,
+                                             EUROPEAN);
 
     VanillaOption batchFourvanillaPutOption(optionBatches["Batch 4"].S,
                                             optionBatches["Batch 4"].K,
@@ -90,7 +98,8 @@ int main() {
                                             optionBatches["Batch 4"].sig,
                                             optionBatches["Batch 4"].r,
                                             optionBatches["Batch 4"].CostOfCarry,
-                                            Put);
+                                            Put,
+                                            EUROPEAN);
 
     std::unique_ptr<AnalyticPricingEngine> batchOnecallPricingEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> batchOneputPricingEngine = std::make_unique<AnalyticPricingEngine>();
@@ -260,7 +269,8 @@ int main() {
                                               0.36,
                                               0.1,
                                               0,
-                                              Call);
+                                              Call,
+                                              EUROPEAN);
 
     VanillaOption greeksTestVanillaPutOption(105,
                                              100,
@@ -268,7 +278,8 @@ int main() {
                                              0.36,
                                              0.1,
                                              0,
-                                             Put);
+                                             Put,
+                                             EUROPEAN);
 
     std::unique_ptr<AnalyticPricingEngine> greeksTestCallPricingEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> greeksTestPutPricingEngine = std::make_unique<AnalyticPricingEngine>();
@@ -300,7 +311,8 @@ int main() {
                                  0.36,
                                  0.1,
                                  0,
-                                 Call);
+                                 Call,
+                                 EUROPEAN);
 
         VanillaOption putOption(S,
                                 100,
@@ -308,7 +320,8 @@ int main() {
                                 0.36,
                                 0.1,
                                 0,
-                                Put);
+                                Put,
+                                EUROPEAN);
 
         // Create a pricing engine and set it to the option
         std::unique_ptr<AnalyticPricingEngine> pricingEngine = std::make_unique<AnalyticPricingEngine>();
