@@ -47,15 +47,33 @@ void VanillaPricingEngine::Print() const {
 double VanillaPricingEngine::delta() const {
     boost::math::normal_distribution<> nd;
     if (isCall) {
-        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+        double d1 = (log(underlyingPrice / strike) + (costOfCarry + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
         return exp((costOfCarry-interest) * timeToMaturity) * cdf(nd, d1);
     } else if (!isCall) {
-        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+        double d1 = (log(underlyingPrice / strike) + (costOfCarry + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
         return exp((costOfCarry-interest) * timeToMaturity) * (cdf(nd, d1) - 1);
     return 0;
     }
 }
 
+double VanillaPricingEngine::numericalDelta() {
+    // Store the original underlying price
+    double originalUnderlyingPrice = underlyingPrice;
+    
+    // Calculate the NPV with a decreased underlying price
+    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice - numericalGreeksBump);
+    double v0 = NPV();
+    
+    // Calculate the NPV with an increased underlying price
+    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice + numericalGreeksBump);
+    double v1 = NPV();
+    
+    // Reset the underlying price to the original value
+    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
+    
+    // Calculate the numerical delta using the central difference method
+    return (v1 - v0) / (2 * numericalGreeksBump);
+}
 double VanillaPricingEngine::deltaForward() const {
     return 0.0;
 }
@@ -64,6 +82,29 @@ double VanillaPricingEngine::gamma() const {
     boost::math::normal_distribution<> nd;
     double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
     return pdf(nd, d1) * exp((costOfCarry-interest) * timeToMaturity) / (underlyingPrice * volatility * sqrt(timeToMaturity));
+}
+
+double VanillaPricingEngine::numericalGamma() {
+    // Store the original underlying price
+    double originalUnderlyingPrice = underlyingPrice;
+    
+    // Calculate the NPV with an increased underlying price
+    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice + numericalGreeksBump);
+    double v_plus_h = NPV();
+    
+    // Calculate the NPV at the original underlying price
+    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
+    double v = NPV();
+    
+    // Calculate the NPV with a decreased underlying price
+    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice - numericalGreeksBump);
+    double v_minus_h = NPV();
+    
+    // Reset the underlying price to the original value
+    VanillaPricingEngine::UnderlyingPrice(originalUnderlyingPrice);
+    
+    // Calculate the numerical gamma using the central difference method
+    return (v_plus_h - 2*v + v_minus_h) / (numericalGreeksBump * numericalGreeksBump);
 }
 
 double VanillaPricingEngine::theta() const {
@@ -171,4 +212,10 @@ void VanillaPricingEngine::CostOfCarry(double costOfCarry) {
 }
 void VanillaPricingEngine::Flavor(bool flavor) {
     this->isCall = flavor;
+}
+double VanillaPricingEngine::NumericalGreeksBump() {
+    return numericalGreeksBump;
+}
+void VanillaPricingEngine::NumericalGreeksBump(double numericalGreeksBump) {
+    this->numericalGreeksBump = numericalGreeksBump;
 }

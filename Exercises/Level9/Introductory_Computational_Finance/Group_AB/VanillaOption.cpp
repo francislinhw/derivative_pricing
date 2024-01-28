@@ -74,12 +74,20 @@ double VanillaOption::delta() const {
     return engine->delta();
 }
 
+double VanillaOption::numericalDelta() {
+    return engine->numericalDelta();
+}
+
 double VanillaOption::deltaForward() const {
     return engine->deltaForward();
 }
 
 double VanillaOption::gamma() const {
     return engine->gamma();
+}
+
+double VanillaOption::numericalGamma() {
+    return engine->numericalGamma();
 }
 
 double VanillaOption::theta() const {

@@ -16,6 +16,7 @@ class VanillaPricingEngine : public PricingEngine {
         double interest;
         double costOfCarry;
         bool isCall;
+        double numericalGreeksBump = 0.00001; // h for numerical greeks
 
     public:
         VanillaPricingEngine(); // Default constructor
@@ -46,14 +47,18 @@ class VanillaPricingEngine : public PricingEngine {
         void Interest(double interest);
         void CostOfCarry(double costOfCarry);
         void Flavor(bool flavor);
+        double NumericalGreeksBump();
+        void NumericalGreeksBump(double numericalGreeksBump);
 
         void Calculate(); // Pure virtual function makes Shape an abstract class
 
         void Print() const; // Template Method
 
         double delta() const;
+        double numericalDelta();
         double deltaForward() const;
         double gamma() const;
+        double numericalGamma();
         double theta() const;
         double thetaPerDay() const;
         double vega() const;

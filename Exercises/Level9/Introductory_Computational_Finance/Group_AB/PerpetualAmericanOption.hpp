@@ -1,6 +1,6 @@
 
-#ifndef VANILLA_OPTION_HPP
-#define VANILLA_OPTION_HPP
+#ifndef PERPETUAL_AMERICAN_OPTION_HPP
+#define PERPETUAL_AMERICAN_OPTION_HPP
 #include "PricingEngine.hpp"
 #include "VanillaPricingEngine.hpp"
 #include <iostream>
@@ -8,7 +8,7 @@
 #include <cmath>
 
 // Define the VanillaOption class
-class VanillaOption {
+class PerpetualAemricanOption {
 public:
     
     std::unique_ptr<PricingEngine> engine;
@@ -21,15 +21,15 @@ public:
     double costOfCarry;
     bool isCall;
 
-    VanillaOption(double underlyingPrice,
-                  double strike,
-                  double timeToMarity,
-                  double volatility,
-                  double interest,
-                  double costOfCarry,
-                  bool isCall);
+    PerpetualAemricanOption(double underlyingPrice,
+                            double strike,
+                            double timeToMarity,
+                            double volatility,
+                            double interest,
+                            double costOfCarry,
+                            bool isCall);
 
-    ~VanillaOption();
+    ~PerpetualAemricanOption();
     void UnderlyingPrice(double underlyingPrice);
     void Strike(double strike);
     void TimeToMaturity(double timeToMaturity);

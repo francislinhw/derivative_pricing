@@ -12,10 +12,10 @@ int main() {
     std::map<std::string, OptionParameters> optionBatches;
 
     // Batch 1 ~ 4
-    optionBatches["Batch 1"] = {0.25, 65, 0.30, 0.08, 60, 0};
-    optionBatches["Batch 2"] = {1.0, 100, 0.2, 0.0, 100, 0};
-    optionBatches["Batch 3"] = {1.0, 10, 0.50, 0.12, 5, 0};
-    optionBatches["Batch 4"] = {30.0, 100.0, 0.30, 0.08, 100.0, 0};
+    optionBatches["Batch 1"] = OptionParameters(60, 65, 0.25, 0.3, 0.08, 0);
+    optionBatches["Batch 2"] = OptionParameters(100, 100, 1.0, 0.2, 0.0, 0);
+    optionBatches["Batch 3"] = OptionParameters(5, 10, 1.0, 0.5, 0.12, 0);
+    optionBatches["Batch 4"] = OptionParameters(50, 100, 30.0, 0.3, 0.08, 0);
 
     bool Call = true;
     bool Put = false;
@@ -246,9 +246,13 @@ int main() {
 
     auto pricesMatrix = computeOptionPricesMatrix(paramsMatrix);
 
-    // a) Implement the above formulae for gamma for call and put future option pricing using the data set: K = 100,
-    // S = 105, T = 0.5, r = 0.1, b = 0 and sig = 0.36. (exact delta call = 0.5946, delta put = -0.3566).
-
+    // a) Implement the above formulae for gamma for call and put future option pricing using the data set:
+    //     K = 100,
+    //     S = 105,
+    //     T = 0.5,
+    //     r = 0.1,
+    //     b = 0 and
+    //     sig = 0.36. (exact delta call = 0.5946, delta put = -0.3566).
 
     VanillaOption greeksTestVanillaCallOption(105,
                                               100,
@@ -274,6 +278,95 @@ int main() {
 
     std::cout << "Call Option Delta: " << greeksTestVanillaCallOption.delta() << std::endl;
     std::cout << "Put Option Delta: " << greeksTestVanillaPutOption.delta() << std::endl;
+
+    // b) We now use the code in part a to compute call delta price for a monotonically increasing range of underlying values of S,
+    // for example 10, 11, 12, ..., 50.
+    // To this end,
+    // the output will be a vector and it entails calling the above formula for a call delta for each value S and each computed option price will be store in a std::vector<double> object.
+    // It will be useful to reuse the above global function that produces a mesh array of double separated by a mesh size h.
+
+    // Create a mesh for the underlying stock prices S
+    std::vector<double> S_mesh = createMesh(80, 120, 1);
+
+    // Vector to store delta values
+    std::vector<double> delta_values;
+
+    // Compute delta for each S value in the mesh
+    for (double S : S_mesh) {
+        // Create a call option with the current S value
+        VanillaOption callOption(S,
+                                 100,
+                                 0.5,
+                                 0.36,
+                                 0.1,
+                                 0,
+                                 Call);
+
+        VanillaOption putOption(S,
+                                100,
+                                0.5,
+                                0.36,
+                                0.1,
+                                0,
+                                Put);
+
+        // Create a pricing engine and set it to the option
+        std::unique_ptr<VanillaPricingEngine> pricingEngine = std::make_unique<VanillaPricingEngine>();
+        callOption.setPricingEngine(std::move(pricingEngine));
+
+        // Compute the delta and add it to the delta_values vector
+        double delta = callOption.delta();
+        delta_values.push_back(delta);
+    }
+
+    // Output the results
+    std::cout << "\nDelta values for call options with S ranging from 80 to 120:\n\n";
+    for (size_t i = 0; i < S_mesh.size(); ++i) {
+        std::cout << "S = " << S_mesh[i] << ", Delta = " << delta_values[i] << "\n";
+    }
+
+    // c) Incorporate this into your above matrix pricer code,
+    // so you can input a matrix of option parameters and receive a matrix of either Delta or Gamma as the result.
+    // Define a matrix of option parameters
+    std::vector<std::vector<OptionParameters>> optionParamsMatrix = {
+        // Row for different S values
+        {OptionParameters(50, 100, 1, 0.2, 0.05, 0), OptionParameters(51, 100, 1, 0.2, 0.05, 0)},
+        // Row for different T values
+        {OptionParameters(50, 100, 0.8, 0.2, 0.05, 0), OptionParameters(50, 100, 1.2, 0.2, 0.05, 0)}
+        // Add more rows as needed
+    };
+
+    // Compute Delta matrix
+    std::vector<std::vector<double>> deltaMatrix = computeGreeksMatrix(optionParamsMatrix, DELTA);
+
+    // Compute Gamma matrix
+    std::vector<std::vector<double>> gammaMatrix = computeGreeksMatrix(optionParamsMatrix, GAMMA);
+
+    // Output the results
+    std::cout << "Delta Matrix:\n";
+    for (const auto& row : deltaMatrix) {
+        for (double value : row) {
+            std::cout << value << " ";
+        }
+        std::cout << "\n";
+    }
+
+    std::cout << "\nGamma Matrix:\n";
+    for (const auto& row : gammaMatrix) {
+        for (double value : row) {
+            std::cout << value << " ";
+        }
+        std::cout << "\n";
+    }
+
+    // d) We now use divided differences to approximate option sensitivities.
+    // In some cases, an exact formula may not exist (or is difficult to find) and we resort to numerical methods.
+    // In general, we can approximate first and second-order derivatives in S by 3-point second order approximations, for example:
+
+    std::cout << "Batch 1 Call Option Numerical Delta: " << batchOnevanillaCallOption.numericalDelta() << std::endl;
+    std::cout << "Batch 1 Call Option Delta: " << batchOnevanillaCallOption.delta() << std::endl;
+    std::cout << "Batch 1 Call Option Numerical Gamma: " << batchOnevanillaCallOption.numericalGamma() << std::endl;
+    std::cout << "Batch 1 Call Option Gamma: " << batchOnevanillaCallOption.gamma() << std::endl;
 
     return 0;
 }

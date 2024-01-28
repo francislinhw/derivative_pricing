@@ -4,6 +4,11 @@
 #ifndef OPTION_PARAMETERS_HPP
 #define OPTION_PARAMETERS_HPP
 
+enum Greek {
+    DELTA,
+    GAMMA
+};
+
 // Define an enumeration for specific string literals
 enum class OptionVariables {
     TimeToMaturity,    // Time to maturity
@@ -130,6 +135,30 @@ std::pair<std::vector<double>, std::vector<double>>computeOptionPricesVector(con
         }
     return std::make_pair(callPricesVector, putPricesVector);
 }
+
+// Function to compute a matrix of Greeks (Delta or Gamma)
+std::vector<std::vector<double>> computeGreeksMatrix(const std::vector<std::vector<OptionParameters>>& paramsMatrix, Greek greekToCompute) {
+    std::vector<std::vector<double>> greeksMatrix;
+    for (const auto& paramsRow : paramsMatrix) {
+        std::vector<double> greeksRow;
+        for (const auto& params : paramsRow) {
+            VanillaOption option(params.S, params.K, params.T, params.sig, params.r, params.CostOfCarry, true);
+            std::unique_ptr<VanillaPricingEngine> pricingEngine = std::make_unique<VanillaPricingEngine>();
+            option.setPricingEngine(std::move(pricingEngine));
+
+            double greekValue = 0.0;
+            if (greekToCompute == DELTA) {
+                greekValue = option.delta();
+            } else if (greekToCompute == GAMMA) {
+                greekValue = option.gamma();
+            }
+            greeksRow.push_back(greekValue);
+        }
+        greeksMatrix.push_back(greeksRow);
+    }
+    return greeksMatrix;
+}
+
     // Notes:
     // // Compute option prices for each S value
     // std::vector<double> callOptPrices;

@@ -15,8 +15,10 @@ class PricingEngine {
         virtual ~PricingEngine() = default;
 
         virtual double delta() const = 0;
+        virtual double numericalDelta() = 0;
         virtual double deltaForward() const = 0;
         virtual double gamma() const = 0;
+        virtual double numericalGamma() = 0;
         virtual double theta() const = 0;
         virtual double thetaPerDay() const = 0;
         virtual double vega() const = 0;
