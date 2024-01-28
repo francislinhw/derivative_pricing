@@ -162,16 +162,41 @@ double AnalyticPricingEngine::itmCashProbability() const {
 }
 
 double AnalyticPricingEngine::NPV() const {
-    if (isCall) {
-        boost::math::normal_distribution<> nd;
-        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
-        double d2 = d1 - volatility * sqrt(timeToMaturity);
-        return underlyingPrice * cdf(nd, d1) - strike * exp(-interest * timeToMaturity) * cdf(nd, d2);
-    } else if (!isCall) {
-        boost::math::normal_distribution<> nd;
-        double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
-        double d2 = d1 - volatility * sqrt(timeToMaturity);
-        return strike * exp(-interest * timeToMaturity) * cdf(nd, -d2) - underlyingPrice * cdf(nd, -d1);
+    if (type == EUROPEAN) {
+        if (isCall) {
+            boost::math::normal_distribution<> nd;
+            double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+            double d2 = d1 - volatility * sqrt(timeToMaturity);
+            return underlyingPrice * cdf(nd, d1) - strike * exp(-interest * timeToMaturity) * cdf(nd, d2);
+        } else if (!isCall) {
+            boost::math::normal_distribution<> nd;
+            double d1 = (log(underlyingPrice / strike) + (interest + volatility * volatility * 0.5) * timeToMaturity) / (volatility * sqrt(timeToMaturity));
+            double d2 = d1 - volatility * sqrt(timeToMaturity);
+            return strike * exp(-interest * timeToMaturity) * cdf(nd, -d2) - underlyingPrice * cdf(nd, -d1);
+        }
+    } else if (type == AMERICAN) {
+        if (isCall) {
+            // a) Program the above formulae, and incorporate into your well-designed options pricing classes.
+            if (std::isinf(timeToMaturity) && timeToMaturity > 0) {
+                double y1;
+                double sigma_squared = volatility * volatility;
+                double discriminant = sqrt((costOfCarry/sigma_squared - 0.5) * (costOfCarry/sigma_squared - 0.5) + 2 * interest / sigma_squared);
+                y1 = 0.5 - (costOfCarry/sigma_squared) + discriminant;
+                return (strike / (y1 - 1)) * pow(((y1 - 1) / y1) * (underlyingPrice / strike), y1);
+            } else {
+                throw std::logic_error("NO ANALYTIC SOLUTION ERROR!");
+            }
+        } else if (!isCall) {
+            if (std::isinf(timeToMaturity) && timeToMaturity > 0) {
+                double y2;
+                double sigma_squared = volatility * volatility;
+                double discriminant = sqrt((costOfCarry/sigma_squared - 0.5) * (costOfCarry/sigma_squared - 0.5) + 2 * interest / sigma_squared);
+                y2 = 0.5 - (costOfCarry/sigma_squared) - discriminant;
+                return (strike / (1 - y2)) * pow(((y2 - 1) / y2) * (underlyingPrice / strike), y2);
+            } else {
+                throw std::logic_error("NO ANALYTIC SOLUTION ERROR!");
+            }
+        }
     }
     return 0;
 }

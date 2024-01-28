@@ -4,8 +4,6 @@
 #include <cmath>
 #include <AnalyticPricingEngine.hpp>
 
-std::unique_ptr<PricingEngine> VanillaOption::engine;
-
 // Define the VanillaOption class
 VanillaOption::VanillaOption(double underlyingPrice,
                              double strike,

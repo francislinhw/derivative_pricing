@@ -12,7 +12,7 @@
 class VanillaOption {
 public:
     
-    static std::unique_ptr<PricingEngine> engine;
+    std::unique_ptr<PricingEngine> engine;
     
     double underlyingPrice;
     double strike;

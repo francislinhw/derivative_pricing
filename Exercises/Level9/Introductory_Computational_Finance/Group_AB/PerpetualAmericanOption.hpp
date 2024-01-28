@@ -10,20 +10,20 @@
 // Define the VanillaOption class
 class PerpetualAemricanOption {
 public:
-    
-    static std::unique_ptr<PricingEngine> engine;
-    
+
+    std::unique_ptr<PricingEngine> engine;
+
     double underlyingPrice;
     double strike;
-    double timeToMaturity;
+    double timeToMaturity = INFINITY;
     double volatility;
     double interest;
     double costOfCarry;
     bool isCall;
+    OptionType type = AMERICAN;
 
     PerpetualAemricanOption(double underlyingPrice,
                             double strike,
-                            double timeToMarity,
                             double volatility,
                             double interest,
                             double costOfCarry,
@@ -32,7 +32,6 @@ public:
     ~PerpetualAemricanOption();
     void UnderlyingPrice(double underlyingPrice);
     void Strike(double strike);
-    void TimeToMaturity(double timeToMaturity);
     void Volatility(double volatility);
     void Interest(double interest);
     void CostOfCarry(double costOfCarry);

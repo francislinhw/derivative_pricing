@@ -3,6 +3,7 @@
 #include <base/Mesh.hpp>
 #include <base/OptionType.hpp>
 #include <VanillaOption.hpp>
+#include <PerpetualAmericanOption.hpp>
 #include <AnalyticPricingEngine.hpp>
 #include <iostream>
 #include <memory>
@@ -380,6 +381,32 @@ int main() {
     std::cout << "Batch 1 Call Option Delta: " << batchOnevanillaCallOption.delta() << std::endl;
     std::cout << "Batch 1 Call Option Numerical Gamma: " << batchOnevanillaCallOption.numericalGamma() << std::endl;
     std::cout << "Batch 1 Call Option Gamma: " << batchOnevanillaCallOption.gamma() << std::endl;
+
+    // a) Program the above formulae, and incorporate into your well-designed options pricing classes.
+    // b) Test the data with K=100,sig=0.1,r=0.1,b=0.02,S=110(checkC=18.5035,P=3.03106).
+
+    PerpetualAemricanOption perpAmericanCallOption(110,
+                                                   100,
+                                                   0.1,
+                                                   0.1,
+                                                   0.02,
+                                                   Call);
+
+    PerpetualAemricanOption perpAmericanPutOption(110,
+                                                  100,
+                                                  0.1,
+                                                  0.1,
+                                                  0.02,
+                                                  Put);
+
+    std::unique_ptr<AnalyticPricingEngine> perpAmericanCallOptionEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> perpAmericanPutOptionEngine = std::make_unique<AnalyticPricingEngine>();
+
+    perpAmericanCallOption.setPricingEngine(std::move(perpAmericanCallOptionEngine));
+    perpAmericanPutOption.setPricingEngine(std::move(perpAmericanPutOptionEngine));
+
+    std::cout << "Perpetual American Option Call Price: " << perpAmericanCallOption.NPV() << std::endl;
+    std::cout << "Perpetual American Option Put Price: " << perpAmericanPutOption.NPV() << std::endl;
 
     return 0;
 }

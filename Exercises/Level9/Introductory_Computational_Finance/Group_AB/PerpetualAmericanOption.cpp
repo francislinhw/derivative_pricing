@@ -4,19 +4,15 @@
 #include <cmath>
 #include <AnalyticPricingEngine.hpp>
 
-std::unique_ptr<PricingEngine> PerpetualAemricanOption::engine = nullptr;
-
 // Define the VanillaOption class
 PerpetualAemricanOption::PerpetualAemricanOption(double underlyingPrice,
-                             double strike,
-                             double timeToMarity,
-                             double volatility,
-                             double interest,
-                             double costOfCarry,
-                             bool isCall) :
+                                                 double strike,
+                                                 double volatility,
+                                                 double interest,
+                                                 double costOfCarry,
+                                                 bool isCall) :
     underlyingPrice(underlyingPrice),
     strike(strike),
-    timeToMaturity(timeToMarity),
     volatility(volatility),
     interest(interest),
     costOfCarry(costOfCarry),
@@ -31,9 +27,6 @@ void PerpetualAemricanOption::UnderlyingPrice(double underlyingPrice) {
 }
 void PerpetualAemricanOption::Strike(double strike) {
     PerpetualAemricanOption::strike = strike;
-}
-void PerpetualAemricanOption::TimeToMaturity(double timeToMaturity) {
-    PerpetualAemricanOption::timeToMaturity = timeToMaturity;
 }
 void PerpetualAemricanOption::Volatility(double volatility) {
     PerpetualAemricanOption::volatility = volatility;
@@ -132,6 +125,7 @@ void PerpetualAemricanOption::setPricingEngine(std::unique_ptr<PricingEngine> ne
     engine->Interest(interest);
     engine->CostOfCarry(costOfCarry);
     engine->Flavor(isCall);
+    engine->Type(type);
 }
 
 
