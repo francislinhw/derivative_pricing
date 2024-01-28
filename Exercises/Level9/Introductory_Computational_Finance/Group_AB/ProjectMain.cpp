@@ -246,5 +246,34 @@ int main() {
 
     auto pricesMatrix = computeOptionPricesMatrix(paramsMatrix);
 
+    // a) Implement the above formulae for gamma for call and put future option pricing using the data set: K = 100,
+    // S = 105, T = 0.5, r = 0.1, b = 0 and sig = 0.36. (exact delta call = 0.5946, delta put = -0.3566).
+
+
+    VanillaOption greeksTestVanillaCallOption(105,
+                                              100,
+                                              0.5,
+                                              0.36,
+                                              0.1,
+                                              0,
+                                              Call);
+
+    VanillaOption greeksTestVanillaPutOption(105,
+                                             100,
+                                             0.5,
+                                             0.36,
+                                             0.1,
+                                             0,
+                                             Put);
+
+    std::unique_ptr<VanillaPricingEngine> greeksTestCallPricingEngine = std::make_unique<VanillaPricingEngine>();
+    std::unique_ptr<VanillaPricingEngine> greeksTestPutPricingEngine = std::make_unique<VanillaPricingEngine>();
+
+    greeksTestVanillaCallOption.setPricingEngine(std::move(greeksTestCallPricingEngine));
+    greeksTestVanillaPutOption.setPricingEngine(std::move(greeksTestPutPricingEngine));
+
+    std::cout << "Call Option Delta: " << greeksTestVanillaCallOption.delta() << std::endl;
+    std::cout << "Put Option Delta: " << greeksTestVanillaPutOption.delta() << std::endl;
+
     return 0;
 }
