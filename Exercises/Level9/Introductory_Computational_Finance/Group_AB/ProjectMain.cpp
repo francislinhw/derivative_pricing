@@ -408,5 +408,50 @@ int main() {
     std::cout << "Perpetual American Option Call Price: " << perpAmericanCallOption.NPV() << std::endl;
     std::cout << "Perpetual American Option Put Price: " << perpAmericanPutOption.NPV() << std::endl;
 
+    // c) We now use the code in part a) to compute call and put option price for a monotonically increasing range of underlying values of S,
+    // for example 10, 11, 12, ..., 50.
+    // To this end, the output will be a vector and this exercise entails calling the option pricing formulae in part a) for each value S and each computed option price will be stored in a std::vector<double> object.
+    // It will be useful to reuse the above global function that produces a mesh array of double separated by a mesh size h.
+
+    // Vector to store delta values
+    std::vector<double> paoCallPriceValues;
+    std::vector<double> paoPutPriceValues;
+
+    // Compute delta for each S value in the mesh
+    for (double S : S_mesh) {
+        // Create a call option with the current S value
+        PerpetualAemricanOption perpAmericanCallOption(S,
+                                                       100,
+                                                       0.1,
+                                                       0.1,
+                                                       0.02,
+                                                       Call);
+
+        PerpetualAemricanOption perpAmericanPutOption(S,
+                                                      100,
+                                                      0.1,
+                                                      0.1,
+                                                      0.02,
+                                                      Put);
+
+        // Create a pricing engine and set it to the option
+        std::unique_ptr<AnalyticPricingEngine> perpCallpricingEngine = std::make_unique<AnalyticPricingEngine>();
+        std::unique_ptr<AnalyticPricingEngine> perpPutpricingEngine = std::make_unique<AnalyticPricingEngine>();
+
+        perpAmericanCallOption.setPricingEngine(std::move(perpCallpricingEngine));
+        perpAmericanPutOption.setPricingEngine(std::move(perpPutpricingEngine));
+
+        // Compute the delta and add it to the delta_values vector
+        paoCallPriceValues.push_back(perpAmericanCallOption.NPV());
+        paoPutPriceValues.push_back(perpAmericanPutOption.NPV());
+    }
+
+    // Output the results
+    std::cout << "\nDelta values for Perpetual American options with S ranging from 80 to 120:\n\n";
+    for (size_t i = 0; i < S_mesh.size(); ++i) {
+        std::cout << "S = " << S_mesh[i] << ", Call Price = " << paoCallPriceValues[i] << "\n";
+        std::cout << "S = " << S_mesh[i] << ", Put Price = " << paoPutPriceValues[i] << "\n";
+    }
+
     return 0;
 }
