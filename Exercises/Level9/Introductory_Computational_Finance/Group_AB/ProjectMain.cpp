@@ -172,16 +172,79 @@ int main() {
     // It will be useful to write a global function that produces a mesh array of doubles separated by a mesh size h.
     // Create mesh array for S values from 10 to 50 with a step of 1
 
-    std::vector<double> S_values = createMesh(10, 50, 1);
+    std::vector<double> underlyingValues = createMesh(10, 50, 1);
 
-    // Compute option prices for each S value
-    std::vector<double> optionPrices = computeOptionPrices(K, T, sig, r, S_values, isCall);
+    std::vector<OptionParameters> meshOptionParameters = createMeshOptionParameters(optionBatches["Batch 1"],
+                                                                                    underlyingValues,
+                                                                                    OptionVariables::UnderlyingPrice);
+
+    std::pair<std::vector<double>, std::vector<double>> prices = computeOptionPricesVector(meshOptionParameters);
+    std::vector<double> callPricesVector = prices.first;
+    std::vector<double> putPricesVector = prices.second;
 
     // Output the results
-    std::cout << "Option Prices:" << std::endl;
-    for (size_t i = 0; i < S_values.size(); ++i) {
-        std::cout << "S = " << S_values[i] << ", Option Price = " << optionPrices[i] << std::endl;
+    std::cout << "\nOption Parameters Analysis:\n" << std::endl;
+    for (size_t i = 0; i < meshOptionParameters.size(); ++i) {
+        std::cout << "S = " << meshOptionParameters[i].S << ", Call Option Price = " << callPricesVector[i] << std::endl;
+        std::cout << "S = " << meshOptionParameters[i].S << ", Put Option Price = " << putPricesVector[i] << std::endl;
     }
+
+    // d) Now we wish to extend part c and compute option prices as a function of 
+    //      i) expiry time, 
+    //      ii) volatility, or 
+    //      iii) any of the option pricing parameters.
+    //
+    // Essentially, the purpose here is to be able to input a matrix (vector of vectors) of option parameters,
+    // and receive a matrix of option prices as the result.
+    // Encapsulate this functionality in the most flexible/robust way you can think of.
+
+    std::vector<double> expiryTimeValues = createMesh(0.2, 1, 0.02);
+    std::vector<double> volatilityValues = createMesh(0.1, 0.5, 0.01);
+    std::vector<double> riskFreeRateValues = createMesh(0.01, 0.05, 0.001);
+
+    std::vector<OptionParameters> meshExpiryOptionParameters = createMeshOptionParameters(optionBatches["Batch 1"],
+                                                                                          expiryTimeValues,
+                                                                                          OptionVariables::TimeToMaturity);
+
+    std::vector<OptionParameters> meshVolatilityOptionParameters = createMeshOptionParameters(optionBatches["Batch 1"],
+                                                                                              volatilityValues,
+                                                                                              OptionVariables::Volatility);
+
+    std::vector<OptionParameters> meshRFROptionParameters = createMeshOptionParameters(optionBatches["Batch 1"],
+                                                                                       riskFreeRateValues,
+                                                                                       OptionVariables::RiskFreeRate);
+
+    std::pair<std::vector<double>, std::vector<double>> expiryMovedprices = computeOptionPricesVector(meshExpiryOptionParameters);
+    std::vector<double> expCallPricesVector = expiryMovedprices.first;
+    std::vector<double> expPutPricesVector = expiryMovedprices.second;
+
+    std::pair<std::vector<double>, std::vector<double>> volatilityMovedprices = computeOptionPricesVector(meshVolatilityOptionParameters);
+    std::vector<double> volCallPricesVector = volatilityMovedprices.first;
+    std::vector<double> volPutPricesVector = volatilityMovedprices.second;
+
+    std::pair<std::vector<double>, std::vector<double>> rfrMovedprices = computeOptionPricesVector(meshRFROptionParameters);
+    std::vector<double> rfrCallPricesVector = rfrMovedprices.first;
+    std::vector<double> rfrPutPricesVector = rfrMovedprices.second;
+
+    // Output the results
+    std::cout << "\nOption Parameters Analysis:\n" << std::endl;
+    for (size_t i = 0; i < meshOptionParameters.size(); ++i) {
+        std::cout << "S = " << meshOptionParameters[i].S << ", Call Option Price = " << callPricesVector[i] << std::endl;
+        std::cout << "S = " << meshOptionParameters[i].S << ", Put Option Price = " << putPricesVector[i] << std::endl;
+        std::cout << "T = " << meshExpiryOptionParameters[i].T << ", Call Option Price = " << expCallPricesVector[i] << std::endl;
+        std::cout << "T = " << meshExpiryOptionParameters[i].T << ", Put Option Price = " << expPutPricesVector[i] << std::endl;
+        std::cout << "Sig = " << meshVolatilityOptionParameters[i].sig << ", Call Option Price = " << volCallPricesVector[i] << std::endl;
+        std::cout << "Sig = " << meshVolatilityOptionParameters[i].sig << ", Put Option Price = " << volPutPricesVector[i] << std::endl;
+        std::cout << "r = " << meshRFROptionParameters[i].r << ", Call Option Price = " << rfrCallPricesVector[i] << std::endl;
+        std::cout << "r = " << meshRFROptionParameters[i].r << ", Put Option Price = " << rfrPutPricesVector[i] << std::endl;
+    }
+
+    std::vector<std::vector<OptionParameters>> paramsMatrix = {
+        {OptionParameters(50, 100, 1.0, 0.2, 0.05, 0), OptionParameters(51, 100, 1.0, 0.2, 0.05, 0)},
+        {OptionParameters(50, 100, 1.0, 0.25, 0.05, 0), OptionParameters(51, 100, 1.0, 0.25, 0.05, 0)}
+    };
+
+    auto pricesMatrix = computeOptionPricesMatrix(paramsMatrix);
 
     return 0;
 }
