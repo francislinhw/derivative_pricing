@@ -3,25 +3,24 @@
 #include <vector>
 #include <cmath>
 #include <numeric>
-#include <iostream>
 
 template <typename T>
-double calculateStandardDeviation(const std::vector<T>& callPrices, double r, double T) {
+double calculateStandardDeviation(const std::vector<T>& callPrices, double r, double timeToMaturity) {
     size_t M = callPrices.size();
-    T mean = std::accumulate(callPrices.begin(), callPrices.end(), T(0)) / static_cast<T>(M);
-    T sumOfSquares = std::accumulate(callPrices.begin(), callPrices.end(), T(0), 
+    T mean = std::accumulate(callPrices.begin(), callPrices.end(), 0.0) / M;
+    T sumOfSquares = std::accumulate(callPrices.begin(), callPrices.end(), 0.0, 
                                      [mean](T accumulator, T value) {
                                          return accumulator + (value - mean) * (value - mean);
                                      });
-    double variance = (sumOfSquares - (mean * mean * static_cast<T>(M))) / static_cast<T>(M - 1);
-    return std::sqrt(variance) * std::exp(-r * T);
+    double variance = (sumOfSquares - mean * mean * M) / (M - 1);
+    return std::sqrt(variance) * std::exp(-r * timeToMaturity);
 }
 
 template <typename T>
-double calculateStandardError(const std::vector<T>& callPrices, double r, double T) {
-    double sd = calculateStandardDeviation(callPrices, r, T);
+double calculateStandardError(const std::vector<T>& callPrices, double r, double timeToMaturity) {
+    double sd = calculateStandardDeviation(callPrices, r, timeToMaturity);
     size_t M = callPrices.size();
-    return sd / std::sqrt(static_cast<T>(M));
+    return sd / std::sqrt(M);
 }
 
 /*

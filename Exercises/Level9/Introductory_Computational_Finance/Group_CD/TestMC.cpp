@@ -102,7 +102,6 @@ int main()
 	double batchFourVNew;
 
 	std::vector<double> x = range.mesh(N);
-	std::vector<double> x = batchFourRange.mesh(N);
 	
 	// V2 mediator stuff
 	long NSim = 50000;
