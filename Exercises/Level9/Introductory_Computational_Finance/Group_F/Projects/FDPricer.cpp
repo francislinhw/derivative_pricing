@@ -2,7 +2,7 @@
 //
 // Testing 1 factor BS model.
 //
-// (C) Datasim Education BV 2005-2011
+// Francis's Homework Nine
 //
 
 #include "FdmDirector.hpp"
