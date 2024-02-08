@@ -51,6 +51,10 @@
 		rename("ReplaceText", "ReplaceTextXL") \
 		rename("CopyFile", "CopyFileXL") no_dual_interfaces
 
+//#import "C:\Program Files\Microsoft Office\root\vfs\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\MSO.DLL" rename("DocumentProperties", "DocumentPropertiesXL") rename("RGB", "RGBXL")
+//#import "C:\Program Files\Microsoft Office\root\vfs\ProgramFilesCommonX86\Microsoft Shared\VBA\VBA6\VBE6EXT.OLB"
+//#import "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE" rename("DialogBox", "DialogBoxXL") rename("RGB", "RGBXL") rename("DocumentProperties", "DocumentPropertiesXL") rename("ReplaceText", "ReplaceTextXL") rename("CopyFile", "CopyFileXL") no_dual_interfaces
+
 /*
 #import "C:\Program Files (x86)\Common Files\Microsoft Shared\office14\mso.dll" 
 #import "C:\Program Files (x86)\Common Files\Microsoft Shared\VBA\VBA6\vbe6ext.olb"
