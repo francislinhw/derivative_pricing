@@ -51,7 +51,7 @@ class AnalyticPricingEngine : public PricingEngine {
         void CostOfCarry(double costOfCarry);
         void Flavor(bool flavor);
         void Type(OptionType type);
-        double NumericalGreeksBump();
+        double NumericalGreeksBump() const;
         void NumericalGreeksBump(double numericalGreeksBump);
 
         void Calculate(); // Pure virtual function makes Shape an abstract class

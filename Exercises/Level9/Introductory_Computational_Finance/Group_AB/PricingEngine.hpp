@@ -28,6 +28,8 @@ class PricingEngine {
         virtual double strikeSensitivity() const = 0;
         virtual double itmCashProbability() const = 0;
         virtual double NPV() const = 0;
+        virtual double NumericalGreeksBump() const = 0;
+        virtual void NumericalGreeksBump(double numericalGreeksBump) = 0;
 
         virtual void UnderlyingPrice(double underlyingPrice) = 0;
         virtual void Strike(double strike) = 0;

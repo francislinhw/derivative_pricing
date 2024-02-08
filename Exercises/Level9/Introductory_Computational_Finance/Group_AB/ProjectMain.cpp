@@ -14,10 +14,10 @@ int main() {
     std::map<std::string, OptionParameters> optionBatches;
 
     // Batch 1 ~ 4
-    optionBatches["Batch 1"] = OptionParameters(60, 65, 0.25, 0.3, 0.08, 0);
-    optionBatches["Batch 2"] = OptionParameters(100, 100, 1.0, 0.2, 0.0, 0);
-    optionBatches["Batch 3"] = OptionParameters(5, 10, 1.0, 0.5, 0.12, 0);
-    optionBatches["Batch 4"] = OptionParameters(50, 100, 30.0, 0.3, 0.08, 0);
+    optionBatches["Batch 1"] = OptionParameters(60, 65, 0.25, 0.3, 0.08, 0, EUROPEAN);
+    optionBatches["Batch 2"] = OptionParameters(100, 100, 1.0, 0.2, 0.0, 0, EUROPEAN);
+    optionBatches["Batch 3"] = OptionParameters(5, 10, 1.0, 0.5, 0.12, 0, EUROPEAN);
+    optionBatches["Batch 4"] = OptionParameters(100, 100, 30.0, 0.3, 0.08, 0, EUROPEAN);
 
     bool Call = true;
     bool Put = false;
@@ -27,7 +27,7 @@ int main() {
     double batchThreecallOptionPrice, batchThreeputOptionPrice;
     double batchFourcallOptionPrice, batchFourputOptionPrice;
 
-    // a) Implement the above formulae for call and put option pricing using the data sets Batch 1 to Batch 4. Check
+    // A-a) Implement the above formulae for call and put option pricing using the data sets Batch 1 to Batch 4. Check
     // your answers, as you will need them when we discuss numerical methods for option pricing.
 
     VanillaOption batchOnevanillaCallOption(optionBatches["Batch 1"].S,
@@ -102,6 +102,7 @@ int main() {
                                             Put,
                                             EUROPEAN);
 
+    // Create Analytical Pricing Engines for options
     std::unique_ptr<AnalyticPricingEngine> batchOnecallPricingEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> batchOneputPricingEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> batchTwocallPricingEngine = std::make_unique<AnalyticPricingEngine>();
@@ -111,7 +112,7 @@ int main() {
     std::unique_ptr<AnalyticPricingEngine> batchFourcallPricingEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> batchFourputPricingEngine = std::make_unique<AnalyticPricingEngine>();
 
-
+    // Set the Pricing Engines to the corresponding Options
     batchOnevanillaCallOption.setPricingEngine(std::move(batchOnecallPricingEngine));
     batchOnevanillaPutOption.setPricingEngine(std::move(batchOneputPricingEngine));
     batchTwovanillaCallOption.setPricingEngine(std::move(batchTwocallPricingEngine));
@@ -121,6 +122,7 @@ int main() {
     batchFourvanillaCallOption.setPricingEngine(std::move(batchFourcallPricingEngine));
     batchFourvanillaPutOption.setPricingEngine(std::move(batchFourputPricingEngine));
 
+    // Get the Net Present Value (NPV) of Option by the calculation of Analytic Solution
     batchOnecallOptionPrice = batchOnevanillaCallOption.NPV();
     batchOneputOptionPrice = batchOnevanillaPutOption.NPV();
     batchTwocallOptionPrice = batchTwovanillaCallOption.NPV();
@@ -139,7 +141,7 @@ int main() {
     std::cout << "Batch 4 Call Option Price: " << batchFourcallOptionPrice << std::endl;
     std::cout << "Batch 4 Put Option Price: " << batchFourputOptionPrice << std::endl;
 
-    // b) Applytheput-callparityrelationshiptocomputecallandputoptionprices.Forexample,giventhecallprice,
+    // A-b) Applytheput-callparityrelationshiptocomputecallandputoptionprices.Forexample,giventhecallprice,
     // compute the put price based on this formula using Batches 1 to 4.
     // Check your answers with the prices from part a).
     // Note that there are two useful ways to implement parity:
@@ -169,14 +171,17 @@ int main() {
         double callPrice = callPrices[batchName];
         double computedPutPrice = calculatePutPrice(params, callPrice);
         double actualPutPrice = putPrices[batchName];
+        double computedCallPrice = calculateCallPrice(params, actualPutPrice);
 
+        std::cout << "Computed Call Price for " << batchName << ": " << computedCallPrice << std::endl;
+        std::cout << "Actual Call Price for " << batchName << ": " << callPrice << std::endl;
         std::cout << "Computed Put Price for " << batchName << ": " << computedPutPrice << std::endl;
         std::cout << "Actual Put Price for " << batchName << ": " << actualPutPrice << std::endl;
         std::cout << "Put-Call Parity Satisfied: " << (isParitySatisfied(params, callPrice, actualPutPrice) ? "Yes" : "No") << std::endl;
         std::cout << std::endl;
     }
 
-    // c) Say we wish to compute option prices for a monotonically increasing range of underlying values of S,
+    // A-c) Say we wish to compute option prices for a monotonically increasing range of underlying values of S,
     // for example 10, 11, 12, ..., 50. To this end, the output will be a vector.
     // This entails calling the option pricing formulae for each value S and each computed option price will be stored in a std::vector<double> object.
     // It will be useful to write a global function that produces a mesh array of doubles separated by a mesh size h.
@@ -199,7 +204,7 @@ int main() {
         std::cout << "S = " << meshOptionParameters[i].S << ", Put Option Price = " << putPricesVector[i] << std::endl;
     }
 
-    // d) Now we wish to extend part c and compute option prices as a function of 
+    // A-d) Now we wish to extend part c and compute option prices as a function of 
     //      i) expiry time, 
     //      ii) volatility, or 
     //      iii) any of the option pricing parameters.
@@ -250,13 +255,13 @@ int main() {
     }
 
     std::vector<std::vector<OptionParameters>> paramsMatrix = {
-        {OptionParameters(50, 100, 1.0, 0.2, 0.05, 0), OptionParameters(51, 100, 1.0, 0.2, 0.05, 0)},
-        {OptionParameters(50, 100, 1.0, 0.25, 0.05, 0), OptionParameters(51, 100, 1.0, 0.25, 0.05, 0)}
+        {OptionParameters(50, 100, 1.0, 0.2, 0.05, 0, EUROPEAN), OptionParameters(51, 100, 1.0, 0.2, 0.05, 0, EUROPEAN)},
+        {OptionParameters(50, 100, 1.0, 0.25, 0.05, 0, EUROPEAN), OptionParameters(51, 100, 1.0, 0.25, 0.05, 0, EUROPEAN)}
     };
 
     auto pricesMatrix = computeOptionPricesMatrix(paramsMatrix);
 
-    // a) Implement the above formulae for gamma for call and put future option pricing using the data set:
+    // A-a) Implement the above formulae for gamma for call and put future option pricing using the data set:
     //     K = 100,
     //     S = 105,
     //     T = 0.5,
@@ -291,7 +296,7 @@ int main() {
     std::cout << "Call Option Delta: " << greeksTestVanillaCallOption.delta() << std::endl;
     std::cout << "Put Option Delta: " << greeksTestVanillaPutOption.delta() << std::endl;
 
-    // b) We now use the code in part a to compute call delta price for a monotonically increasing range of underlying values of S,
+    // A-b) We now use the code in part a to compute call delta price for a monotonically increasing range of underlying values of S,
     // for example 10, 11, 12, ..., 50.
     // To this end,
     // the output will be a vector and it entails calling the above formula for a call delta for each value S and each computed option price will be store in a std::vector<double> object.
@@ -334,19 +339,19 @@ int main() {
     }
 
     // Output the results
-    std::cout << "\nDelta values for call options with S ranging from 80 to 120:\n\n";
+    std::cout << "\nDelta values for call options with S ranging from 10 to 50:\n\n";
     for (size_t i = 0; i < S_mesh.size(); ++i) {
         std::cout << "S = " << S_mesh[i] << ", Delta = " << delta_values[i] << "\n";
     }
 
-    // c) Incorporate this into your above matrix pricer code,
+    // A-c) Incorporate this into your above matrix pricer code,
     // so you can input a matrix of option parameters and receive a matrix of either Delta or Gamma as the result.
     // Define a matrix of option parameters
     std::vector<std::vector<OptionParameters>> optionParamsMatrix = {
         // Row for different S values
-        {OptionParameters(50, 100, 1, 0.2, 0.05, 0), OptionParameters(51, 100, 1, 0.2, 0.05, 0)},
+        {OptionParameters(50, 100, 1, 0.2, 0.05, 0, EUROPEAN), OptionParameters(51, 100, 1, 0.2, 0.05, 0, EUROPEAN)},
         // Row for different T values
-        {OptionParameters(50, 100, 0.8, 0.2, 0.05, 0), OptionParameters(50, 100, 1.2, 0.2, 0.05, 0)}
+        {OptionParameters(50, 100, 0.8, 0.2, 0.05, 0, EUROPEAN), OptionParameters(50, 100, 1.2, 0.2, 0.05, 0, EUROPEAN)}
         // Add more rows as needed
     };
 
@@ -373,17 +378,20 @@ int main() {
         std::cout << "\n";
     }
 
-    // d) We now use divided differences to approximate option sensitivities.
+    // A-d) We now use divided differences to approximate option sensitivities.
     // In some cases, an exact formula may not exist (or is difficult to find) and we resort to numerical methods.
     // In general, we can approximate first and second-order derivatives in S by 3-point second order approximations, for example:
 
-    std::cout << "Batch 1 Call Option Numerical Delta: " << batchOnevanillaCallOption.numericalDelta() << std::endl;
-    std::cout << "Batch 1 Call Option Delta: " << batchOnevanillaCallOption.delta() << std::endl;
-    std::cout << "Batch 1 Call Option Numerical Gamma: " << batchOnevanillaCallOption.numericalGamma() << std::endl;
-    std::cout << "Batch 1 Call Option Gamma: " << batchOnevanillaCallOption.gamma() << std::endl;
+    // double h = 0.00005; // User can also set h manually.
+    // batchOnevanillaCallOption.engine->NumericalGreeksBump(h);
+    std::cout << "\nParameter h: " << greeksTestVanillaCallOption.engine->NumericalGreeksBump() << std::endl;
+    std::cout << "Batch 1 Call Option Numerical Delta: " << greeksTestVanillaCallOption.numericalDelta() << std::endl;
+    std::cout << "Batch 1 Call Option Delta: " << greeksTestVanillaCallOption.delta() << std::endl;
+    std::cout << "Batch 1 Call Option Numerical Gamma: " << greeksTestVanillaCallOption.numericalGamma() << std::endl;
+    std::cout << "Batch 1 Call Option Gamma: " << greeksTestVanillaCallOption.gamma() << std::endl;
 
-    // a) Program the above formulae, and incorporate into your well-designed options pricing classes.
-    // b) Test the data with K=100,sig=0.1,r=0.1,b=0.02,S=110(checkC=18.5035,P=3.03106).
+    // B-a) Program the above formulae, and incorporate into your well-designed options pricing classes. (In my analytical engine)
+    // B-b) Test the data with K=100,sig=0.1,r=0.1,b=0.02,S=110(checkC=18.5035,P=3.03106).
 
     PerpetualAemricanOption perpAmericanCallOption(110,
                                                    100,
@@ -408,7 +416,7 @@ int main() {
     std::cout << "Perpetual American Option Call Price: " << perpAmericanCallOption.NPV() << std::endl;
     std::cout << "Perpetual American Option Put Price: " << perpAmericanPutOption.NPV() << std::endl;
 
-    // c) We now use the code in part a) to compute call and put option price for a monotonically increasing range of underlying values of S,
+    // B-c) We now use the code in part a) to compute call and put option price for a monotonically increasing range of underlying values of S,
     // for example 10, 11, 12, ..., 50.
     // To this end, the output will be a vector and this exercise entails calling the option pricing formulae in part a) for each value S and each computed option price will be stored in a std::vector<double> object.
     // It will be useful to reuse the above global function that produces a mesh array of double separated by a mesh size h.
@@ -451,6 +459,32 @@ int main() {
     for (size_t i = 0; i < S_mesh.size(); ++i) {
         std::cout << "S = " << S_mesh[i] << ", Call Price = " << paoCallPriceValues[i] << "\n";
         std::cout << "S = " << S_mesh[i] << ", Put Price = " << paoPutPriceValues[i] << "\n";
+    }
+
+    // B-d) Incorporate this into your above matrix pricer code,
+    // so you can input a matrix of option parameters and receive a matrix of Perpetual American option prices.
+
+    std::vector<std::vector<OptionParameters>> perpAmericanOptionParamsMatrix = {
+        // Row for different S values
+        {OptionParameters(50, 100, INFINITY, 0.2, 0.05, 0, AMERICAN), OptionParameters(51, 100, INFINITY, 0.2, 0.05, 0, AMERICAN)},
+        // Row for different T values
+        {OptionParameters(50, 100, INFINITY, 0.2, 0.05, 0, AMERICAN), OptionParameters(50, 100, INFINITY, 0.2, 0.05, 0, AMERICAN)}
+        // Add more rows as needed
+    };
+
+    // Compute Delta matrix
+    std::vector<std::vector<double>> perpAmericanDeltaMatrix = computeOptionPricesMatrix(perpAmericanOptionParamsMatrix);
+
+    // Compute Gamma matrix
+    std::vector<std::vector<double>> perpAmericangammaMatrix = computeOptionPricesMatrix(perpAmericanOptionParamsMatrix);
+
+    // Output the results
+    std::cout << "Price Matrix:\n";
+    for (const auto& row : perpAmericanDeltaMatrix) {
+        for (double value : row) {
+            std::cout << value << " ";
+        }
+        std::cout << "\n";
     }
 
     return 0;

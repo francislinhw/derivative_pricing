@@ -13,6 +13,7 @@ VanillaOption::VanillaOption(double underlyingPrice,
                              double costOfCarry,
                              bool isCall,
                              OptionType optionType) :
+    Option(),
     underlyingPrice(underlyingPrice),
     strike(strike),
     timeToMaturity(timeToMarity),

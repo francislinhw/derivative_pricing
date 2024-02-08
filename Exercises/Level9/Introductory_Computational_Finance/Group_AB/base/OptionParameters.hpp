@@ -2,7 +2,9 @@
 #include <vector>
 #include <base/OptionType.hpp>
 #include <VanillaOption.hpp>
+#include <PerpetualAmericanOption.hpp>
 #include <AnalyticPricingEngine.hpp>
+#include <Option.hpp>
 #ifndef OPTION_PARAMETERS_HPP
 #define OPTION_PARAMETERS_HPP
 
@@ -28,12 +30,13 @@ struct OptionParameters {
     double r;    // Risk-free interest rate
     double S;    // Underlying asset price
     double CostOfCarry;    // Underlying asset price
+    OptionType Type;     // European / American
 
     // Default constructor
-    OptionParameters() : S(0), K(0), T(0), sig(0), r(0), CostOfCarry(0) {}
+    OptionParameters() : S(0), K(0), T(0), sig(0), r(0), CostOfCarry(0), Type(EUROPEAN) {}
 
-    OptionParameters(double S, double K, double T, double sig, double r, double b)
-        : S(S), K(K), T(T), sig(sig), r(r), CostOfCarry(b) {}
+    OptionParameters(double S, double K, double T, double sig, double r, double b, OptionType Type)
+        : S(S), K(K), T(T), sig(sig), r(r), CostOfCarry(b), Type(Type) {}
 };
 
 // Function to compute option prices for a range of S values
@@ -78,31 +81,49 @@ std::vector<std::vector<double>> computeOptionPricesMatrix(const std::vector<std
     for (const auto& paramsRow : paramsMatrix) {
         std::vector<double> pricesRow;
         for (const auto& params : paramsRow) {
-            VanillaOption vanillaCallOption(params.S,
-                                            params.K,
-                                            params.T,
-                                            params.sig,
-                                            params.r,
-                                            params.CostOfCarry,
-                                            true,
-                                            EUROPEAN);
+            std::unique_ptr<Option> callOption;
+            std::unique_ptr<Option> putOption;
+            if (params.Type == EUROPEAN) {
+                callOption = std::make_unique<VanillaOption>(params.S,
+                                                             params.K,
+                                                             params.T,
+                                                             params.sig,
+                                                             params.r,
+                                                             params.CostOfCarry,
+                                                             true,
+                                                             EUROPEAN);
 
-            VanillaOption vanillaPutOption(params.S,
-                                           params.K,
-                                           params.T,
-                                           params.sig,
-                                           params.r,
-                                           params.CostOfCarry,
-                                           false,
-                                           EUROPEAN);
+                putOption = std::make_unique<VanillaOption>(params.S,
+                                                            params.K,
+                                                            params.T,
+                                                            params.sig,
+                                                            params.r,
+                                                            params.CostOfCarry,
+                                                            false,
+                                                            EUROPEAN);
+            } else { // We only have two types of options for now
+                callOption = std::make_unique<PerpetualAemricanOption>(params.S,
+                                                                       params.K,
+                                                                       params.sig,
+                                                                       params.r,
+                                                                       params.CostOfCarry,
+                                                                       true);
+
+                putOption = std::make_unique<PerpetualAemricanOption>(params.S,
+                                                                      params.K,
+                                                                      params.sig,
+                                                                      params.r,
+                                                                      params.CostOfCarry,
+                                                                      false);
+            }
 
             std::unique_ptr<AnalyticPricingEngine> analyticCallEngine = std::make_unique<AnalyticPricingEngine>();
             std::unique_ptr<AnalyticPricingEngine> analyticPutEngine = std::make_unique<AnalyticPricingEngine>();
-            vanillaCallOption.setPricingEngine(std::move(analyticCallEngine));
-            vanillaPutOption.setPricingEngine(std::move(analyticPutEngine));
+            callOption->setPricingEngine(std::move(analyticCallEngine));
+            putOption->setPricingEngine(std::move(analyticPutEngine));
 
-            pricesRow.push_back(vanillaCallOption.NPV());
-            pricesRow.push_back(vanillaPutOption.NPV());
+            pricesRow.push_back(callOption->NPV());
+            pricesRow.push_back(putOption->NPV());
         }
         pricesMatrix.push_back(pricesRow);
     }
@@ -113,31 +134,49 @@ std::pair<std::vector<double>, std::vector<double>>computeOptionPricesVector(con
     std::vector<double> callPricesVector;
     std::vector<double> putPricesVector;
         for (const auto& params : paramsVector) {
-            VanillaOption vanillaCallOption(params.S,
-                                            params.K,
-                                            params.T,
-                                            params.sig,
-                                            params.r,
-                                            params.CostOfCarry,
-                                            true,
-                                            EUROPEAN);
+            std::unique_ptr<Option> callOption;
+            std::unique_ptr<Option> putOption;
+            if (params.Type == EUROPEAN) {
+                callOption = std::make_unique<VanillaOption>(params.S,
+                                                             params.K,
+                                                             params.T,
+                                                             params.sig,
+                                                             params.r,
+                                                             params.CostOfCarry,
+                                                             true,
+                                                             EUROPEAN);
 
-            VanillaOption vanillaPutOption(params.S,
-                                           params.K,
-                                           params.T,
-                                           params.sig,
-                                           params.r,
-                                           params.CostOfCarry,
-                                           false,
-                                           EUROPEAN);
+                putOption = std::make_unique<VanillaOption>(params.S,
+                                                            params.K,
+                                                            params.T,
+                                                            params.sig,
+                                                            params.r,
+                                                            params.CostOfCarry,
+                                                            false,
+                                                            EUROPEAN);
+            } else { // We only have two types of options for now
+                callOption = std::make_unique<PerpetualAemricanOption>(params.S,
+                                                                       params.K,
+                                                                       params.sig,
+                                                                       params.r,
+                                                                       params.CostOfCarry,
+                                                                       true);
+
+                putOption = std::make_unique<PerpetualAemricanOption>(params.S,
+                                                                      params.K,
+                                                                      params.sig,
+                                                                      params.r,
+                                                                      params.CostOfCarry,
+                                                                      false);
+            }
 
             std::unique_ptr<AnalyticPricingEngine> analyticCallEngine = std::make_unique<AnalyticPricingEngine>();
             std::unique_ptr<AnalyticPricingEngine> analyticPutEngine = std::make_unique<AnalyticPricingEngine>();
-            vanillaCallOption.setPricingEngine(std::move(analyticCallEngine));
-            vanillaPutOption.setPricingEngine(std::move(analyticPutEngine));
+            callOption->setPricingEngine(std::move(analyticCallEngine));
+            putOption->setPricingEngine(std::move(analyticPutEngine));
 
-            callPricesVector.push_back(vanillaCallOption.NPV());
-            putPricesVector.push_back(vanillaPutOption.NPV());
+            callPricesVector.push_back(callOption->NPV());
+            putPricesVector.push_back(putOption->NPV());
         }
     return std::make_pair(callPricesVector, putPricesVector);
 }
@@ -148,15 +187,20 @@ std::vector<std::vector<double>> computeGreeksMatrix(const std::vector<std::vect
     for (const auto& paramsRow : paramsMatrix) {
         std::vector<double> greeksRow;
         for (const auto& params : paramsRow) {
-            VanillaOption option(params.S, params.K, params.T, params.sig, params.r, params.CostOfCarry, true, EUROPEAN);
+            std::unique_ptr<Option> option;
+            if (params.Type == EUROPEAN) {
+                option = std::make_unique<VanillaOption>(params.S, params.K, params.T, params.sig, params.r, params.CostOfCarry, true, EUROPEAN);
+            } else {
+                option = std::make_unique<PerpetualAemricanOption>(params.S, params.K, params.sig, params.r, params.CostOfCarry, true);
+            }
             std::unique_ptr<AnalyticPricingEngine> pricingEngine = std::make_unique<AnalyticPricingEngine>();
-            option.setPricingEngine(std::move(pricingEngine));
+            option->setPricingEngine(std::move(pricingEngine));
 
             double greekValue = 0.0;
             if (greekToCompute == DELTA) {
-                greekValue = option.delta();
+                greekValue = option->delta();
             } else if (greekToCompute == GAMMA) {
-                greekValue = option.gamma();
+                greekValue = option->gamma();
             }
             greeksRow.push_back(greekValue);
         }

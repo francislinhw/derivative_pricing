@@ -1,4 +1,5 @@
 #include <PricingEngine.hpp>
+#include <Option.hpp>
 #include <PerpetualAmericanOption.hpp>
 #include <iostream>
 #include <cmath>
@@ -11,6 +12,7 @@ PerpetualAemricanOption::PerpetualAemricanOption(double underlyingPrice,
                                                  double interest,
                                                  double costOfCarry,
                                                  bool isCall) :
+    Option(),
     underlyingPrice(underlyingPrice),
     strike(strike),
     volatility(volatility),
@@ -129,13 +131,13 @@ void PerpetualAemricanOption::setPricingEngine(std::unique_ptr<PricingEngine> ne
 }
 
 
-void PerpetualAemricanOption::setPricingEngine(AnalyticPricingEngine& engine) {
-    engine.UnderlyingPrice(underlyingPrice);
-    engine.Strike(strike);
-    engine.TimeToMaturity(timeToMaturity);
-    engine.Volatility(volatility);
-    engine.Interest(interest);
-    engine.CostOfCarry(costOfCarry);
-    engine.Flavor(isCall);
-    engine = engine;
-}
+// void PerpetualAemricanOption::setPricingEngine(AnalyticPricingEngine& engine) {
+//     engine.UnderlyingPrice(underlyingPrice);
+//     engine.Strike(strike);
+//     engine.TimeToMaturity(timeToMaturity);
+//     engine.Volatility(volatility);
+//     engine.Interest(interest);
+//     engine.CostOfCarry(costOfCarry);
+//     engine.Flavor(isCall);
+//     engine = engine;
+// }

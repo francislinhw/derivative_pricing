@@ -176,7 +176,7 @@ double AnalyticPricingEngine::NPV() const {
         }
     } else if (type == AMERICAN) {
         if (isCall) {
-            // a) Program the above formulae, and incorporate into your well-designed options pricing classes.
+            // B-a) Program the above formulae, and incorporate into your well-designed options pricing classes.
             if (std::isinf(timeToMaturity) && timeToMaturity > 0) {
                 double y1;
                 double sigma_squared = volatility * volatility;
@@ -243,7 +243,7 @@ void AnalyticPricingEngine::Flavor(bool flavor) {
 void AnalyticPricingEngine::Type(OptionType type) {
     this->type = type;
 }
-double AnalyticPricingEngine::NumericalGreeksBump() {
+double AnalyticPricingEngine::NumericalGreeksBump() const {
     return numericalGreeksBump;
 }
 void AnalyticPricingEngine::NumericalGreeksBump(double numericalGreeksBump) {

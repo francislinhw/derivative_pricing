@@ -1,6 +1,7 @@
 
 #ifndef VANILLA_OPTION_HPP
 #define VANILLA_OPTION_HPP
+#include <Option.hpp>
 #include <PricingEngine.hpp>
 #include <base/OptionType.hpp>
 #include <AnalyticPricingEngine.hpp>
@@ -9,7 +10,7 @@
 #include <cmath>
 
 // Define the VanillaOption class
-class VanillaOption {
+class VanillaOption : public Option {
 public:
     
     std::unique_ptr<PricingEngine> engine;
