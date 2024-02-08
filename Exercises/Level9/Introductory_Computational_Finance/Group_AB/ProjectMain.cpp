@@ -495,6 +495,10 @@ int main() {
      * PROGRAM OUTPUT *
      * ============== *
      * 
+	 * ============
+	 *   Group A
+	 * ============
+     * 
      * Batch 1 Call Option Price: 2.13337
      * Batch 1 Put Option Price: 5.84628
      * Batch 2 Call Option Price: 7.96557
@@ -990,6 +994,12 @@ int main() {
      * Batch 1 Call Option Delta: 0.594629
      * Batch 1 Call Option Numerical Gamma: 0.013074
      * Batch 1 Call Option Gamma: 0.0124321
+     * 
+     * 
+	 * ============
+	 *   Group B
+	 * ============
+     * 
      * Perpetual American Option Call Price: 18.5035
      * Perpetual American Option Put Price: 3.03106
      * Delta values for Perpetual American options with S ranging from 80 to 120:
@@ -1077,6 +1087,7 @@ int main() {
      * S = 120, Put Price = 1.76467
      * Price Matrix:
      * 5.04766 50.2914 5.26808 49.151 
-     * 5.04766 50.2914 5.04766 50.2914 
+     * 5.04766 50.2914 5.04766 50.2914
+     * 
      */
 }
