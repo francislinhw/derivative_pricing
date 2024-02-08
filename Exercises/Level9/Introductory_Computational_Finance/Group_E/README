@@ -1,0 +1,8 @@
+Answer the following questions:
+a) Compile and run the sample programs TestSingleCurve.cpp, TestTwoCurve.cpp and TestMultipleCurve.cpp.
+Make sure that everything compiles and that you get Excel output.
+
+Check the Excel files: Sheet1 ~ 4.
+
+b) We now wish to compute option price for a monotonically increasing range of underlying values of S, for example 10, 11, 12, ..., 50. To this end, the output will be a vector and this exercise entails calling the exact option pricing formulae) for each value S and each computed option price will be stored in a
+std::vector<double> object. It will be useful to write a global function that produces a mesh array of double separated by a mesh size h. Print the output in Excel.
