@@ -59,7 +59,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Francis\Desktop\Projects\mfe\derivative_pricing\Exercises\Level9\Introductory_Computational_Finance\Group_F;C:\boost_1_66_0;C:\boost_1_61_0;..\..\..\..\Level9Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Francis\Desktop\Projects\mfe\derivative_pricing\Exercises\Level9\Introductory_Computational_Finance\Group_F\VI.5;C:\Users\Francis\Desktop\Projects\mfe\derivative_pricing\Exercises\Level9\Introductory_Computational_Finance\Group_F;C:\boost_1_66_0;C:\boost_1_61_0;..\..\..\..\Level9Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -75,7 +75,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Francis\Desktop\Projects\mfe\derivative_pricing\Exercises\Level9\Introductory_Computational_Finance\Group_F;C:\boost_1_66_0;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Francis\Desktop\Projects\mfe\derivative_pricing\Exercises\Level9\Introductory_Computational_Finance\Group_F\VI.5;C:\Users\Francis\Desktop\Projects\mfe\derivative_pricing\Exercises\Level9\Introductory_Computational_Finance\Group_F;C:\boost_1_66_0;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,7 +87,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\UtilitiesDJD\BitsAndPieces\StringConversions.cpp" />
     <ClCompile Include="..\..\..\UtilitiesDJD\ExceptionClasses\DatasimException.cpp" />
-    <ClCompile Include="..\..\..\VI.5\TestBSPDE1.cpp" />
+    <ClCompile Include="..\..\..\VI.5\TestBSPDE1.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\FDPricer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

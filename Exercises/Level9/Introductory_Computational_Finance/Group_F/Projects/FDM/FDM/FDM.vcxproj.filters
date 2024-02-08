@@ -24,5 +24,8 @@
     <ClCompile Include="..\..\..\UtilitiesDJD\BitsAndPieces\StringConversions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\FDPricer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
