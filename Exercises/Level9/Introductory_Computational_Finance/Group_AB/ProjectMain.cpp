@@ -1089,5 +1089,16 @@ int main() {
      * 5.04766 50.2914 5.26808 49.151 
      * 5.04766 50.2914 5.04766 50.2914
      * 
+     * TA: My comments:
+     * Groups A&B: Very good, this is essentially the code structure I am looking for here.
+     * In regards to the matrix functionality, the point is to be able to have a generic matrix of option parameters and price a vector of options. The best way to achieve this (within what was learned in this course) would be to:
+     * Create a Matrix class for parameters.
+     * Create an interface (or multiple interfaces) to generate the parameter matrices. i.e., one interface can be from console, another hardcoded, another from a file, another random numbers, another a Mesh, etc.
+     * The OptionMatrixPricer can have a generic pricing method that takes a reference to your Option base class as its parameter. It would then invoke the virtual .Price() method for each option in the matrix, and return a vector.
+     * Groups C-D: Very good.
+     * Groups E-F: Very good
+     * As this is a very comprehensive level, please feel free to ask me specific questions about anything in your submission I have not commented on, that you would like me to comment on.
+     * Congrats on completing the exercises! For your own benefit, prior to the final exam, be sure to double-check that your output numbers matched the Batches from the HW.
+
      */
 }
