@@ -1,10 +1,10 @@
-#include <base/OptionParameters.hpp>
-#include <base/PutCallParity.hpp>
-#include <base/Mesh.hpp>
-#include <base/OptionType.hpp>
-#include <VanillaOption.hpp>
-#include <PerpetualAmericanOption.hpp>
-#include <AnalyticPricingEngine.hpp>
+#include "base/OptionParameters.hpp"
+#include "base/PutCallParity.hpp"
+#include "base/Mesh.hpp"
+#include "base/OptionType.hpp"
+#include "VanillaOption.hpp"
+#include "PerpetualAmericanOption.hpp"
+#include "AnalyticPricingEngine.hpp"
 #include <iostream>
 #include <memory>
 #include <map>
@@ -187,7 +187,7 @@ int main() {
     // It will be useful to write a global function that produces a mesh array of doubles separated by a mesh size h.
     // Create mesh array for S values from 10 to 50 with a step of 1
 
-    std::vector<double> underlyingValues = createMesh(10, 50, 1);
+    std::vector<double> underlyingValues = createMesh(10.0, 50.0, 1.0);
 
     std::vector<OptionParameters> meshOptionParameters = createMeshOptionParameters(optionBatches["Batch 1"],
                                                                                     underlyingValues,
@@ -243,7 +243,7 @@ int main() {
 
     // Output the results
     std::cout << "\nOption Parameters Analysis:\n" << std::endl;
-    for (size_t i = 0; i < meshOptionParameters.size(); ++i) {
+    for (size_t i = 0; i < meshExpiryOptionParameters.size(); ++i) {
         std::cout << "S = " << meshOptionParameters[i].S << ", Call Option Price = " << callPricesVector[i] << std::endl;
         std::cout << "S = " << meshOptionParameters[i].S << ", Put Option Price = " << putPricesVector[i] << std::endl;
         std::cout << "T = " << meshExpiryOptionParameters[i].T << ", Call Option Price = " << expCallPricesVector[i] << std::endl;

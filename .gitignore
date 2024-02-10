@@ -24,3 +24,8 @@ read.lock
 *.lastbuildstate
 *.obj
 *.bin
+*.filters
+*.sln
+*.user
+*wsuo
+*.sqlite
