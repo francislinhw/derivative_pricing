@@ -1,11 +1,13 @@
 #ifndef OPTION_MATRIX_HPP
 #define OPTION_MATRIX_HPP
 #include <string>
-#include <base/OptionParameters.hpp>
-#include <PricingEngine.hpp>
-#include <base/OptionType.hpp>
 #include <stdlib.h>
 #include <iostream>
+#include "base/OptionParameters.hpp"
+#include "PricingEngine.hpp"
+#include "base/OptionType.hpp"
+#include "AnalyticPricingEngine.hpp"
+
 
 
 class OptionMatrix {
@@ -16,13 +18,6 @@ class OptionMatrix {
         }
 
         virtual ~OptionMatrix() = default;
-
-        double delta() const;
-        double numericalDelta();
-        double gamma() const;
-        double numericalGamma();
-        double NPV() const;
-        void matrixPricer();
 
         virtual void setPricingEngine(std::unique_ptr<PricingEngine> newEngine) = 0;
 };

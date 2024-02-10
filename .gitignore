@@ -9,7 +9,6 @@ read.lock
 *.vsidx
 *.db
 *.opendb
-*.vcxproj
 *.db-shm
 *.db-wal
 *.suo

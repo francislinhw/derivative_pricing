@@ -14,25 +14,37 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Header Files\base">
-      <UniqueIdentifier>{41ce67bd-631f-4a00-8b5f-8f2016ca7a57}</UniqueIdentifier>
+      <UniqueIdentifier>{7d5d5022-53c0-407e-bfc7-c6f939b06cbd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\AnalyticPricingEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\PerpetualAmericanOption.cpp">
+    <ClCompile Include="..\..\finalMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ProjectMain.cpp">
+    <ClCompile Include="..\..\PerpetualAmericanOption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\VanillaOption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\OptionMatrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\VanillaOption.hpp">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AnalyticPricingEngine.hpp">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\base\Mesh.hpp">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Option.hpp">
       <Filter>Header Files\base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\base\OptionParameters.hpp">
@@ -41,23 +53,17 @@
     <ClInclude Include="..\..\base\OptionType.hpp">
       <Filter>Header Files\base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\base\PutCallParity.hpp">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\PerpetualAmericanOption.hpp">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\VanillaOption.hpp">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Option.hpp">
       <Filter>Header Files\base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\PricingEngine.hpp">
       <Filter>Header Files\base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\AnalyticPricingEngine.hpp">
+    <ClInclude Include="..\..\base\PutCallParity.hpp">
       <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OptionMatrix.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

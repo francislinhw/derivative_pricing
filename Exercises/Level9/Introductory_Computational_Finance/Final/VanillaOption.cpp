@@ -4,7 +4,7 @@
 #include <cmath>
 #include "AnalyticPricingEngine.hpp"
 
-// Define the VanillaOption class
+// Define the VanillaOption class 
 VanillaOption::VanillaOption(double underlyingPrice,
                              double strike,
                              double timeToMarity,
