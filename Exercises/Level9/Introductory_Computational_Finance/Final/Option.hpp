@@ -5,6 +5,7 @@
 #include "base/OptionType.hpp"
 #include <stdlib.h>
 #include <iostream>
+#include <memory>
 
 
 class Option {
