@@ -1,7 +1,8 @@
 // Mesh.hpp
-#include <vector>
 #ifndef MESH_HPP
 #define MESH_HPP
+
+#include <vector>
 
 // Function to create a mesh array of doubles
 std::vector<double> createMesh(double start, double end, double h) {

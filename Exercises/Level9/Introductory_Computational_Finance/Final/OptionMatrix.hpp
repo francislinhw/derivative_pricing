@@ -1,25 +1,53 @@
 #ifndef OPTION_MATRIX_HPP
 #define OPTION_MATRIX_HPP
-#include <string>
-#include <stdlib.h>
-#include <iostream>
-#include "base/OptionParameters.hpp"
-#include "PricingEngine.hpp"
-#include "base/OptionType.hpp"
-#include "AnalyticPricingEngine.hpp"
 
+// #include "base/OptionParameters.hpp"
+#include "Matrix.hpp"
+#include "Option.hpp"
 
-
-class OptionMatrix {
-
+class OptionMatrix : public Matrix<Option*> {
     public:
-        OptionMatrix(){
-          //  std::cout << "Option Matrix" << std::endl;
-        }
+        // Constructor, destructor, and other member functions
+        OptionMatrix();  // Default Constructor
+        OptionMatrix(int row, int column);  // Constructor with size
+        OptionMatrix(const OptionMatrix& optMtx);  // Copy constructor
+        ~OptionMatrix();  // Destructor
+        
+        Option* getOption(int i, int j);
 
-        virtual ~OptionMatrix() = default;
+        // void insertOption(T* option, size_t row, size_t column) {
+        //     // Insert option into the matrix at specified location
+        // }
 
-        virtual void setPricingEngine(std::unique_ptr<PricingEngine> newEngine) = 0;
+        // T* getOption(size_t row, size_t column) const {
+        //     // Retrieve option from the matrix
+        // }
+
+        // Price() method for each option in the matrix, and return a vector.
+        // Matrix<double> priceAllOptions();
+
+        // Create an interface (or multiple interfaces) to generate the parameter matrices.
+        // i.e., one interface can be from 
+
+        // i) console,
+        // Matrix<OptionParameters> generateOptions();
+        // ii) another hardcoded,
+        // Matrix<OptionParameters> generateOptionsFromExistingOption();
+        // iii) another from a file,
+        // Matrix<OptionParameters> generateOptionsFromFiles();
+        // iv) another random numbers,
+        // Matrix<OptionParameters> generateOptionsRandomly();
+        // v) another a Mesh, etc.
+        // Matrix<OptionParameters> generateOptionsMesh();
+
+
+    /* Notes: 
+     *
+     * The OptionMatrixPricer can have a generic pricing method,
+     * that takes a reference to your Option base class as its parameter.
+     * It would then invoke the virtual.
+     */
+
 };
 
 #endif // OPTION_MATRIX_HPP

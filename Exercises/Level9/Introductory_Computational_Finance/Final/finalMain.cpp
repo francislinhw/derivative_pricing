@@ -25,33 +25,29 @@
 #include "base/PutCallParity.hpp"
 #include "base/Mesh.hpp"
 #include "base/OptionType.hpp"
+#include "base/OptionFlavor.hpp"
 #include "VanillaOption.hpp"
 #include "PerpetualAmericanOption.hpp"
 #include "AnalyticPricingEngine.hpp"
+#include "Matrix.cpp"
+#include "OptionMatrix.hpp"
+
 #include <iostream>
 #include <memory>
 #include <map>
 
 int main() {
 
+    OptionMatrix testOptMatrix(2, 2);
+
     std::map<std::string, OptionParameters> optionBatches;
 
     // Batch 1 ~ 4
     optionBatches["Batch 1"] = OptionParameters(60, 65, 0.25, 0.3, 0.08, 0, EUROPEAN);
     optionBatches["Batch 2"] = OptionParameters(100, 100, 1.0, 0.2, 0.0, 0, EUROPEAN);
-    optionBatches["Batch 3"] = OptionParameters(5, 10, 1.0, 0.5, 0.12, 0, EUROPEAN);
-    optionBatches["Batch 4"] = OptionParameters(100, 100, 30.0, 0.3, 0.08, 0, EUROPEAN);
-
-    bool Call = true;
-    bool Put = false;
 
     double batchOnecallOptionPrice, batchOneputOptionPrice;
     double batchTwocallOptionPrice, batchTwoputOptionPrice;
-    double batchThreecallOptionPrice, batchThreeputOptionPrice;
-    double batchFourcallOptionPrice, batchFourputOptionPrice;
-
-    // A-a) Implement the above formulae for call and put option pricing using the data sets Batch 1 to Batch 4. Check
-    // your answers, as you will need them when we discuss numerical methods for option pricing.
 
     VanillaOption batchOnevanillaCallOption(optionBatches["Batch 1"].S,
                                             optionBatches["Batch 1"].K,
@@ -59,7 +55,7 @@ int main() {
                                             optionBatches["Batch 1"].sig,
                                             optionBatches["Batch 1"].r,
                                             optionBatches["Batch 1"].CostOfCarry,
-                                            Call,
+                                            CALL,
                                             EUROPEAN);
 
     VanillaOption batchOnevanillaPutOption(optionBatches["Batch 1"].S,
@@ -68,7 +64,7 @@ int main() {
                                            optionBatches["Batch 1"].sig,
                                            optionBatches["Batch 1"].r,
                                            optionBatches["Batch 1"].CostOfCarry,
-                                           Put,
+                                           PUT,
                                            EUROPEAN);
 
     VanillaOption batchTwovanillaCallOption(optionBatches["Batch 2"].S,
@@ -77,7 +73,7 @@ int main() {
                                             optionBatches["Batch 2"].sig,
                                             optionBatches["Batch 2"].r,
                                             optionBatches["Batch 2"].CostOfCarry,
-                                            Call,
+                                            CALL,
                                             EUROPEAN);
 
     VanillaOption batchTwovanillaPutOption(optionBatches["Batch 2"].S,
@@ -86,105 +82,45 @@ int main() {
                                            optionBatches["Batch 2"].sig,
                                            optionBatches["Batch 2"].r,
                                            optionBatches["Batch 2"].CostOfCarry,
-                                           Put,
+                                           PUT,
                                            EUROPEAN);
 
-    VanillaOption batchThreevanillaCallOption(optionBatches["Batch 3"].S,
-                                              optionBatches["Batch 3"].K,
-                                              optionBatches["Batch 3"].T,
-                                              optionBatches["Batch 3"].sig,
-                                              optionBatches["Batch 3"].r,
-                                              optionBatches["Batch 3"].CostOfCarry,
-                                              Call,
-                                              EUROPEAN);
-
-    VanillaOption batchThreevanillaPutOption(optionBatches["Batch 3"].S,
-                                             optionBatches["Batch 3"].K,
-                                             optionBatches["Batch 3"].T,
-                                             optionBatches["Batch 3"].sig,
-                                             optionBatches["Batch 3"].r,
-                                             optionBatches["Batch 3"].CostOfCarry,
-                                             Put,
-                                             EUROPEAN);
-
-    VanillaOption batchFourvanillaCallOption(optionBatches["Batch 4"].S,
-                                             optionBatches["Batch 4"].K,
-                                             optionBatches["Batch 4"].T,
-                                             optionBatches["Batch 4"].sig,
-                                             optionBatches["Batch 4"].r,
-                                             optionBatches["Batch 4"].CostOfCarry,
-                                             Call,
-                                             EUROPEAN);
-
-    VanillaOption batchFourvanillaPutOption(optionBatches["Batch 4"].S,
-                                            optionBatches["Batch 4"].K,
-                                            optionBatches["Batch 4"].T,
-                                            optionBatches["Batch 4"].sig,
-                                            optionBatches["Batch 4"].r,
-                                            optionBatches["Batch 4"].CostOfCarry,
-                                            Put,
-                                            EUROPEAN);
+    testOptMatrix.SetElement(1, 1, &batchOnevanillaCallOption);
 
     // Create Analytical Pricing Engines for options
     std::unique_ptr<AnalyticPricingEngine> batchOnecallPricingEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> batchOneputPricingEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> batchTwocallPricingEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> batchTwoputPricingEngine = std::make_unique<AnalyticPricingEngine>();
-    std::unique_ptr<AnalyticPricingEngine> batchThreecallPricingEngine = std::make_unique<AnalyticPricingEngine>();
-    std::unique_ptr<AnalyticPricingEngine> batchThreeputPricingEngine = std::make_unique<AnalyticPricingEngine>();
-    std::unique_ptr<AnalyticPricingEngine> batchFourcallPricingEngine = std::make_unique<AnalyticPricingEngine>();
-    std::unique_ptr<AnalyticPricingEngine> batchFourputPricingEngine = std::make_unique<AnalyticPricingEngine>();
 
     // Set the Pricing Engines to the corresponding Options
     batchOnevanillaCallOption.setPricingEngine(std::move(batchOnecallPricingEngine));
     batchOnevanillaPutOption.setPricingEngine(std::move(batchOneputPricingEngine));
     batchTwovanillaCallOption.setPricingEngine(std::move(batchTwocallPricingEngine));
     batchTwovanillaPutOption.setPricingEngine(std::move(batchTwoputPricingEngine));
-    batchThreevanillaCallOption.setPricingEngine(std::move(batchThreecallPricingEngine));
-    batchThreevanillaPutOption.setPricingEngine(std::move(batchThreeputPricingEngine));
-    batchFourvanillaCallOption.setPricingEngine(std::move(batchFourcallPricingEngine));
-    batchFourvanillaPutOption.setPricingEngine(std::move(batchFourputPricingEngine));
 
     // Get the Net Present Value (NPV) of Option by the calculation of Analytic Solution
     batchOnecallOptionPrice = batchOnevanillaCallOption.NPV();
     batchOneputOptionPrice = batchOnevanillaPutOption.NPV();
     batchTwocallOptionPrice = batchTwovanillaCallOption.NPV();
     batchTwoputOptionPrice = batchTwovanillaPutOption.NPV();
-    batchThreecallOptionPrice = batchThreevanillaCallOption.NPV();
-    batchThreeputOptionPrice = batchThreevanillaPutOption.NPV();
-    batchFourcallOptionPrice = batchFourvanillaCallOption.NPV();
-    batchFourputOptionPrice = batchFourvanillaPutOption.NPV();
 
     std::cout << "Batch 1 Call Option Price: " << batchOnecallOptionPrice << std::endl;
     std::cout << "Batch 1 Put Option Price: " << batchOneputOptionPrice << std::endl;
     std::cout << "Batch 2 Call Option Price: " << batchTwocallOptionPrice << std::endl;
     std::cout << "Batch 2 Put Option Price: " << batchTwoputOptionPrice << std::endl;
-    std::cout << "Batch 3 Call Option Price: " << batchThreecallOptionPrice << std::endl;
-    std::cout << "Batch 3 Put Option Price: " << batchThreeputOptionPrice << std::endl;
-    std::cout << "Batch 4 Call Option Price: " << batchFourcallOptionPrice << std::endl;
-    std::cout << "Batch 4 Put Option Price: " << batchFourputOptionPrice << std::endl;
 
-    // A-b) Applytheput-callparityrelationshiptocomputecallandputoptionprices.Forexample,giventhecallprice,
-    // compute the put price based on this formula using Batches 1 to 4.
-    // Check your answers with the prices from part a).
-    // Note that there are two useful ways to implement parity:
-    // As a mechanism to calculate the call (or put) price for a corresponding put (or call) price,
-    // or as a mechanism to check if a given set of put/call prices satisfy parity.
-    // The ideal submission will neatly implement both approaches.
+    // Put Call Parity
 
     // Call and put prices from part a)
     std::map<std::string, double> callPrices = {
         {"Batch 1", batchOnecallOptionPrice},
         {"Batch 2", batchTwocallOptionPrice},
-        {"Batch 3", batchThreecallOptionPrice},
-        {"Batch 4", batchFourcallOptionPrice}
     };
 
     std::map<std::string, double> putPrices = {
         {"Batch 1", batchOneputOptionPrice},
         {"Batch 2", batchTwoputOptionPrice},
-        {"Batch 3", batchThreeputOptionPrice},
-        {"Batch 4", batchFourputOptionPrice}
     };
 
     // Calculating put prices and checking parity
@@ -204,11 +140,7 @@ int main() {
         std::cout << std::endl;
     }
 
-    // A-c) Say we wish to compute option prices for a monotonically increasing range of underlying values of S,
-    // for example 10, 11, 12, ..., 50. To this end, the output will be a vector.
-    // This entails calling the option pricing formulae for each value S and each computed option price will be stored in a std::vector<double> object.
-    // It will be useful to write a global function that produces a mesh array of doubles separated by a mesh size h.
-    // Create mesh array for S values from 10 to 50 with a step of 1
+    // Matrix Pricers
 
     std::vector<double> underlyingValues = createMesh(10, 50, 1);
 
@@ -298,7 +230,7 @@ int main() {
                                               0.36,
                                               0.1,
                                               0,
-                                              Call,
+                                              CALL,
                                               EUROPEAN);
 
     VanillaOption greeksTestVanillaPutOption(105,
@@ -307,7 +239,7 @@ int main() {
                                              0.36,
                                              0.1,
                                              0,
-                                             Put,
+                                             PUT,
                                              EUROPEAN);
 
     std::unique_ptr<AnalyticPricingEngine> greeksTestCallPricingEngine = std::make_unique<AnalyticPricingEngine>();
@@ -340,7 +272,7 @@ int main() {
                                  0.36,
                                  0.1,
                                  0,
-                                 Call,
+                                 CALL,
                                  EUROPEAN);
 
         VanillaOption putOption(S,
@@ -349,7 +281,7 @@ int main() {
                                 0.36,
                                 0.1,
                                 0,
-                                Put,
+                                PUT,
                                 EUROPEAN);
 
         // Create a pricing engine and set it to the option
@@ -421,14 +353,14 @@ int main() {
                                                    0.1,
                                                    0.1,
                                                    0.02,
-                                                   Call);
+                                                   CALL);
 
     PerpetualAemricanOption perpAmericanPutOption(110,
                                                   100,
                                                   0.1,
                                                   0.1,
                                                   0.02,
-                                                  Put);
+                                                  PUT);
 
     std::unique_ptr<AnalyticPricingEngine> perpAmericanCallOptionEngine = std::make_unique<AnalyticPricingEngine>();
     std::unique_ptr<AnalyticPricingEngine> perpAmericanPutOptionEngine = std::make_unique<AnalyticPricingEngine>();
@@ -456,14 +388,14 @@ int main() {
                                                        0.1,
                                                        0.1,
                                                        0.02,
-                                                       Call);
+                                                       CALL);
 
         PerpetualAemricanOption perpAmericanPutOption(S,
                                                       100,
                                                       0.1,
                                                       0.1,
                                                       0.02,
-                                                      Put);
+                                                      PUT);
 
         // Create a pricing engine and set it to the option
         std::unique_ptr<AnalyticPricingEngine> perpCallpricingEngine = std::make_unique<AnalyticPricingEngine>();
