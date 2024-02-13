@@ -38,7 +38,15 @@
 
 int main() {
 
-    OptionMatrix testOptMatrix(2, 2);
+    OptionMatrix batchOptMatrix(2, 2);
+    Matrix<double> batchOptPrices(2, 2);
+    Matrix<double> sample(2, 2);
+    sample.SetElement(0, 0, 2);
+    sample.SetElement(0, 1, 2);
+    sample.SetElement(1, 0, 2);
+    sample.SetElement(1, 1, 2);
+
+    batchOptPrices = sample;
 
     std::map<std::string, OptionParameters> optionBatches;
 
@@ -85,7 +93,17 @@ int main() {
                                            PUT,
                                            EUROPEAN);
 
-    testOptMatrix.SetElement(1, 1, &batchOnevanillaCallOption);
+    batchOptMatrix.SetElement(0, 0, &batchOnevanillaCallOption);
+    batchOptMatrix.SetElement(0, 1, &batchOnevanillaPutOption);
+    batchOptMatrix.SetElement(1, 0, &batchTwovanillaCallOption);
+    batchOptMatrix.SetElement(1, 1, &batchTwovanillaPutOption);
+
+
+    // Create Analytical Pricing Engines for options
+    std::unique_ptr<AnalyticPricingEngine> MatrixPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    batchOptMatrix.setPricingEngine(std::move(MatrixPricingEngine));
+
+    batchOptPrices = batchOptMatrix.priceAllOptions();
 
     // Create Analytical Pricing Engines for options
     std::unique_ptr<AnalyticPricingEngine> batchOnecallPricingEngine = std::make_unique<AnalyticPricingEngine>();

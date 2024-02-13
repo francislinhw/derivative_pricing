@@ -1,6 +1,8 @@
 #ifndef MATRIX_CPP
 #define MATRIX_CPP
 
+#include <type_traits>
+
 #include "Matrix.hpp"
 
 template <typename T>
@@ -89,11 +91,20 @@ Matrix<T>::Matrix(const Matrix& mtx) : rowSize(mtx.rowSize), columnSize(mtx.colu
 //     // No need to manually delete if m_data is a std::vector of std::vector
 // }
 
+// template <typename T>
+// Matrix<T>::~Matrix() {
+//     for (int i = 0; i < rowSize; ++i) {
+//         for (int j = 0; j < columnSize; ++j) {
+//             delete m_data[i][j]; // Delete each T object
+//         }
+//     }
+// }
+
 template <typename T>
 Matrix<T>::~Matrix() {
-    for (int i = 0; i < rowSize; ++i) {
-        for (int j = 0; j < columnSize; ++j) {
-            delete m_data[i][j]; // Delete each T object
+    for (auto& row : m_data) {
+        for (auto& elem : row) {
+            delete elem;
         }
     }
 }
@@ -146,23 +157,116 @@ const std::vector<T*>& Matrix<T>::operator[](int index) const {
 }
 
 
+// template <typename T>
+// Matrix<T>& Matrix<T>::operator=(const Matrix<T>& source) {
+//     if (this == &source) {
+//         return *this;
+//     }
+//     rowSize = source.rowSize;
+//     columnSize = source.columnSize;
+//     
+//     // Resize the vector to match the source dimensions
+//     for (int i = 0; i < rowSize; ++i) {
+//         for (int j = 0; j < columnSize; ++j) {
+//             // If T is a pointer type, you need to clone or copy the object
+//             // If T is a value type (e.g., double or int), you can directly assign
+// 
+//             // C++ 17
+//             // if constexpr (std::is_pointer_v<T>) {
+//             //     // Assuming T is a pointer type and the pointed type has a clone method or copy constructor
+//             //     m_data[i][j] = new typename std::remove_pointer<T>::type(*source.m_data[i][j]);
+//             // } else {
+//             //     // For non-pointer types, a simple assignment is sufficient
+//             //     m_data[i][j] = source.m_data[i][j];
+//             // }
+// 
+//             // C++ 14
+//             if (std::is_pointer<T>::value) {
+//                 // T is a pointer type
+//                 // Perform deep copy
+//                 m_data[i][j] = new typename std::remove_pointer<T>::type(*source.m_data[i][j]);
+//             } else {
+//                 // T is not a pointer type
+//                 // Perform shallow copy
+//                 m_data[i][j] = source.m_data[i][j];
+//             }
+//         }
+//     }
+//     return *this;
+// }
+
+//template <typename T>
+// Matrix<T>& Matrix<T>::operator=(const Matrix<T>& source) {
+//     if (this == &source) {
+//         return *this;
+//     }
+// 
+//     // Clear existing data to prevent memory leaks
+//     for (auto& row : m_data) {
+//         for (auto& elem : row) {
+//             delete elem;  // This assumes T is a pointer type with dynamic allocation
+//         }
+//     }
+// 
+//     rowSize = source.rowSize;
+//     columnSize = source.columnSize;
+// 
+//     // Resize the vector to match the source dimensions
+//     m_data.resize(rowSize);
+//     for (int i = 0; i < rowSize; ++i) {
+//         m_data[i].resize(columnSize);
+//         for (int j = 0; j < columnSize; ++j) {
+//             // If T is a pointer type, you need to clone or copy the object
+//             // If T is a value type (e.g., double or int), you can directly assign
+//             if (std::is_pointer<T>::value) {
+//                 // T is a pointer type
+//                 // Perform deep copy (assuming a proper copy constructor or clone method exists)
+//                 // Replace 'T(*source.m_data[i][j])' with your actual clone/copy method as needed
+//                 m_data[i][j] = source.m_data[i][j] ? new T(*source.m_data[i][j]) : nullptr;
+//                 SetElement(i, j, &m_data[i][j]);
+//             } else {
+//                 // T is not a pointer type
+//                 // Perform shallow copy
+//                 SetElement(i, j, &source.m_data[i][j]);
+//             }
+//         }
+//     }
+//     return *this;
+// }
+
 template <typename T>
-Matrix<T>& Matrix<T>::operator=(const Matrix& source) {
+Matrix<T>& Matrix<T>::operator=(const Matrix<T>& source) {
     if (this == &source) {
         return *this;
     }
 
-    delete[] m_data;
+    // Clear existing data to prevent memory leaks
+    for (auto& row : m_data) {
+        for (auto& elem : row) {
+            delete elem; // Assuming T is a dynamically allocated object
+        }
+    }
+
     rowSize = source.rowSize;
     columnSize = source.columnSize;
-    m_data = new T[rowSize][columnSize];
+
+    // Resize the vector to match the source dimensions
+    m_data.resize(rowSize);
     for (int i = 0; i < rowSize; ++i) {
-        // Initialize each element to a default-constructed T
+        m_data[i].resize(columnSize);
         for (int j = 0; j < columnSize; ++j) {
-            m_data[i][j] = source.m_data[i][j];
+            // Since m_data is a vector of vector of T*, we need to allocate new memory for each T
+            if (source.m_data[i][j] != nullptr) {
+                // Perform deep copy (assuming T has a copy constructor or clone method)
+                m_data[i][j] = new T(*(source.m_data[i][j]));
+            } else {
+                // If the source pointer is null, just set the destination to null
+                m_data[i][j] = nullptr;
+            }
         }
     }
     return *this;
 }
+
 
 #endif
