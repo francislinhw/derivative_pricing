@@ -116,35 +116,8 @@ int main() {
     std::cout << "Batch 2 Put Option Price: " << batchTwoputOptionPrice << std::endl;
 
     // Put Call Parity
-    batchOptMatrix.checkPutCallParity();
-
-    // Call and put prices from part a)
-    std::map<std::string, double> callPrices = {
-        {"Batch 1", batchOnecallOptionPrice},
-        {"Batch 2", batchTwocallOptionPrice},
-    };
-
-    std::map<std::string, double> putPrices = {
-        {"Batch 1", batchOneputOptionPrice},
-        {"Batch 2", batchTwoputOptionPrice},
-    };
-
-    // Calculating put prices and checking parity
-    for (const auto& batch : optionBatches) {
-        const std::string& batchName = batch.first;
-        const OptionParameters& params = batch.second;
-        double callPrice = callPrices[batchName];
-        double computedPutPrice = calculatePutPrice(params, callPrice);
-        double actualPutPrice = putPrices[batchName];
-        double computedCallPrice = calculateCallPrice(params, actualPutPrice);
-
-        std::cout << "Computed Call Price for " << batchName << ": " << computedCallPrice << std::endl;
-        std::cout << "Actual Call Price for " << batchName << ": " << callPrice << std::endl;
-        std::cout << "Computed Put Price for " << batchName << ": " << computedPutPrice << std::endl;
-        std::cout << "Actual Put Price for " << batchName << ": " << actualPutPrice << std::endl;
-        std::cout << "Put-Call Parity Satisfied: " << (isParitySatisfied(params, callPrice, actualPutPrice) ? "Yes" : "No") << std::endl;
-        std::cout << std::endl;
-    }
+    bool isParity = batchOptMatrix.checkPutCallParity();
+    std::cout << "Matrix Put-Call Parity Satisfied: " << (isParity ? "Yes" : "No") << std::endl;
 
     // Matrix Pricers
 

@@ -84,6 +84,7 @@ Matrix<double> OptionMatrix::priceAllOptions() {
 }
 
 bool OptionMatrix::checkPutCallParity() {
+    bool parityHold = true;
     std::map<std::tuple<double, double, double, double>, std::vector<Option*>> optionsMap;
 
     // Populate the optionsMap with existing options for easy lookup
@@ -114,15 +115,17 @@ bool OptionMatrix::checkPutCallParity() {
                 // Add parity check logic as in previous examples
                 if (opt->Flavor() == CALL) {
                     std::cout << "Put-Call Parity Satisfied: " << (isParitySatisfied(params, price, correspondingPrice) ? "Yes" : "No") << std::endl;
+                    parityHold = isParitySatisfied(params, price, correspondingPrice) && parityHold;
                 } else if (opt->Flavor() == PUT) {
                     std::cout << "Put-Call Parity Satisfied: " << (isParitySatisfied(params, correspondingPrice, price) ? "Yes" : "No") << std::endl;
+                    parityHold = isParitySatisfied(params, correspondingPrice, price) && parityHold;
                 }
                 
             }
         }
     }
 
-    return true;
+    return parityHold;
 }
 
 // A function to create a key from option parameters for matching
