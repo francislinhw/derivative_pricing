@@ -43,6 +43,15 @@ public:
     void Flavor(bool flavor);
     void Type(OptionType type);
 
+    double UnderlyingPrice() const;
+    double Strike() const;
+    double TimeToMaturity() const;
+    double Volatility() const;
+    double Interest() const;
+    double CostOfCarry() const;
+    bool Flavor() const;
+    OptionType Type() const;
+
     double UnderlyingPrice();
     double Strike();
     double TimeToMaturity();

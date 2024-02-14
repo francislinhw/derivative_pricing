@@ -65,6 +65,32 @@ bool PerpetualAemricanOption::Flavor() {
     return isCall;
 }
 
+double PerpetualAemricanOption::UnderlyingPrice() const {
+    return underlyingPrice;
+}
+double PerpetualAemricanOption::Strike() const {
+    return strike;
+}
+double PerpetualAemricanOption::TimeToMaturity() const {
+    return timeToMaturity;
+}
+double PerpetualAemricanOption::Volatility() const {
+    return volatility;
+}
+double PerpetualAemricanOption::Interest() const {
+    return interest;
+}
+double PerpetualAemricanOption::CostOfCarry() const {
+    return costOfCarry;
+}
+bool PerpetualAemricanOption::Flavor() const {
+    return isCall;
+}
+
+OptionType PerpetualAemricanOption::Type() const {
+    return type;
+}
+
 double PerpetualAemricanOption::delta() const {
     return engine->delta();
 }

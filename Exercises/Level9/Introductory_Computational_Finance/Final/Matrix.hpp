@@ -29,6 +29,7 @@ class Matrix {
         int ColumnSize() const;  // Size of the array
         void SetElement(int row, int column, const T& p);  // Set element at index
         T* GetElement(int row, int column) const;  // Get element at index
+        T GetRawElement(int row, int column) const;  // Get element at index
         std::vector<T*>& operator[](int rowIndex);  // Overloaded [] operator
         const std::vector<T*>& operator[](int index) const;  // Overloaded [] operator for const objects
         Matrix& operator=(const Matrix& source);  // Overloaded = operator for const objects

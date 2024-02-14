@@ -135,6 +135,12 @@ T* Matrix<T>::GetElement(int row, int column) const {
     return m_data[row][column];
 }
 
+template <typename T>
+T Matrix<T>::GetRawElement(int row, int column) const {
+    // Return a reference to the value pointed by the pointer in the matrix
+    return *m_data[row][column];
+}
+
 // template <typename T>
 // T* Matrix<T>::operator[](int index) {
 //     if (index < 0 || index >= rowSize) {

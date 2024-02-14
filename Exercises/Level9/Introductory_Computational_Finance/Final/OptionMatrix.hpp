@@ -1,14 +1,18 @@
 #ifndef OPTION_MATRIX_HPP
 #define OPTION_MATRIX_HPP
 
-// #include "base/OptionParameters.hpp" Cause Linker error
-#include "Matrix.hpp"
 #include "Option.hpp"
+#include "base/OptionBasicParas.hpp"
+#include "PricingEngine.hpp"
+#include "Matrix.hpp"
+#include "base/OptionFlavor.hpp"
 
+#include <map>
 #include <memory>
 
 class OptionMatrix : public Matrix<Option*> {
     public:
+        // This is the default option pricing engine if no engine set in Option
         std::unique_ptr<PricingEngine> engine;
 
         // Constructor, destructor, and other member functions
@@ -27,7 +31,16 @@ class OptionMatrix : public Matrix<Option*> {
 
         // Price() method for each option in the matrix, and return a vector.
         Matrix<double> priceAllOptions();
+        bool checkPutCallParity();
 
+        // Assistant Type Function
+        Option* findCorrespondingOption(
+            const std::map<std::tuple<double, double, double, double>,
+            std::vector<Option*>>& optionsMap,
+            const Option* option,
+            OptionFlavor desiredFlavor);
+
+        std::tuple<double, double, double, double> makeOptionKey(const Option* option);
         // Create an interface (or multiple interfaces) to generate the parameter matrices.
         // i.e., one interface can be from 
 

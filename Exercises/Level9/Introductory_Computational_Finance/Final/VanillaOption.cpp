@@ -75,6 +75,32 @@ bool VanillaOption::Flavor() {
     return isCall;
 }
 
+double VanillaOption::UnderlyingPrice() const {
+    return underlyingPrice;
+}
+double VanillaOption::Strike() const {
+    return strike;
+}
+double VanillaOption::TimeToMaturity() const {
+    return timeToMaturity;
+}
+double VanillaOption::Volatility() const {
+    return volatility;
+}
+double VanillaOption::Interest() const {
+    return interest;
+}
+double VanillaOption::CostOfCarry() const {
+    return costOfCarry;
+}
+bool VanillaOption::Flavor() const {
+    return isCall;
+}
+
+OptionType VanillaOption::Type() const {
+    return type;
+}
+
 double VanillaOption::delta() const {
     return engine->delta();
 }

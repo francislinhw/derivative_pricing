@@ -1,8 +1,9 @@
 #include "OptionMatrix.hpp"
+#include "base/PutCallParity.hpp"
+#include "AnalyticPricingEngine.hpp"
 
 #include <cassert>
 #include <algorithm>
-#include "AnalyticPricingEngine.hpp"
 
 OptionMatrix::OptionMatrix() : Matrix<Option*>() {}  // Use base class constructor
 
@@ -82,7 +83,75 @@ Matrix<double> OptionMatrix::priceAllOptions() {
     return optionPrices;
 }
 
-// Assume this method exists and returns a unique_ptr to a cloned engine
+bool OptionMatrix::checkPutCallParity() {
+    std::map<std::tuple<double, double, double, double>, std::vector<Option*>> optionsMap;
+
+    // Populate the optionsMap with existing options for easy lookup
+    for (int i = 0; i < DefaultRowSize(); ++i) {
+        for (int j = 0; j < DefaultColumnSize(); ++j) {
+            Option* opt = getOption(i, j);
+            if (opt) {
+                optionsMap[makeOptionKey(opt)].push_back(opt);
+            }
+        }
+    }
+
+    // Iterate through options to check put-call parity
+    for (const auto& pair : optionsMap) {
+        for (Option* opt : pair.second) {
+            Option* correspondingOpt = findCorrespondingOption(optionsMap, opt, opt->Flavor() == CALL ? PUT : CALL);
+            if (correspondingOpt) {
+                // Check put-call parity logic here
+                double price = opt->NPV();
+                double correspondingPrice = correspondingOpt->NPV();
+                OptionParameters params = OptionParameters(opt->UnderlyingPrice(),
+                                                           opt->Strike(),
+                                                           opt->TimeToMaturity(),
+                                                           opt->Volatility(),
+                                                           opt->Interest(),
+                                                           opt->CostOfCarry(),
+                                                           opt->Type());
+                // Add parity check logic as in previous examples
+                if (opt->Flavor() == CALL) {
+                    std::cout << "Put-Call Parity Satisfied: " << (isParitySatisfied(params, price, correspondingPrice) ? "Yes" : "No") << std::endl;
+                } else if (opt->Flavor() == PUT) {
+                    std::cout << "Put-Call Parity Satisfied: " << (isParitySatisfied(params, correspondingPrice, price) ? "Yes" : "No") << std::endl;
+                }
+                
+            }
+        }
+    }
+
+    return true;
+}
+
+// A function to create a key from option parameters for matching
+std::tuple<double, double, double, double> OptionMatrix::makeOptionKey(const Option* option) {
+    // Assuming Option class has methods to get these parameters
+    return std::make_tuple(option->Strike(), option->Interest(),
+                           option->TimeToMaturity(), option->UnderlyingPrice());
+}
+
+// A function to find a corresponding option
+Option* OptionMatrix::findCorrespondingOption(
+    const std::map<std::tuple<double, double, double, double>,
+    std::vector<Option*>>& optionsMap,
+    const Option* option,
+    OptionFlavor desiredFlavor) 
+{
+    auto key = makeOptionKey(option);
+    auto it = optionsMap.find(key);
+    if (it != optionsMap.end()) {
+        for (auto* opt : it->second) {
+            if (opt->Flavor() == desiredFlavor) { // Assuming Option class has a getType() method
+                return opt;
+            }
+        }
+    }
+    return nullptr;
+}
+
+// returns a unique_ptr to a cloned engine
 std::unique_ptr<PricingEngine> OptionMatrix::cloneEngine(const std::unique_ptr<PricingEngine>& engine) {
     // if (dynamic_cast<AnalyticPricingEngine*>(engine.get()) != nullptr) {
     //     return std::make_unique<AnalyticPricingEngine>(*dynamic_cast<AnalyticPricingEngine*>(engine.get()));

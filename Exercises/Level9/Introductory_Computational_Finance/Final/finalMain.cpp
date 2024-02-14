@@ -11,7 +11,7 @@
 // 
 // Level 9 output for a given set of inputs:
 //
-// 5) Exact Method                            -- 20
+// 5) Exact Method (Analytic)                 -- 20
 //
 // 6) Monte Carlo Method                      -- 15
 //
@@ -40,17 +40,10 @@ int main() {
 
     OptionMatrix batchOptMatrix(2, 2);
     Matrix<double> batchOptPrices(2, 2);
-    Matrix<double> sample(2, 2);
-    sample.SetElement(0, 0, 2);
-    sample.SetElement(0, 1, 2);
-    sample.SetElement(1, 0, 2);
-    sample.SetElement(1, 1, 2);
-
-    batchOptPrices = sample;
 
     std::map<std::string, OptionParameters> optionBatches;
 
-    // Batch 1 ~ 4
+    // Batch 1 ~ 2
     optionBatches["Batch 1"] = OptionParameters(60, 65, 0.25, 0.3, 0.08, 0, EUROPEAN);
     optionBatches["Batch 2"] = OptionParameters(100, 100, 1.0, 0.2, 0.0, 0, EUROPEAN);
 
@@ -107,21 +100,15 @@ int main() {
 
     // Create Analytical Pricing Engines for options
     std::unique_ptr<AnalyticPricingEngine> batchOnecallPricingEngine = std::make_unique<AnalyticPricingEngine>();
-    std::unique_ptr<AnalyticPricingEngine> batchOneputPricingEngine = std::make_unique<AnalyticPricingEngine>();
-    std::unique_ptr<AnalyticPricingEngine> batchTwocallPricingEngine = std::make_unique<AnalyticPricingEngine>();
-    std::unique_ptr<AnalyticPricingEngine> batchTwoputPricingEngine = std::make_unique<AnalyticPricingEngine>();
 
     // Set the Pricing Engines to the corresponding Options
     batchOnevanillaCallOption.setPricingEngine(std::move(batchOnecallPricingEngine));
-    batchOnevanillaPutOption.setPricingEngine(std::move(batchOneputPricingEngine));
-    batchTwovanillaCallOption.setPricingEngine(std::move(batchTwocallPricingEngine));
-    batchTwovanillaPutOption.setPricingEngine(std::move(batchTwoputPricingEngine));
 
     // Get the Net Present Value (NPV) of Option by the calculation of Analytic Solution
     batchOnecallOptionPrice = batchOnevanillaCallOption.NPV();
-    batchOneputOptionPrice = batchOnevanillaPutOption.NPV();
-    batchTwocallOptionPrice = batchTwovanillaCallOption.NPV();
-    batchTwoputOptionPrice = batchTwovanillaPutOption.NPV();
+    batchOneputOptionPrice = batchOptPrices.GetRawElement(0, 1);
+    batchTwocallOptionPrice = batchOptPrices.GetRawElement(1, 0);
+    batchTwoputOptionPrice = batchOptPrices.GetRawElement(1, 1);
 
     std::cout << "Batch 1 Call Option Price: " << batchOnecallOptionPrice << std::endl;
     std::cout << "Batch 1 Put Option Price: " << batchOneputOptionPrice << std::endl;
@@ -129,6 +116,7 @@ int main() {
     std::cout << "Batch 2 Put Option Price: " << batchTwoputOptionPrice << std::endl;
 
     // Put Call Parity
+    batchOptMatrix.checkPutCallParity();
 
     // Call and put prices from part a)
     std::map<std::string, double> callPrices = {

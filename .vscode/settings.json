@@ -136,6 +136,7 @@
     "stdio.h": "c",
     "*.ipp": "cpp",
     "iterator": "cpp",
-    "memory_resource": "cpp"
+    "memory_resource": "cpp",
+    "cassert": "cpp"
   }
 }

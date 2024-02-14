@@ -2,46 +2,20 @@
 #ifndef OPTION_PARAMETERS_HPP
 #define OPTION_PARAMETERS_HPP
 
-#include <vector>
+#include "base/OptionVariables.hpp"
+#include "base/Greek.hpp"
 #include "base/OptionType.hpp"
+#include "base/OptionBasicParas.hpp"
 #include "VanillaOption.hpp"
 #include "PerpetualAmericanOption.hpp"
 #include "AnalyticPricingEngine.hpp"
 #include "Option.hpp"
 
-enum Greek {
-    DELTA,
-    GAMMA
-};
-
-// Define an enumeration for specific string literals
-enum class OptionVariables {
-    TimeToMaturity,    // Time to maturity
-    Strike,    // Strike price
-    Volatility,  // Volatility
-    RiskFreeRate,    // Risk-free interest rate
-    UnderlyingPrice,    // Underlying asset price
-    CostOfCarry    // Underlying asset price
-};
-
-struct OptionParameters {
-    double T;    // Time to maturity
-    double K;    // Strike price
-    double sig;  // Volatility
-    double r;    // Risk-free interest rate
-    double S;    // Underlying asset price
-    double CostOfCarry;    // Underlying asset price
-    OptionType Type;     // European / American
-
-    // Default constructor
-    OptionParameters() : S(0), K(0), T(0), sig(0), r(0), CostOfCarry(0), Type(EUROPEAN) {}
-
-    OptionParameters(double S, double K, double T, double sig, double r, double b, OptionType Type)
-        : S(S), K(K), T(T), sig(sig), r(r), CostOfCarry(b), Type(Type) {}
-};
+#include <memory>
+#include <vector>
 
 // Function to compute option prices for a range of S values
-std::vector<OptionParameters> createMeshOptionParameters(const OptionParameters& params,
+inline std::vector<OptionParameters> createMeshOptionParameters(const OptionParameters& params,
                                                          const std::vector<double>& meshValues,
                                                          OptionVariables targetVariable) {
     std::vector<OptionParameters> parameterSets;
@@ -77,7 +51,7 @@ std::vector<OptionParameters> createMeshOptionParameters(const OptionParameters&
     return parameterSets;
 }
 
-std::vector<std::vector<double>> computeOptionPricesMatrix(const std::vector<std::vector<OptionParameters>>& paramsMatrix) {
+inline std::vector<std::vector<double>> computeOptionPricesMatrix(const std::vector<std::vector<OptionParameters>>& paramsMatrix) {
     std::vector<std::vector<double>> pricesMatrix;
     for (const auto& paramsRow : paramsMatrix) {
         std::vector<double> pricesRow;
@@ -131,7 +105,7 @@ std::vector<std::vector<double>> computeOptionPricesMatrix(const std::vector<std
     return pricesMatrix;
 }
 
-std::pair<std::vector<double>, std::vector<double>>computeOptionPricesVector(const std::vector<OptionParameters>& paramsVector) {
+inline std::pair<std::vector<double>, std::vector<double>>computeOptionPricesVector(const std::vector<OptionParameters>& paramsVector) {
     std::vector<double> callPricesVector;
     std::vector<double> putPricesVector;
         for (const auto& params : paramsVector) {
@@ -183,7 +157,7 @@ std::pair<std::vector<double>, std::vector<double>>computeOptionPricesVector(con
 }
 
 // Function to compute a matrix of Greeks (Delta or Gamma)
-std::vector<std::vector<double>> computeGreeksMatrix(const std::vector<std::vector<OptionParameters>>& paramsMatrix, Greek greekToCompute) {
+inline std::vector<std::vector<double>> computeGreeksMatrix(const std::vector<std::vector<OptionParameters>>& paramsMatrix, Greek greekToCompute) {
     std::vector<std::vector<double>> greeksMatrix;
     for (const auto& paramsRow : paramsMatrix) {
         std::vector<double> greeksRow;
