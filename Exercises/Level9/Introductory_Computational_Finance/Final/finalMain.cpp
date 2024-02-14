@@ -43,8 +43,15 @@ int main() {
 
     std::map<std::string, OptionParameters> optionBatches;
 
+    double Spot = 108;
+    double Strike = 120;
+    double r = 0.045;
+    double T = 1.45;
+    double sig = 0.51;
+    double b = 0;
+
     // Batch 1 ~ 2
-    optionBatches["Batch 1"] = OptionParameters(60, 65, 0.25, 0.3, 0.08, 0, EUROPEAN);
+    optionBatches["Batch 1"] = OptionParameters(Spot, Strike, T, sig, r, b, EUROPEAN);
     optionBatches["Batch 2"] = OptionParameters(100, 100, 1.0, 0.2, 0.0, 0, EUROPEAN);
 
     double batchOnecallOptionPrice, batchOneputOptionPrice;
@@ -100,9 +107,11 @@ int main() {
 
     // Create Analytical Pricing Engines for options
     std::unique_ptr<AnalyticPricingEngine> batchOnecallPricingEngine = std::make_unique<AnalyticPricingEngine>();
+    std::unique_ptr<AnalyticPricingEngine> batchOnePutPricingEngine = std::make_unique<AnalyticPricingEngine>();
 
     // Set the Pricing Engines to the corresponding Options
     batchOnevanillaCallOption.setPricingEngine(std::move(batchOnecallPricingEngine));
+    batchOnevanillaPutOption.setPricingEngine(std::move(batchOnePutPricingEngine));
 
     // Get the Net Present Value (NPV) of Option by the calculation of Analytic Solution
     batchOnecallOptionPrice = batchOnevanillaCallOption.NPV();
@@ -110,10 +119,12 @@ int main() {
     batchTwocallOptionPrice = batchOptPrices.GetRawElement(1, 0);
     batchTwoputOptionPrice = batchOptPrices.GetRawElement(1, 1);
 
-    std::cout << "Batch 1 Call Option Price: " << batchOnecallOptionPrice << std::endl;
-    std::cout << "Batch 1 Put Option Price: " << batchOneputOptionPrice << std::endl;
-    std::cout << "Batch 2 Call Option Price: " << batchTwocallOptionPrice << std::endl;
-    std::cout << "Batch 2 Put Option Price: " << batchTwoputOptionPrice << std::endl;
+    std::cout << "Final 1 Call Option Price: " << batchOnecallOptionPrice << std::endl;
+    std::cout << "Final 1 Put Option Price: " << batchOneputOptionPrice << std::endl;
+    std::cout << "Final 1 Call Option Delta: " << batchOnevanillaCallOption.delta() << std::endl;
+    std::cout << "Final 1 Put Option Delta: " << batchOnevanillaPutOption.delta() << std::endl;
+    std::cout << "Final 1 Call Option Gamma: " << batchOnevanillaCallOption.delta() << std::endl;
+    std::cout << "Final 1 Put Option Gamma: " << batchOnevanillaPutOption.delta() << std::endl;
 
     // Put Call Parity
     bool isParity = batchOptMatrix.checkPutCallParity();

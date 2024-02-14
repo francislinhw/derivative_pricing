@@ -242,18 +242,25 @@ int main()
 	myOption.type = -1;	// Put -1, Call +1
 	double S_0 = 60;
 
+	double Spot = 150;
+	double Strike = 155;
+	double r = 0.04;
+	double T = 1.28;
+	double sig = 0.27;
+	double b = 0.04;
+
 	OptionData batchOneCall;
-	batchOneCall.K = 65.0;
-	batchOneCall.T = 0.25;
-	batchOneCall.r = 0.08;
-	batchOneCall.sig = 0.30;
+	batchOneCall.K = Strike;
+	batchOneCall.T = T;
+	batchOneCall.r = r;
+	batchOneCall.sig = sig;
 	batchOneCall.type = +1;
 
 	OptionData batchOnePut;
-	batchOnePut.K = 65.0;
-	batchOnePut.T = 0.25;
-	batchOnePut.r = 0.08;
-	batchOnePut.sig = 0.30;
+	batchOnePut.K = Strike;
+	batchOnePut.T = T;
+	batchOnePut.r = r;
+	batchOnePut.sig = sig;
 	batchOnePut.type = -1;
 
 	double batchOneUnderlyingPrice = 60;
